@@ -1,7 +1,8 @@
 module App {
     requires javafx.controls;
     requires javafx.fxml;
-
+    requires java.sql;
+    exports Main to javafx.graphics;
 
     opens App.AdminLogin to javafx.fxml;
     exports App.AdminLogin;
