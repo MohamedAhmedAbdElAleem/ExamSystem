@@ -9,4 +9,10 @@ module App {
     opens App.Welcome to javafx.fxml;
     exports App.Welcome;
 
+    opens App.DoctorLogin to javafx.fxml;
+    exports App.DoctorLogin;
+
+    opens App.StudentLogin to javafx.fxml;
+    exports App.StudentLogin;
+
 }

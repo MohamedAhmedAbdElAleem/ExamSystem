@@ -10,8 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="735.0" prefWidth="1300.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AdminLogin.AdminLoginController">
+<AnchorPane prefHeight="735.0" prefWidth="1300.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.DoctorLogin.DoctorLoginController">
    <children>
       <AnchorPane layoutX="683.0" layoutY="-1.0" prefHeight="738.0" prefWidth="618.0" style="-fx-background-color: #2e2e2e;">
          <children>
@@ -55,7 +54,7 @@
                   <Image url="@../Images/Password.png" />
                </image>
             </ImageView>
-            <Button layoutX="137.0" layoutY="571.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" style="-fx-background-color: #9f6de7;" text="Login" textFill="WHITE">
+            <Button layoutX="137.0" layoutY="571.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" style="-fx-background-color: #c96f71;" text="Login" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
@@ -63,7 +62,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="333.0" layoutY="570.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" style="-fx-background-color: #9f6de7;" text="Back" textFill="WHITE">
+            <Button layoutX="333.0" layoutY="570.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" style="-fx-background-color: #c96f71;" text="Back" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
@@ -75,10 +74,10 @@
       </AnchorPane>
       <ImageView fitHeight="290.0" fitWidth="322.0" layoutX="194.0" layoutY="292.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Images/AdminIcon.png" />
+            <Image url="@../Images/DoctorIcon.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="173.0" prefHeight="55.0" prefWidth="510.0" text="Admin Login" textAlignment="CENTER" textFill="#9f6de7">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="173.0" prefHeight="55.0" prefWidth="510.0" text="Doctor Login" textAlignment="CENTER" textFill="#c96f71">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>

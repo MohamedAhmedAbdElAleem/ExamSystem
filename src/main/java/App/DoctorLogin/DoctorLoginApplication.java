@@ -1,4 +1,4 @@
-package App.AdminLogin;
+package App.DoctorLogin;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +7,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
-public class AdminLoginApplication extends Application {
+public class DoctorLoginApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.AdminLogin.AdminLoginApplication.class.getResource("AdminLogin.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.DoctorLogin.DoctorLoginApplication.class.getResource("DoctorLogin.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
