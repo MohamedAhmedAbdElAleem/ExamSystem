@@ -32,4 +32,13 @@ module App {
 
     opens App.DBefore to javafx.fxml;
     exports App.DBefore;
+
+    opens App.DStudent to javafx.fxml;
+    exports App.DStudent;
+
+    opens App.DQABank to javafx.fxml;
+    exports App.DQABank;
+
+    opens App.DExam to javafx.fxml;
+    exports App.DExam;
 }
