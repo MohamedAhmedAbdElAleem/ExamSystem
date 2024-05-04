@@ -13,6 +13,7 @@ import java.util.Objects;
 public class ServerHandler implements Runnable {
     private Socket clientSocket;
     private Connection connection;
+    private String username1;
 
     public ServerHandler(Socket clientSocket, Connection connection) {
         this.clientSocket = clientSocket;
@@ -44,6 +45,7 @@ public class ServerHandler implements Runnable {
                         String password = reader.readLine();
                         Boolean output = LogIn(username, password, Status);
                         writer.println(output);
+                        writer.println(username1);
 //                        System.out.println(output + " for user : "+username);
                     } else if (Status.equalsIgnoreCase("Student")) {
                         String username = reader.readLine();
@@ -106,6 +108,7 @@ public class ServerHandler implements Runnable {
         ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE UID = '" + Uid + "' AND UPassword = '" + password + "'");
         if (resultSet.next()) {
             if (resultSet.getString("status").equalsIgnoreCase(Status)){
+                username1 = resultSet.getString("UName");
                 return true;
             }
         }
