@@ -1,2 +1,4 @@
-package App.AdminLogin;public class AdminLoginController {
+package App.AdminLogin;
+
+public class AdminLoginController {
 }
