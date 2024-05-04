@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Welcome.WelcomeController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="448.0" layoutY="82.0" prefHeight="55.0" prefWidth="510.0" text="Which Type Of User Are You" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="395.0" AnchorPane.rightAnchor="395.0">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="264.0" layoutY="277.0" prefHeight="55.0" prefWidth="187.0" text="Admin" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="261.0" layoutY="343.0" mnemonicParsing="false" prefHeight="195.0" prefWidth="181.0" style="-fx-background-radius: 100;">
+         <graphic>
+            <ImageView fitHeight="211.0" fitWidth="176.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/AdminIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="571.0" layoutY="276.0" prefHeight="55.0" prefWidth="187.0" text="Doctor" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="568.0" layoutY="342.0" mnemonicParsing="false" prefHeight="195.0" prefWidth="181.0" style="-fx-background-radius: 100;">
+         <graphic>
+            <ImageView fitHeight="163.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/DoctorIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="873.0" layoutY="279.0" prefHeight="55.0" prefWidth="187.0" text="Student" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button layoutX="870.0" layoutY="345.0" mnemonicParsing="false" prefHeight="195.0" prefWidth="181.0" style="-fx-background-radius: 100;">
+         <graphic>
+            <ImageView fitHeight="147.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/StudentIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>
