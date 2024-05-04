@@ -13,7 +13,7 @@ public class AdminLoginApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.AdminLogin.AdminLoginApplication.class.getResource("AdminLogin.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        stage.setTitle("Log In!");
         stage.setScene(scene);
         stage.show();
 

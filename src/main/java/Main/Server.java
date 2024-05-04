@@ -36,7 +36,7 @@ public class Server {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error in server : "+e.getMessage());
         }
     }
 
@@ -46,7 +46,7 @@ public class Server {
             if (connection != null) connection.close();
             if (threadPool != null) threadPool.shutdown();
         } catch (IOException | SQLException e) {
-            e.printStackTrace();
+            System.out.println("Error in server : "+e.getMessage());
         }
     }
 
