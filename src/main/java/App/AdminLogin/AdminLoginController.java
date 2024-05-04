@@ -1,5 +1,6 @@
 package App.AdminLogin;
 
+import App.ADoctors.ADoctorsController;
 import App.Welcome.WelcomeController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,7 +41,7 @@ public class AdminLoginController {
             if (message.equalsIgnoreCase("true")){
                 String username1 = client.receiveMessage();
                 Username = username1;
-                System.out.println("Login Successful for user : "+username1);
+//                System.out.println("Login Successful for user : "+username1);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AHome/AHome.fxml"));
                 Scene scene = null;
                 try {
@@ -56,7 +57,7 @@ public class AdminLoginController {
                 stage.show();
             }
             // Display the message from the server
-            System.out.println(message);
+//            System.out.println(message);
             client.close();
         };
     }
@@ -88,5 +89,13 @@ public class AdminLoginController {
 
     public String getUsername() {
         return Username;
+    }
+    private AHomeController aHomeController;
+    public void setAHomeController(AHomeController aHomeController) {
+        this.aHomeController = aHomeController;
+    }
+    private ADoctorsController aDoctorsController;
+    public void setAHomeController(ADoctorsController aDoctorsController) {
+        this.aDoctorsController = aDoctorsController;
     }
 }

@@ -65,7 +65,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="2.0" layoutY="73.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Admins" textFill="#b0b0b0">
+            <Button fx:id="AdminsButton" layoutX="2.0" layoutY="73.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Admins" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -113,7 +113,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="2.0" layoutY="512.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #1e1e1e;" text="Logout" textFill="#b0b0b0">
+            <Button fx:id="LogOutButton" layoutX="2.0" layoutY="512.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #1e1e1e;" text="Logout" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
