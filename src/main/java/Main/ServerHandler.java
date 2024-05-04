@@ -105,7 +105,7 @@ public class ServerHandler implements Runnable {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE UID = '" + Uid + "' AND UPassword = '" + password + "'");
         if (resultSet.next()) {
-            if (resultSet.getString("status").equals(Status)){
+            if (resultSet.getString("status").equalsIgnoreCase(Status)){
                 return true;
             }
         }
