@@ -3,11 +3,8 @@ module App {
     requires javafx.fxml;
 
 
-    opens App.Login to javafx.fxml;
-    exports App.Login;
-
-    opens App.Register to javafx.fxml;
-    exports App.Register;
+    opens App.AdminLogin to javafx.fxml;
+    exports App.AdminLogin;
 
     opens App.Welcome to javafx.fxml;
     exports App.Welcome;
