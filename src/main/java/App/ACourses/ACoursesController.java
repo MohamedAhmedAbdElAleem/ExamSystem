@@ -17,6 +17,8 @@ import java.io.IOException;
 
 public class ACoursesController {
     @FXML
+    private Button AHomeButton;
+    @FXML
     private Button DoctorsButton;
     @FXML
     private Button AdminsButton;
@@ -76,10 +78,32 @@ public class ACoursesController {
             stage.show();
         };
     }
+    private EventHandler<ActionEvent> AHomeButtonClicked() {
+        return e -> {
+            // Load the Doctors.fxml file
+            FXMLLoader fxmlLoader = new FXMLLoader(App.AHome.AHomeApplication.class.getResource("AHome.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+                // Get the AHomeController instance
+                AHomeController aHomeController = fxmlLoader.getController();
+                aHomeController.setAHomeController(this); // Pass reference to current controller
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            // Get the current stage
+            Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
+            // Set the scene for the stage
+            stage.setScene(scene);
+            // Show the stage
+            stage.show();
+        };
+    }
     public void initialize() {
         DoctorsButton.setOnAction(DoctorsButtonClicked());
         AdminsButton.setOnAction(AdminsButtonClicked());
         LogOutButton.setOnAction(LogOutButtonClicked());
+        AHomeButton.setOnAction(AHomeButtonClicked());
     }
     private AHomeController ahomeController;
     public void setAHomeController(AHomeController aHomeController) {

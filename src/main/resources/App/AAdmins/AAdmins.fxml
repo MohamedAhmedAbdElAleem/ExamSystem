@@ -53,7 +53,7 @@
       </AnchorPane>
       <AnchorPane layoutX="9.0" layoutY="148.0" prefHeight="576.0" prefWidth="266.0" style="-fx-background-color: #202020; -fx-background-radius: 30;">
          <children>
-            <Button layoutX="2.0" layoutY="2.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #1e1e1e;" text="DashBoard" textFill="#b0b0b0">
+            <Button fx:id="AHomeButton" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #1e1e1e;" text="DashBoard" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>

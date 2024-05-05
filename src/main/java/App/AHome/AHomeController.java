@@ -29,6 +29,8 @@ public class AHomeController {
     @FXML
     private Label WelcomeLabel;
     private AdminLoginController adminLoginController;
+    private ADoctorsController aDoctorsController;
+
     public void setAdminLoginController(AdminLoginController adminLoginController) {
         this.adminLoginController = adminLoginController;
     }
@@ -115,5 +117,18 @@ public class AHomeController {
     public void setUsername(String username1) {
         this.username1 = username1;
         WelcomeLabel.setText("Welcome "+username1);
+    }
+    private ACoursesController aCoursesController;
+    public void setAHomeController(ACoursesController aCoursesController) {
+        this.aCoursesController = aCoursesController;
+    }
+
+    private AAdminsController aAdminsController;
+    public void setAHomeController(AAdminsController aAdminsController) {
+        this.aAdminsController = aAdminsController;
+    }
+
+    public void setAHomeController(ADoctorsController aDoctorsController) {
+        this.aDoctorsController = aDoctorsController;
     }
 }
