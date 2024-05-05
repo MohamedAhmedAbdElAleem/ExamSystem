@@ -5,6 +5,7 @@ import App.ADoctors.ADoctorsController;
 import App.AHome.AHomeController;
 import App.AddCourse.AddCourseController;
 import App.AdminLogin.AdminLoginController;
+import App.CID.CIDController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ACoursesController {
+    @FXML
+    private Button DeleteCourse;
     @FXML
     private Button AddCourse;
     @FXML
@@ -113,6 +116,31 @@ public class ACoursesController {
         AdminsButton.setOnAction(AdminsButtonClicked());
         LogOutButton.setOnAction(LogOutButtonClicked());
         AHomeButton.setOnAction(AHomeButtonClicked());
+        DeleteCourse.setOnAction(DeleteCourseButtonClicked());
+    }
+
+    private EventHandler<ActionEvent> DeleteCourseButtonClicked() {
+        return e -> {
+            // Load the AddCourse.fxml file
+            FXMLLoader fxmlLoader = new FXMLLoader(App.CID.CIDApplication.class.getResource
+                    ("CID.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+                // Get the AddCourseController instance
+                CIDController cidController = fxmlLoader.getController();
+                cidController.setUsername(username1);
+                cidController.setACoursesController(this); // Pass reference to current controller
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : " + ex.getMessage());
+            }
+            // Get the current stage
+            Stage stage = new Stage();
+            // Set the scene for the stage
+            stage.setScene(scene);
+            // Show the stage
+            stage.show();
+        };
     }
 
     private EventHandler<ActionEvent> AddCourseButtonClicked() {

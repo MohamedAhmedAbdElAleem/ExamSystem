@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ACourses.ACoursesController">
+<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ACourses.ACoursesController">
    <children>
       <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="140.0" prefWidth="1302.0" style="-fx-background-color: #202020;">
          <children>
@@ -154,7 +154,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="464.0" layoutY="10.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: #9f6de7;" text="Delete" textFill="WHITE">
+            <Button fx:id="DeleteCourse" layoutX="464.0" layoutY="10.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="97.0" style="-fx-background-color: #9f6de7;" text="Delete" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
