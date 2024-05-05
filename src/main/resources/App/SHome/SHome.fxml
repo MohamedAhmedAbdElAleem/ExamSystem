@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.DHome.DHomeController">
+<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.SHome.SHomeController">
    <children>
       <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="140.0" prefWidth="1302.0" style="-fx-background-color: #202020;">
          <children>
@@ -19,7 +19,7 @@
             </Label>
             <ImageView fitHeight="62.0" fitWidth="81.0" layoutX="1201.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/DoctorProfile.png" />
+                  <Image url="@../Images/StudentProfile.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -39,10 +39,10 @@
          <children>
             <ImageView fitHeight="97.0" fitWidth="105.0" layoutX="16.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/DoctorIcon.png" />
+                  <Image url="@../Images/StudentIcon.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="119.0" layoutY="49.0" prefHeight="50.0" prefWidth="150.0" text="Doctor" textAlignment="CENTER" textFill="#c96f71">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="119.0" layoutY="49.0" prefHeight="50.0" prefWidth="150.0" text="Student" textAlignment="CENTER" textFill="#3d6b8c">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
@@ -61,13 +61,13 @@
             </Button>
             <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="33.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/DashIn2.png" />
+                  <Image url="@../Images/DashIn3.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="2.0" layoutY="74.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Students" textFill="#b0b0b0">
+            <Button layoutY="144.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Exams" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -75,23 +75,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="32.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/StudentOut.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <Button layoutY="222.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Exams" textFill="#b0b0b0">
-               <font>
-                  <Font name="Verdana Bold" size="18.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="30.0" layoutY="242.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="30.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/ExamOut.png" />
                </image>
@@ -131,7 +115,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="-1.0" layoutY="146.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Q/A Bank" textFill="#b0b0b0">
+            <Button layoutX="-1.0" layoutY="68.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Results" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -139,9 +123,9 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="30.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="30.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/QuestionBankOut.png" />
+                  <Image url="@../Images/ResultOut.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />

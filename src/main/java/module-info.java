@@ -42,4 +42,16 @@ module App {
 
     opens App.DExam to javafx.fxml;
     exports App.DExam;
+
+    opens App.SBefore to javafx.fxml;
+    exports App.SBefore;
+
+    opens App.SHome to javafx.fxml;
+    exports App.SHome;
+
+    opens App.SResults to javafx.fxml;
+    exports App.SResults;
+
+    opens App.SExams to javafx.fxml;
+    exports App.SExams;
 }
