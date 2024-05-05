@@ -54,4 +54,29 @@ module App {
 
     opens App.SExams to javafx.fxml;
     exports App.SExams;
+
+    opens App.AddAdmin to javafx.fxml;
+    exports App.AddAdmin;
+
+    opens App.AID to javafx.fxml;
+    exports App.AID;
+
+    opens App.EditAdmin to javafx.fxml;
+    exports App.EditAdmin;
+
+    opens App.AddDoctor to javafx.fxml;
+    exports App.AddDoctor;
+
+    opens App.DID to javafx.fxml;
+    exports App.DID;
+
+    opens App.EditDoctor to javafx.fxml;
+    exports App.EditDoctor;
+
+    opens App.AddCourse to javafx.fxml;
+    exports App.AddCourse;
+
+    opens App.CID to javafx.fxml;
+    exports App.CID;
+
 }
