@@ -79,4 +79,38 @@ module App {
     opens App.CID to javafx.fxml;
     exports App.CID;
 
+    opens App.AddStudent to javafx.fxml;
+    exports App.AddStudent;
+
+    opens App.SID to javafx.fxml;
+    exports App.SID;
+
+    opens App.EditStudent to javafx.fxml;
+    exports App.EditStudent;
+
+    opens App.AddQuestion to javafx.fxml;
+    exports App.AddQuestion;
+
+    opens App.MCQ to javafx.fxml;
+    exports App.MCQ;
+
+    opens App.TF to javafx.fxml;
+    exports App.TF;
+
+    opens App.QID to javafx.fxml;
+    exports App.QID;
+
+    opens App.EditMCQ to javafx.fxml;
+    exports App.EditMCQ;
+
+    opens App.EditTrueFalse to javafx.fxml;
+    exports App.EditTrueFalse;
+
+    opens App.GetPassword to javafx.fxml;
+    exports App.GetPassword;
+
+    opens App.StudentChangePassword to javafx.fxml;
+    exports App.StudentChangePassword;
+
+
 }

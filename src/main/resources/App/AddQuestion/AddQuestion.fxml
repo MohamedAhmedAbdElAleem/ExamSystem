@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="550.0" minWidth="450.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AddQuestion.AddQuestionController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="58.0" layoutY="36.0" prefHeight="58.0" prefWidth="338.0" text="Add Question" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <Button layoutX="87.0" layoutY="215.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="263.0" style="-fx-background-color: #c96f71;" text="MCQ Question" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="86.0" layoutY="359.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="263.0" style="-fx-background-color: #c96f71;" text="True or False" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>
