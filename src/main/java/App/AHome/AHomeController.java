@@ -5,6 +5,7 @@ import App.AdminLogin.AdminLoginController;
 import App.AAdmins.AAdminsController;
 import App.ADoctors.ADoctorsController;
 import App.DoctorLogin.DoctorLoginController;
+import Main.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,6 +19,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AHomeController {
+    @FXML
+    private Label AdminsNumber;
+    @FXML
+    private Label DoctorsNumber;
+    @FXML
+    private Label StudentsNumber;
     @FXML
     private Button CourseButton;
     @FXML
@@ -59,6 +66,7 @@ public class AHomeController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the AAdminsController instance
                 AAdminsController aAdminsController = fxmlLoader.getController();
+                aAdminsController.setUsername(username1);
                 aAdminsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -76,6 +84,7 @@ public class AHomeController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the AAdminsController instance
                 ACoursesController aAdminsController = fxmlLoader.getController();
+                aAdminsController.setUsername(username1);
                 aAdminsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -95,6 +104,7 @@ public class AHomeController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the ADoctorsController instance
                 ADoctorsController aDoctorsController = fxmlLoader.getController();
+                aDoctorsController.setUsername(username1);
                 aDoctorsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -113,8 +123,29 @@ public class AHomeController {
         AdminsButton.setOnAction(AdminsButtonClicked());
         DoctorsButton.setOnAction(DoctorsButtonClicked());
         CourseButton.setOnAction(CoursesButtonClicked());
-    }
+        Client client = new Client();
+        client.sendMessage("getAdminDashBoardNumbers");
+        String AdminsNumber = client.receiveMessage();
+//        System.out.println(AdminsNumber);
+        String DoctorsNumber = client.receiveMessage();
+//        System.out.println(DoctorsNumber);
+        String StudentsNumber = client.receiveMessage();
+//        System.out.println(StudentsNumber);
+        setAdminsNumber(AdminsNumber);
+        setDoctorsNumber(DoctorsNumber);
+        setStudentsNumber(StudentsNumber);
 
+    }
+    public void setAdminsNumber(String adminsNumber) {
+
+        AdminsNumber.setText(adminsNumber);
+    }
+    public void setDoctorsNumber(String doctorsNumber) {
+        DoctorsNumber.setText(doctorsNumber);
+    }
+    public void setStudentsNumber(String studentsNumber) {
+        StudentsNumber.setText(studentsNumber);
+    }
     public void setUsername(String username1) {
         this.username1 = username1;
         WelcomeLabel.setText("Welcome "+username1);

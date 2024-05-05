@@ -3,6 +3,7 @@ package App.ACourses;
 import App.AAdmins.AAdminsController;
 import App.ADoctors.ADoctorsController;
 import App.AHome.AHomeController;
+import App.AddCourse.AddCourseController;
 import App.AdminLogin.AdminLoginController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ACoursesController {
+    @FXML
+    private Button AddCourse;
     @FXML
     private Button AHomeButton;
     @FXML
@@ -48,6 +51,7 @@ public class ACoursesController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the AAdminsController instance
                 AAdminsController aAdminsController = fxmlLoader.getController();
+                aAdminsController.setUsername(username1);
                 aAdminsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -66,6 +70,7 @@ public class ACoursesController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the ADoctorsController instance
                 ADoctorsController aDoctorsController = fxmlLoader.getController();
+                aDoctorsController.setUsername(username1);
                 aDoctorsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -87,6 +92,7 @@ public class ACoursesController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the AHomeController instance
                 AHomeController aHomeController = fxmlLoader.getController();
+                aHomeController.setUsername(username1);
                 aHomeController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -99,12 +105,40 @@ public class ACoursesController {
             stage.show();
         };
     }
+
+
     public void initialize() {
+        AddCourse.setOnAction(AddCourseButtonClicked());
         DoctorsButton.setOnAction(DoctorsButtonClicked());
         AdminsButton.setOnAction(AdminsButtonClicked());
         LogOutButton.setOnAction(LogOutButtonClicked());
         AHomeButton.setOnAction(AHomeButtonClicked());
     }
+
+    private EventHandler<ActionEvent> AddCourseButtonClicked() {
+        return e -> {
+            // Load the AddCourse.fxml file
+            FXMLLoader fxmlLoader = new FXMLLoader(App.AddCourse.AddCourseApplication.class.getResource
+                    ("AddCourse.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+                // Get the AddCourseController instance
+                AddCourseController addCourseController = fxmlLoader.getController();
+                addCourseController.setUsername(username1);
+                addCourseController.setACoursesController(this); // Pass reference to current controller
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : " + ex.getMessage());
+            }
+            // Get the current stage
+            Stage stage = new Stage();
+            // Set the scene for the stage
+            stage.setScene(scene);
+            // Show the stage
+            stage.show();
+        };
+    }
+
     private AHomeController ahomeController;
     public void setAHomeController(AHomeController aHomeController) {
         this.ahomeController = aHomeController;
@@ -118,5 +152,9 @@ public class ACoursesController {
     private ADoctorsController aDoctorsController;
     public void setAHomeController(ADoctorsController aDoctorsController) {
         this.aDoctorsController = aDoctorsController;
+    }
+    private String username1;
+    public void setUsername(String username1) {
+        this.username1 = username1;
     }
 }

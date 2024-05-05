@@ -44,7 +44,8 @@ public class ServerHandler implements Runnable {
                         String password = reader.readLine();
                         Boolean output = LogIn(username, password, Status);
                         writer.println(output);
-                        writer.println(username1);
+                        if(output)
+                            writer.println(username1);
 //                        System.out.println(output + " for user : "+username);
                 }else if (input.equalsIgnoreCase("register"))
                 {
@@ -59,6 +60,12 @@ public class ServerHandler implements Runnable {
                     System.out.println("User registered : "+username);
                     writer.println("User registered");
 
+                }else if (input.equalsIgnoreCase("getAdminDashBoardNumbers"))
+                {
+                    getAdminDashBoardNumbers();
+                    writer.println(AdminsNumber);
+                    writer.println(DoctorsNumber);
+                    writer.println(StudentsNumber);
                 } else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
@@ -111,5 +118,20 @@ public class ServerHandler implements Runnable {
         Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE UName = '" + username + "'");
         return resultSet.next();
+    }
+    int AdminsNumber;
+    int DoctorsNumber;
+    int StudentsNumber;
+    private void getAdminDashBoardNumbers() throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM users WHERE status = 'Admin'");
+        resultSet.next();
+        AdminsNumber = resultSet.getInt(1);
+        resultSet = statement.executeQuery("SELECT COUNT(*) FROM users WHERE status = 'Doctor'");
+        resultSet.next();
+        DoctorsNumber = resultSet.getInt(1);
+        resultSet = statement.executeQuery("SELECT COUNT(*) FROM users WHERE status = 'Student'");
+        resultSet.next();
+        StudentsNumber = resultSet.getInt(1);
     }
 }
