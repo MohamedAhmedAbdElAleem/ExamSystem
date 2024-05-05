@@ -1,5 +1,6 @@
 package App.ADoctors;
 
+import App.AAdmins.AAdminsController;
 import App.AHome.AHomeController;
 import App.AdminLogin.AdminLoginController;
 import javafx.event.ActionEvent;
@@ -39,5 +40,10 @@ public class ADoctorsController {
     private AHomeController ahomeController;
     public void setAHomeController(AHomeController aHomeController) {
         this.ahomeController = aHomeController;
+    }
+
+    private AAdminsController aAdminsController;
+    public void setAHomeController(AAdminsController aAdminsController) {
+        this.aAdminsController = aAdminsController;
     }
 }

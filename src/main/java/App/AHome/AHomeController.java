@@ -1,5 +1,6 @@
 package App.AHome;
 
+import App.ACourses.ACoursesController;
 import App.AdminLogin.AdminLoginController;
 import App.AAdmins.AAdminsController;
 import App.ADoctors.ADoctorsController;
@@ -17,6 +18,8 @@ import java.io.IOException;
 
 public class AHomeController {
     @FXML
+    private Button CourseButton;
+    @FXML
     private Button DoctorsButton;
     @FXML
     private Button AdminsButton;
@@ -31,15 +34,15 @@ public class AHomeController {
     }
     public EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.AAdmins.AAdminsApplication.class.getResource("AdminLogin.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AdminLogin/AdminLogin.fxml"));
             Scene scene = null;
             try {
                 scene = new Scene(fxmlLoader.load());
-                AdminLoginController loginController = fxmlLoader.getController();
-                loginController.setAHomeController(this);
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
+            AdminLoginController loginController = fxmlLoader.getController();
+            loginController.setAHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -53,6 +56,23 @@ public class AHomeController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the AAdminsController instance
                 AAdminsController aAdminsController = fxmlLoader.getController();
+                aAdminsController.setAHomeController(this); // Pass reference to current controller
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        };
+    }
+    public EventHandler<ActionEvent> CoursesButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.ACourses.ACoursesApplication.class.getResource("ACourses.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+                // Get the AAdminsController instance
+                ACoursesController aAdminsController = fxmlLoader.getController();
                 aAdminsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -89,6 +109,7 @@ public class AHomeController {
         LogOutButton.setOnAction(LogOutButtonClicked());
         AdminsButton.setOnAction(AdminsButtonClicked());
         DoctorsButton.setOnAction(DoctorsButtonClicked());
+        CourseButton.setOnAction(CoursesButtonClicked());
     }
 
     public void setUsername(String username1) {
