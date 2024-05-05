@@ -1,5 +1,6 @@
 package App.ADoctors;
 
+import App.AHome.AHomeController;
 import App.AdminLogin.AdminLoginController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -35,4 +36,8 @@ public class ADoctorsController {
         LogOutButton.setOnAction(LogOutButtonClicked());
     }
 
+    private AHomeController ahomeController;
+    public void setAHomeController(AHomeController aHomeController) {
+        this.ahomeController = aHomeController;
+    }
 }
