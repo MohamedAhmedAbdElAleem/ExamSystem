@@ -4,6 +4,7 @@ import App.ACourses.ACoursesController;
 import App.AdminLogin.AdminLoginController;
 import App.AAdmins.AAdminsController;
 import App.ADoctors.ADoctorsController;
+import App.DoctorLogin.DoctorLoginController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -131,4 +132,5 @@ public class AHomeController {
     public void setAHomeController(ADoctorsController aDoctorsController) {
         this.aDoctorsController = aDoctorsController;
     }
+
 }

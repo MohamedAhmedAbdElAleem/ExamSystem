@@ -40,26 +40,12 @@ public class ServerHandler implements Runnable {
                 if(input.equalsIgnoreCase("LogIn")) {
                     String Status = reader.readLine();
 //                    System.out.println("LogIn request for : "+Status);
-                    if (Status.equalsIgnoreCase("Admin")) {
                         String username = reader.readLine();
                         String password = reader.readLine();
                         Boolean output = LogIn(username, password, Status);
                         writer.println(output);
                         writer.println(username1);
 //                        System.out.println(output + " for user : "+username);
-                    } else if (Status.equalsIgnoreCase("Student")) {
-                        String username = reader.readLine();
-                        String password = reader.readLine();
-                        Boolean output = LogIn(username, password, Status);
-                        writer.println(output);
-//                        System.out.println(output + " for user : "+username);
-                    } else if (Status.equalsIgnoreCase("Doctor")) {
-                        String username = reader.readLine();
-                        String password = reader.readLine();
-                        Boolean output = LogIn(username, password, Status);
-                        writer.println(output);
-//                        System.out.println(output + " for user : "+username);
-                    }
                 }else if (input.equalsIgnoreCase("register"))
                 {
                     String username = reader.readLine();
