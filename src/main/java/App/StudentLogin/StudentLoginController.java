@@ -1,4 +1,8 @@
 package App.StudentLogin;
+import App.SBefore.SBeforeController;
+import App.SExams.SExamsController;
+import App.SHome.SHomeController;
+import App.SResults.SResultsController;
 import App.Welcome.WelcomeController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class StudentLoginController {
+    private String Username;
     @FXML
     private TextField UID;
     @FXML
@@ -26,7 +31,7 @@ public class StudentLoginController {
     private Button BackButton;
 
     public EventHandler<ActionEvent> LogInButtonClicked() {
-        return event -> {
+        return e -> {
             String username = UID.getText();
             String password = UPassword.getText();
             // Send the username and password to the server
@@ -36,8 +41,25 @@ public class StudentLoginController {
             client.sendMessage(username);
             client.sendMessage(password);
             String message = client.receiveMessage();
+            if(message.equalsIgnoreCase("true")){
+                String username1 = client.receiveMessage();
+                Username = username1;
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                } catch (IOException ex) {
+                    System.out.println("Error in loading scene : "+ex.getMessage());
+                }
+                SBeforeController sBeforeController = fxmlLoader.getController();
+                sBeforeController.setUsername(Username);
+                sBeforeController.setStudentLoginController(this);
+                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
+                stage.setScene(scene);
+                stage.show();
+            }
             // Display the message from the server
-            System.out.println(message);
+//            System.out.println(message);
             client.close();
         };
     }
@@ -66,5 +88,20 @@ public class StudentLoginController {
     public void setWelcomeController(WelcomeController welcomeController) {
         this.welcomeController = welcomeController;
     }
-
+    private SBeforeController sBeforeController;
+    public void setSBeforecontroller(SBeforeController sBeforeController) {
+        this.sBeforeController = sBeforeController;
+    }
+    private SHomeController sHomeController;
+    public void setSBeforecontroller(SHomeController sHomeController) {
+        this.sHomeController = sHomeController;
+    }
+    private SExamsController sExamsController;
+    public void setSBeforecontroller(SExamsController sExamsController) {
+        this.sExamsController = sExamsController;
+    }
+    private SResultsController sResultsController;
+    public void setSBeforecontroller(SResultsController sResultsController) {
+        this.sResultsController = sResultsController;
+    }
 }
