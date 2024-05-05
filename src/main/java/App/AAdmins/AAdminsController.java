@@ -90,4 +90,13 @@ public class AAdminsController {
         this.ahomeController = aHomeController;
     }
 
+    private ACoursesController aCoursesController;
+    public void setAHomeController(ADoctorsController aDoctorsController) {
+        this.aCoursesController = aCoursesController;
+    }
+
+    private ADoctorsController aDoctorsController;
+    public void setAHomeController(ACoursesController aCoursesController) {
+        this.aDoctorsController = aDoctorsController;
+    }
 }

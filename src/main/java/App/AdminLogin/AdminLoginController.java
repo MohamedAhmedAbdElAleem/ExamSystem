@@ -1,6 +1,7 @@
 package App.AdminLogin;
 
 import App.AAdmins.AAdminsController;
+import App.ACourses.ACoursesController;
 import App.ADoctors.ADoctorsController;
 import App.Welcome.WelcomeController;
 import javafx.event.ActionEvent;
@@ -102,5 +103,10 @@ public class AdminLoginController {
     private AAdminsController aAdminsController;
     public void setAHomeController(AAdminsController aAdminsController) {
         this.aAdminsController = aAdminsController;
+    }
+
+    private ACoursesController aCoursesController;
+    public void setAHomeController(ACoursesController aCoursesController) {
+        this.aCoursesController = aCoursesController;
     }
 }
