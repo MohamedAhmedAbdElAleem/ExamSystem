@@ -15,15 +15,7 @@
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Button layoutX="46.0" layoutY="472.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="171.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button layoutX="242.0" layoutY="472.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="164.0" style="-fx-background-color: #c96f71;" text="Back" textFill="WHITE">
+      <Button layoutX="92.0" layoutY="457.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="256.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

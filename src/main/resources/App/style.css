@@ -1,0 +1,31 @@
+.Tables {
+    -fx-background-color: #1e1e1e;
+}
+
+.Tables .table-row-cell:even {
+    -fx-background-color: #4b4b4b;
+}
+
+.Tables .table-view .column-header {
+    -fx-background-color: #1e1e1e;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 17px;
+}
+
+.Tables .table-row-cell:odd {
+    -fx-background-color: #282828FF;
+}
+
+.Tables .table-row-cell:selected {
+    -fx-background-color: grey;
+}
+
+.Tables .table-cell {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-font-size: 14px;
+}
+
+

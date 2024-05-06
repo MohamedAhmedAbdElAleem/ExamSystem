@@ -119,5 +119,12 @@ module App {
     opens App.QuestionID to javafx.fxml;
     exports App.QuestionID;
 
+    opens App.AdminProfile to javafx.fxml;
+    exports App.AdminProfile;
 
+    opens App.DoctorProfile to javafx.fxml;
+    exports App.DoctorProfile;
+
+    opens App.StudentProfile to javafx.fxml;
+    exports App.StudentProfile;
 }
