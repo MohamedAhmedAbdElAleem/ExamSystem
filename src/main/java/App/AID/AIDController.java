@@ -39,9 +39,9 @@ public class AIDController {
                         System.out.println("Error in loading scene : "+ex.getMessage());
                     }
                     EditAdminController editAdminController = fxmlLoader.getController();
+                    editAdminController.setAAdminsController(aAdminsController);
                     editAdminController.setUsername(name);
                     editAdminController.setPassword(password);
-                    editAdminController.setAAdminsController(aAdminsController);
                     editAdminController.setAdminId(Id);
                     Stage stage = (Stage) ProceedButton.getScene().getWindow();
                     stage.setScene(scene);

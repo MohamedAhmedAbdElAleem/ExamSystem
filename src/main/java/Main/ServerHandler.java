@@ -144,6 +144,17 @@ public class ServerHandler implements Runnable {
                     } catch (SQLException e) {
                         System.out.println("Error in deleteAdmin : " + e.getMessage());
                     }
+                }else if (input.equalsIgnoreCase("editAdmin")){
+                    String id = reader.readLine();
+                    String name = reader.readLine();
+                    String password = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("UPDATE admins SET Aname = '"+name+"', Apassword = '"+password+"' WHERE Aid = '"+id+"'");
+                        writer.println("Admin edited successfully");
+                    } catch (SQLException e) {
+                        System.out.println("Error in editAdmin : "+e.getMessage());
+                    }
 
                 }else{
                     String output = processInput(input);
