@@ -1,10 +1,13 @@
 package App.DQABank;
 
+import App.AddQuestion.AddQuestionController;
 import App.DBefore.DBeforeController;
 import App.DExam.DExamController;
 import App.DHome.DHomeController;
 import App.DStudent.DStudentController;
 import App.DoctorLogin.DoctorLoginController;
+import App.EditQuestion.EditQuestionController;
+import App.QuestionID.QuestionIDController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,11 +15,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class DQABankController {
+    @FXML
+    private Button AddQuestion;
+    @FXML
+    private Button EditQuestion;
     @FXML
     private Button DHomeButton;
     @FXML
@@ -27,6 +35,10 @@ public class DQABankController {
     private Button BackButton;
     @FXML
     private Button LogOutButton;
+    @FXML
+    private Button DeleteQuestion;
+
+
     private EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DoctorLogin/DoctorLogin.fxml"));
@@ -117,7 +129,65 @@ public class DQABankController {
         ExamsButton.setOnAction(ExamsButtonClicked());
         BackButton.setOnAction(BackButtonClicked());
         DHomeButton.setOnAction(DHomeButtonClicked());
+        AddQuestion.setOnAction(AddQuestionButtonClicked());
+        EditQuestion.setOnAction(EditQuestionButtonClicked());
+        DeleteQuestion.setOnAction(DeleteQuestionButtonClicked());
     }
+
+    private EventHandler<ActionEvent> DeleteQuestionButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/QuestionID/QuestionID.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            QuestionIDController loginController = fxmlLoader.getController();
+            loginController.setDQABankController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
+    private EventHandler<ActionEvent> EditQuestionButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EditQuestion/EditQuestion.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            EditQuestionController loginController = fxmlLoader.getController();
+            loginController.setDQABankController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
+    private EventHandler<ActionEvent> AddQuestionButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AddQuestion/AddQuestion.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            AddQuestionController loginController = fxmlLoader.getController();
+            loginController.setDQABankController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
     private DHomeController dHomeController;
     public void setDHomeController(DHomeController dHomeController) {
         this.dHomeController = dHomeController;

@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -137,9 +138,9 @@ public class ACoursesController {
             // Get the current stage
             Stage stage = new Stage();
             // Set the scene for the stage
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
-            // Show the stage
-            stage.show();
+            stage.showAndWait();
         };
     }
 
@@ -161,9 +162,9 @@ public class ACoursesController {
             // Get the current stage
             Stage stage = new Stage();
             // Set the scene for the stage
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
-            // Show the stage
-            stage.show();
+            stage.showAndWait();
         };
     }
 

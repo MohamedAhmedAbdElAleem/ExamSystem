@@ -1,5 +1,7 @@
 package App.EditMCQ;
-public class EditMCQController {
 
+import App.EditQuestion.EditQuestionController;
+
+public class EditMCQController {
 
 }

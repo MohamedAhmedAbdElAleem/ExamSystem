@@ -1,10 +1,13 @@
 package App.DStudent;
 
+import App.AddStudent.AddStudentController;
 import App.DBefore.DBeforeController;
 import App.DExam.DExamController;
 import App.DHome.DHomeController;
+import App.DID.DIDController;
 import App.DQABank.DQABankController;
 import App.DoctorLogin.DoctorLoginController;
+import App.SID.SIDController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,11 +15,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class DStudentController {
+    @FXML
+    private Button EditStudent;
+    @FXML
+    private Button DeleteStudent;
+    @FXML
+    private Button AddStudent;
     @FXML
     private Button DHomeButton;
     @FXML
@@ -27,6 +37,7 @@ public class DStudentController {
     private Button BackButton;
     @FXML
     private Button LogOutButton;
+    private String username1 = "YourUsername";
     private EventHandler<ActionEvent> DHomeButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DHome/DHome.fxml"));
@@ -109,13 +120,56 @@ public class DStudentController {
             stage.show();
         };
     }
+
+    private EventHandler<ActionEvent> AddStudentButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AddStudent/AddStudent.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            AddStudentController addStudentController = fxmlLoader.getController();
+            addStudentController.setDStudentController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
     public void initialize(){
         DHomeButton.setOnAction(DHomeButtonClicked());
         QBankButton.setOnAction(QBankButtonClicked());
         ExamsButton.setOnAction(ExamsButtonClicked());
         BackButton.setOnAction(BackButtonClicked());
         LogOutButton.setOnAction(LogOutButtonClicked());
+        AddStudent.setOnAction(AddStudentButtonClicked());
+        EditStudent.setOnAction(EditDeleteStudentButtonClicked("Edit"));
+        DeleteStudent.setOnAction(EditDeleteStudentButtonClicked("Delete"));
     }
+
+    private EventHandler<ActionEvent> EditDeleteStudentButtonClicked(String Process) {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SID/SID.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+                SIDController sidController = fxmlLoader.getController();
+                sidController.setUsername(username1);
+                sidController.setProcess(Process);
+                sidController.setDStudentController(this);
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
     private DHomeController dHomeController;
     public void setDHomeController(DHomeController dHomeController) {
         this.dHomeController = dHomeController;
@@ -131,3 +185,4 @@ public class DStudentController {
         this.dExamController = dExamController;
     }
 }
+

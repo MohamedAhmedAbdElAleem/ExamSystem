@@ -14,22 +14,6 @@
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Button layoutX="46.0" layoutY="472.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="171.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button layoutX="242.0" layoutY="472.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="164.0" style="-fx-background-color: #c96f71;" text="Back" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
       <TextField layoutX="49.0" layoutY="105.0" prefHeight="42.0" prefWidth="345.0" promptText="Question Sentence" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
@@ -60,5 +44,13 @@
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </TextField>
+      <Button layoutX="99.0" layoutY="467.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="256.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>

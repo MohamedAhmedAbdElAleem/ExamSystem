@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -121,8 +122,9 @@ public class ADoctorsController {
             }
             Stage stage = new Stage();
 //                    (Stage) ((Node)e.getSource()).getScene().getWindow();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
         };
     }
 
@@ -151,8 +153,9 @@ public class ADoctorsController {
             }
             Stage stage = new Stage();
 //                    (Stage) ((Node)e.getSource()).getScene().getWindow();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
         };
     }
 

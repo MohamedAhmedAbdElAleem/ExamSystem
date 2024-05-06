@@ -112,5 +112,11 @@ module App {
     opens App.StudentChangePassword to javafx.fxml;
     exports App.StudentChangePassword;
 
+    opens App.EditQuestion to javafx.fxml;
+    exports App.EditQuestion;
+
+    opens App.QuestionID to javafx.fxml;
+    exports App.QuestionID;
+
 
 }

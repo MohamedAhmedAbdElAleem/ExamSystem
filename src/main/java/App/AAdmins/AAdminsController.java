@@ -16,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import Main.Client;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import App.AHome.AHomeController;
 
@@ -129,8 +130,9 @@ public class AAdminsController {
             }
             Stage stage = new Stage();
 //                    (Stage) ((Node)e.getSource()).getScene().getWindow();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
         };
     }
     public void initialize() {
@@ -157,8 +159,9 @@ public class AAdminsController {
             }
             Stage stage = new Stage();
 //                    (Stage) ((Node)e.getSource()).getScene().getWindow();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
-            stage.show();
+            stage.showAndWait();
         };
     }
 
