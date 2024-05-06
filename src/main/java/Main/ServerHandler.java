@@ -30,92 +30,121 @@ public class ServerHandler implements Runnable {
             String input;
 //            System.out.println("Client connected");
             // Read client input
-            while (true)
-            {
+            while (true) {
                 input = reader.readLine();
                 if (input == null || "exit".equalsIgnoreCase(input)) {
                     System.out.println("Client disconnected");
                     break;
                 }
-                if(input.equalsIgnoreCase("LogIn")) {
+                if (input.equalsIgnoreCase("LogIn")) {
                     String Status = reader.readLine();
-                        String id = reader.readLine();
-                        String password = reader.readLine();
-                        if (Status.equalsIgnoreCase("Admin"))
-                        {
-                            boolean output = AdminLogIn(id, password);
-                            writer.println(output);
-                            if(output)
-                                writer.println(username1);
-                        }else if (Status.equalsIgnoreCase("Doctor"))
-                        {
-                            boolean output = DoctorLogin(id, password);
-                            writer.println(output);
-                            if(output)
-                                writer.println(username1);
-                        }
-                        else if (Status.equalsIgnoreCase("Student"))
-                        {
-                            boolean output = StudentLogin(id, password);
-                            writer.println(output);
-                            if(output)
-                                writer.println(username1);
-                        }
-                }else if (input.equalsIgnoreCase("register"))
-                {
+                    String id = reader.readLine();
+                    String password = reader.readLine();
+                    if (Status.equalsIgnoreCase("Admin")) {
+                        boolean output = AdminLogIn(id, password);
+                        writer.println(output);
+                        if (output)
+                            writer.println(username1);
+                    } else if (Status.equalsIgnoreCase("Doctor")) {
+                        boolean output = DoctorLogin(id, password);
+                        writer.println(output);
+                        if (output)
+                            writer.println(username1);
+                    } else if (Status.equalsIgnoreCase("Student")) {
+                        boolean output = StudentLogin(id, password);
+                        writer.println(output);
+                        if (output)
+                            writer.println(username1);
+                    }
+                } else if (input.equalsIgnoreCase("register")) {
                     String username = reader.readLine();
                     String password = reader.readLine();
                     String Status = reader.readLine();
-                }else if (input.equalsIgnoreCase("getAdminDashBoardNumbers"))
-                {
+                } else if (input.equalsIgnoreCase("getAdminDashBoardNumbers")) {
                     getAdminDashBoardNumbers();
                     writer.println(AdminsNumber);
                     writer.println(DoctorsNumber);
                     writer.println(StudentsNumber);
-                }else if (input.equalsIgnoreCase("getAdmins"))
-                {
+                } else if (input.equalsIgnoreCase("getAdmins")) {
                     Statement statement = connection.createStatement();
                     ResultSet resultSet = statement.executeQuery("SELECT * FROM admins");
-                    while (resultSet.next())
-                    {
+                    while (resultSet.next()) {
                         writer.println(resultSet.getString("Aid"));
                         writer.println(resultSet.getString("Aname"));
                     }
                     writer.println("end");
-                }else if (input.equalsIgnoreCase("getDoctors"))
-                {
+                } else if (input.equalsIgnoreCase("getDoctors")) {
                     Statement statement = connection.createStatement();
                     ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors");
-                    while (resultSet.next())
-                    {
+                    while (resultSet.next()) {
                         writer.println(resultSet.getString("Did"));
                         writer.println(resultSet.getString("Dname"));
                         writer.println(resultSet.getString("Dpassword"));
                     }
                     writer.println("end");
-                }else if (input.equalsIgnoreCase("getStudents"))
-                {
+                } else if (input.equalsIgnoreCase("getStudents")) {
                     Statement statement = connection.createStatement();
                     ResultSet resultSet = statement.executeQuery("SELECT * FROM students");
-                    while (resultSet.next())
-                    {
+                    while (resultSet.next()) {
                         writer.println(resultSet.getString("Sid"));
                         writer.println(resultSet.getString("Sname"));
                         writer.println(resultSet.getString("Spassword"));
                     }
                     writer.println("end");
-                }else if (input.equalsIgnoreCase("addAdmin"))
-                {
+                } else if (input.equalsIgnoreCase("addAdmin")) {
                     System.out.println("addAdmin");
                     try {
                         String name = reader.readLine();
                         String password = reader.readLine();
                         Statement statement = connection.createStatement();
-                        statement.executeUpdate("INSERT INTO admins (Aname,Apassword) VALUES ('"+name+"','"+password+"')");
+                        statement.executeUpdate("INSERT INTO admins (Aname,Apassword) VALUES ('" + name + "','" + password + "')");
                         writer.println("Admin added successfully");
                     } catch (IOException | SQLException e) {
-                        System.out.println("Error in addAdmin : "+e.getMessage());
+                        System.out.println("Error in addAdmin : " + e.getMessage());
                     }
+                } else if(input.equalsIgnoreCase("checkAdminId")){
+                    String id = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM admins WHERE Aid = '"+id+"'");
+                        if (resultSet.next())
+                        {
+                            writer.println("true");
+                            writer.println(resultSet.getString("Aname"));
+                            writer.println(resultSet.getString("Apassword"));
+                        }else{
+                            writer.println("false");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("Error in checkAdminId : "+e.getMessage());
+                    }
+
+                }else if (input.equalsIgnoreCase("checkAdminId2")){
+                    String id = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM admins WHERE Aid = '"+id+"'");
+                        if (resultSet.next())
+                        {
+                            writer.println("true");
+                        }else{
+                            writer.println("false");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("Error in checkAdminId2 : "+e.getMessage());
+                    }
+
+                }else if (input.equalsIgnoreCase("deleteAdmin")) {
+                    String id = reader.readLine();
+                    System.out.println("deleteAdmin : "+id);
+                    try {
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("DELETE FROM admins WHERE Aid = '" + id + "'");
+                        writer.println("Admin deleted successfully");
+                    } catch (SQLException e) {
+                        System.out.println("Error in deleteAdmin : " + e.getMessage());
+                    }
+
                 }else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);

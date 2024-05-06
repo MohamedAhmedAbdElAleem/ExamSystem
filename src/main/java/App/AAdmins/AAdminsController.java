@@ -130,9 +130,9 @@ public class AAdminsController {
             try {
                 scene = new Scene(fxmlLoader.load());
                 AIDController aidController = fxmlLoader.getController();
+                aidController.setAAdminsController(this);
                 aidController.setUsername(username);
                 aidController.setProcess(Process);
-                aidController.setAAdminsController(this);
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
@@ -141,6 +141,7 @@ public class AAdminsController {
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            ViewTableButtonClicked();
         };
     }
     public void initialize() throws IOException {

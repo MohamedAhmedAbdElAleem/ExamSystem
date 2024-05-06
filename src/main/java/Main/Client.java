@@ -131,4 +131,43 @@ public class Client {
         sendMessage("exit");
 
     }
+    private String username1;
+    private String password1;
+
+    public String getUsername1() {
+        return username1;
+    }
+
+    public String getPassword1() {
+        return password1;
+    }
+    public boolean checkAdminId(String id) {
+        sendMessage("checkAdminId");
+        sendMessage(id);
+        String result = this.receiveMessage();
+        if (result.equalsIgnoreCase("true"))
+        {
+            username1 = this.receiveMessage();
+            password1 = this.receiveMessage();
+
+        }
+        sendMessage("exit");
+        return Boolean.parseBoolean(result);
+    }
+
+    public boolean checkAdminId2(String id) {
+        sendMessage("checkAdminId2");
+        sendMessage(id);
+        String result = this.receiveMessage();
+        return Boolean.parseBoolean(result);
+    }
+
+    public boolean deleteAdmin(String id) {
+        sendMessage("deleteAdmin");
+        sendMessage(id);
+        String result = this.receiveMessage();
+        System.out.println(result);
+        sendMessage("exit");
+        return Boolean.parseBoolean(result);
+    }
 }
