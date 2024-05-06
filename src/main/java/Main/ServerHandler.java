@@ -104,7 +104,19 @@ public class ServerHandler implements Runnable {
                         writer.println(resultSet.getString("Spassword"));
                     }
                     writer.println("end");
-                } else{
+                }else if (input.equalsIgnoreCase("addAdmin"))
+                {
+                    System.out.println("addAdmin");
+                    try {
+                        String name = reader.readLine();
+                        String password = reader.readLine();
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("INSERT INTO admins (Aname,Apassword) VALUES ('"+name+"','"+password+"')");
+                        writer.println("Admin added successfully");
+                    } catch (IOException | SQLException e) {
+                        System.out.println("Error in addAdmin : "+e.getMessage());
+                    }
+                }else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
                     writer.println(output);

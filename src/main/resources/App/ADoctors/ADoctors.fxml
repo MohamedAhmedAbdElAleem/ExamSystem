@@ -137,8 +137,10 @@
          <children>
             <TableView layoutX="17.0" layoutY="57.0" prefHeight="491.0" prefWidth="899.0" style="-fx-background-color: #1e1e1e;">
                <columns>
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn fx:id="IDColumn" prefWidth="75.0" text="ID" />
+                  <TableColumn fx:id="NameColumn" prefWidth="185.79995727539062" text="Name" />
+                  <TableColumn fx:id="SSNColumn" minWidth="2.20001220703125" prefWidth="93.39996337890625" text="SSN" />
+                  <TableColumn fx:id="BDColumn" prefWidth="140.5999755859375" text="Date of Birth" />
                </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="11.0" prefHeight="32.0" prefWidth="132.0" text="Doctors List" textAlignment="CENTER" textFill="WHITE">

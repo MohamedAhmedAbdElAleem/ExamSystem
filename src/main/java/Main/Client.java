@@ -122,4 +122,13 @@ public class Client {
         }
         return adminList;
     }
+
+    public void addAdmin(String name, String password) {
+        sendMessage("addAdmin");
+        sendMessage(name);
+        sendMessage(password);
+        String result = this.receiveMessage();
+        sendMessage("exit");
+
+    }
 }

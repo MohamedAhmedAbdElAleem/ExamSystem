@@ -151,14 +151,21 @@ public class AAdminsController {
         CourseButton.setOnAction(CoursesButtonClicked());
         DoctorsButton.setOnAction(DoctorsButtonClicked());
         AHomeButton.setOnAction(AHomeButtonClicked());
-        Client client = new Client();
-        client.sendMessage("getAdmins");
-        ObservableList<Admin> admins = client.getAdmins();
-        AdminsTable.setItems(admins);
+        ViewTableButtonClicked();
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("Aid"));
         NameColumn.setCellValueFactory(new PropertyValueFactory<>("Aname"));
     }
-
+    private void ViewTableButtonClicked() {
+            Client client = new Client();
+            client.sendMessage("getAdmins");
+            ObservableList<Admin> admins = null;
+            try {
+                admins = client.getAdmins();
+            } catch (IOException ex) {
+                System.out.println("Error in getting Admins");
+            }
+            AdminsTable.setItems(admins);
+    }
     private EventHandler<ActionEvent> AddAdminsButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AddAdmin/AddAdmin.fxml"));
@@ -176,6 +183,7 @@ public class AAdminsController {
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            ViewTableButtonClicked();
         };
     }
 
@@ -196,5 +204,17 @@ public class AAdminsController {
     private String username;
     public void setUsername(String username1) {
         this.username = username1;
+    }
+
+    public void refreshTable() {
+        Client client = new Client();
+        client.sendMessage("getAdmins");
+        ObservableList<Admin> admins = null;
+        try {
+            admins = client.getAdmins();
+        } catch (IOException e) {
+            System.out.println("Error in getting Admins");
+        }
+        AdminsTable.setItems(admins);
     }
 }

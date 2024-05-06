@@ -137,8 +137,8 @@
          <children>
             <TableView fx:id="AdminsTable" layoutX="17.0" layoutY="57.0" prefHeight="491.0" prefWidth="899.0" style="-fx-background-color: #1e1e1e;">
               <columns>
-                <TableColumn fx:id="IDColumn" prefWidth="75.0" text="ID" />
-                <TableColumn fx:id="NameColumn" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="IDColumn" prefWidth="101.20001220703125" text="ID" />
+                <TableColumn fx:id="NameColumn" prefWidth="229.0" text="Name" />
               </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="11.0" prefHeight="32.0" prefWidth="133.0" text="Admins List" textAlignment="CENTER" textFill="WHITE">
