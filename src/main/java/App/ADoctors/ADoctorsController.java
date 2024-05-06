@@ -6,11 +6,16 @@ import App.AHome.AHomeController;
 import App.AddAdmin.AddAdminController;
 import App.AddDoctor.AddDoctorController;
 import App.AdminLogin.AdminLoginController;
+import App.AdminProfile.AdminProfileController;
 import App.DID.DIDController;
+<<<<<<< Updated upstream
 import Main.Admin;
 import Main.Client;
 import Main.Doctor;
 import javafx.collections.ObservableList;
+=======
+import App.Notification.NotificationController;
+>>>>>>> Stashed changes
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +32,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ADoctorsController {
+    @FXML
+    private Button Notification;
+    @FXML
+    private Button AdminProfile;
     @FXML
     private Button DeleteDoctor;
     @FXML
@@ -159,11 +168,55 @@ public class ADoctorsController {
         CourseButton.setOnAction(CoursesButtonClicked());
         AdminsButton.setOnAction(AdminsButtonClicked());
         AHomeButton.setOnAction(AHomeButtonClicked());
+<<<<<<< Updated upstream
         ViewTableButtonClicked();
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("Did"));
         NameColumn.setCellValueFactory(new PropertyValueFactory<>("Dname"));
         SSNColumn.setCellValueFactory(new PropertyValueFactory<>("Dssn"));
 
+=======
+        AdminProfile.setOnAction(AdminProfileButtonClicked());
+        Notification.setOnAction(NotificationButtonClicked());
+    }
+
+    private EventHandler<ActionEvent> NotificationButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Notification/Notification.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            NotificationController loginController = fxmlLoader.getController();
+//           //loginController.setUsername(Username);
+            loginController.setADoctorsController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
+    private EventHandler<ActionEvent> AdminProfileButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.AdminProfile.AdminProfileController.class.getResource("AdminProfile.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+                // Get the AAdminsController instance
+                AdminProfileController adminProfileController = fxmlLoader.getController();
+//                adminProfileController.setUsername(username1);
+                adminProfileController.setADoctorsController(this); // Pass reference to current controller
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+>>>>>>> Stashed changes
     }
 
     private EventHandler<ActionEvent> EditDeleteDoctorButtonClicked(String Process) {
