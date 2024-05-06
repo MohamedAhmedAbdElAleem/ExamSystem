@@ -7,6 +7,8 @@ import App.DHome.DHomeController;
 import App.DID.DIDController;
 import App.DQABank.DQABankController;
 import App.DoctorLogin.DoctorLoginController;
+import App.DoctorProfile.DoctorProfileController;
+import App.Notification.NotificationController;
 import App.SID.SIDController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,6 +23,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class DStudentController {
+    @FXML
+    private Button DoctorProfile;
+    @FXML
+    private Button Notification;
     @FXML
     private Button EditStudent;
     @FXML
@@ -148,8 +154,47 @@ public class DStudentController {
         AddStudent.setOnAction(AddStudentButtonClicked());
         EditStudent.setOnAction(EditDeleteStudentButtonClicked("Edit"));
         DeleteStudent.setOnAction(EditDeleteStudentButtonClicked("Delete"));
+        DoctorProfile.setOnAction(DoctorProfileButtonClicked());
+        Notification.setOnAction(NotificationButtonClicked());
     }
 
+    private EventHandler<ActionEvent> NotificationButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Notification/Notification.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            NotificationController loginController = fxmlLoader.getController();
+//           //loginController.setUsername(Username);
+            loginController.setDStudentController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
+    private EventHandler<ActionEvent> DoctorProfileButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DoctorProfile/DoctorProfile.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            DoctorProfileController loginController = fxmlLoader.getController();
+//           //loginController.setUsername(Username);
+            loginController.setDStudentController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
     private EventHandler<ActionEvent> EditDeleteStudentButtonClicked(String Process) {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SID/SID.fxml"));

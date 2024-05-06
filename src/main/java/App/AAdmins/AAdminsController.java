@@ -5,6 +5,8 @@ import App.ADoctors.ADoctorsController;
 import App.AID.AIDController;
 import App.AddAdmin.AddAdminController;
 import App.AdminLogin.AdminLoginController;
+import App.AdminProfile.AdminProfileController;
+import App.Notification.NotificationController;
 import App.Welcome.WelcomeController;
 import Main.Admin;
 import javafx.collections.ObservableList;
@@ -24,6 +26,10 @@ import App.AHome.AHomeController;
 import java.io.IOException;
 
 public class AAdminsController {
+    @FXML
+    private Button Notification;
+    @FXML
+    private Button AdminProfile;
     @FXML
     private Button AddAdmins;
     @FXML
@@ -155,7 +161,49 @@ public class AAdminsController {
         ViewTableButtonClicked();
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("Aid"));
         NameColumn.setCellValueFactory(new PropertyValueFactory<>("Aname"));
+        AdminProfile.setOnAction(AdminProfileButtonClicked());
+        Notification.setOnAction(NotificationButtonClicked());
     }
+
+    private EventHandler<ActionEvent> NotificationButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Notification/Notification.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            NotificationController loginController = fxmlLoader.getController();
+//           //loginController.setUsername(Username);
+            loginController.setAAdminsController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
+    private EventHandler<ActionEvent> AdminProfileButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.AdminProfile.AdminProfileController.class.getResource("AdminProfile.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+                // Get the AAdminsController instance
+                AdminProfileController adminProfileController = fxmlLoader.getController();
+//                adminProfileController.setUsername(username1);
+                adminProfileController.setAAdminsController(this); // Pass reference to current controller
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
     private void ViewTableButtonClicked() {
             Client client = new Client();
             client.sendMessage("getAdmins");

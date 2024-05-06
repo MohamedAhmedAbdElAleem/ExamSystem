@@ -5,6 +5,8 @@ import App.DExam.DExamController;
 import App.DQABank.DQABankController;
 import App.DStudent.DStudentController;
 import App.DoctorLogin.DoctorLoginController;
+import App.DoctorProfile.DoctorProfileController;
+import App.Notification.NotificationController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,11 +14,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class DHomeController {
+    @FXML
+    private Button DoctorProfile;
+    @FXML
+    private Button Notification;
     @FXML
     private Button LogOutButton;
     @FXML
@@ -126,7 +133,48 @@ public class DHomeController {
         ExamsButton.setOnAction(ExamsButtonClicked());
         BackButton.setOnAction(BackButtonClicked());
         QBankButton.setOnAction(QBankButtonClicked());
+        DoctorProfile.setOnAction(DoctorProfileButtonClicked());
+        Notification.setOnAction(NotificationButtonClicked());
     }
+
+    private EventHandler<ActionEvent> NotificationButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Notification/Notification.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            NotificationController loginController = fxmlLoader.getController();
+//           //loginController.setUsername(Username);
+            loginController.setDHomeController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
+    private EventHandler<ActionEvent> DoctorProfileButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DoctorProfile/DoctorProfile.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            DoctorProfileController loginController = fxmlLoader.getController();
+//           //loginController.setUsername(Username);
+            loginController.setDHomeController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
     private DStudentController dStudentController;
     public void setDStudentController(DStudentController dStudentController) {
         this.dStudentController = dStudentController;

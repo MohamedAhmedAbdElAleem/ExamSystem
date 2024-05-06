@@ -4,7 +4,9 @@ import App.ACourses.ACoursesController;
 import App.AdminLogin.AdminLoginController;
 import App.AAdmins.AAdminsController;
 import App.ADoctors.ADoctorsController;
+import App.AdminProfile.AdminProfileController;
 import App.DoctorLogin.DoctorLoginController;
+import App.Notification.NotificationController;
 import Main.Client;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,11 +16,16 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class AHomeController {
+
+    @FXML
+    private Button Notification;
     @FXML
     private Label AdminsNumber;
     @FXML
@@ -36,6 +43,8 @@ public class AHomeController {
     private String username1;
     @FXML
     private Label WelcomeLabel;
+    @FXML
+    private Button AdminProfile;
     private AdminLoginController adminLoginController;
     private ADoctorsController aDoctorsController;
 
@@ -131,8 +140,49 @@ public class AHomeController {
         setAdminsNumber(AdminsNumber);
         setDoctorsNumber(DoctorsNumber);
         setStudentsNumber(StudentsNumber);
-
+        AdminProfile.setOnAction(AdminProfileButtonClicked());
+        Notification.setOnAction(NotificationButtonClicked());
     }
+
+
+    private EventHandler<ActionEvent> NotificationButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Notification/Notification.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            NotificationController loginController = fxmlLoader.getController();
+//           //loginController.setUsername(Username);
+            loginController.setAHomeController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+    private EventHandler<ActionEvent> AdminProfileButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.AdminProfile.AdminProfileController.class.getResource("AdminProfile.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+                // Get the AAdminsController instance
+                AdminProfileController adminProfileController = fxmlLoader.getController();
+//                adminProfileController.setUsername(username1);
+                adminProfileController.setAHomeController(this); // Pass reference to current controller
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
     public void setAdminsNumber(String adminsNumber) {
 
         AdminsNumber.setText(adminsNumber);

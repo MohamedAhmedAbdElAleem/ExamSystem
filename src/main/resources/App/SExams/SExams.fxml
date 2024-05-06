@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.SExams.SExamsController">
+<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.SExams.SExamsController">
    <children>
       <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="140.0" prefWidth="1302.0" style="-fx-background-color: #202020;">
          <children>
@@ -15,22 +18,40 @@
                   <Font name="System Bold" size="40.0" />
                </font>
             </Label>
-            <ImageView fitHeight="62.0" fitWidth="81.0" layoutX="1201.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/StudentProfile.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
-            <ImageView fitHeight="62.0" fitWidth="81.0" layoutX="1116.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../Images/Notification.png" />
-               </image>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ImageView>
+            <HBox layoutX="1113.0" layoutY="35.0" prefHeight="62.0" prefWidth="159.0">
+               <children>
+                  <Button fx:id="Notification" mnemonicParsing="false" prefHeight="70.0" prefWidth="49.0" style="-fx-background-radius: 45; -fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fitHeight="62.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/Notification.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="StudentProfile" mnemonicParsing="false" prefHeight="70.0" prefWidth="83.0" style="-fx-background-radius: 45; -fx-background-color: transparent;">
+                     <graphic>
+                        <ImageView fitHeight="62.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../Images/StudentProfile.png" />
+                           </image>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="10.0" layoutY="4.0" prefHeight="140.0" prefWidth="275.0">
@@ -131,7 +152,23 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Button layoutX="1062.0" layoutY="252.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="49.0" style="-fx-background-radius: 45; -fx-background-color: transparent;" />
-      <Button layoutX="879.0" layoutY="301.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="49.0" style="-fx-background-radius: 45; -fx-background-color: transparent;" />
+      <Button fx:id="ChangePassword" layoutX="10.0" layoutY="517.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Change Password" textFill="#b0b0b0">
+         <font>
+            <Font name="Verdana Bold" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/BackOut.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="550.0" minWidth="450.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Notification.NotificationController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="58.0" layoutY="24.0" prefHeight="58.0" prefWidth="338.0" text="Notifications" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <Button fx:id="DoneButton" layoutX="108.0" layoutY="459.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #000000;" text="Done" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="16.0" layoutY="224.0" prefHeight="58.0" prefWidth="416.0" text="There is No Notification Now !" textAlignment="CENTER" textFill="#00ddff">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

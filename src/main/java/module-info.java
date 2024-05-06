@@ -127,4 +127,7 @@ module App {
 
     opens App.StudentProfile to javafx.fxml;
     exports App.StudentProfile;
+
+    opens App.Notification to javafx.fxml;
+    exports App.Notification;
 }
