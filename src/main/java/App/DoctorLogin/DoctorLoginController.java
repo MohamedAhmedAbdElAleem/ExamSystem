@@ -63,8 +63,6 @@ public class DoctorLoginController {
                 stage.setScene(scene);
                 stage.show();
             }
-            // Display the message from the server
-//            System.out.println(message);
             client.close();
         };
     }

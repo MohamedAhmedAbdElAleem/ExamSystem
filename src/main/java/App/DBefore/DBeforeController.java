@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,6 +37,8 @@ public class DBeforeController {
     private Button LogOutButton;
     @FXML
     private ComboBox<String> choice1;
+    @FXML
+    private Label WelcomeText;
     private String Id;
     public void setID(String id) {
         this.Id = id;
@@ -72,58 +75,12 @@ public class DBeforeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             DHomeController loginController = fxmlLoader.getController();
-//            loginController.setUsername(Username);
+            loginController.setUsername(Username);
             loginController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
 
-
-//            if (choice.equalsIgnoreCase("Advanced Programming Application")){
-//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AdvancedProgrammingApplication/AdvancedProgrammingApplication.fxml"));
-//                Scene scene = null;
-//                try {
-//                    scene = new Scene(fxmlLoader.load());
-//                } catch (IOException ex) {
-//                    System.out.println("Error in loading scene : "+ex.getMessage());
-//                }
-//                AdvancedProgrammingApplicationController loginController = fxmlLoader.getController();
-//                loginController.setUsername(Username);
-//                loginController.setDBeforeController(this);
-//                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
-//                stage.setScene(scene);
-//                stage.show();
-//            }
-//            else if (choice.equalsIgnoreCase("Data Structure")){
-//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DataStructure/DataStructure.fxml"));
-//                Scene scene = null;
-//                try {
-//                    scene = new Scene(fxmlLoader.load());
-//                } catch (IOException ex) {
-//                    System.out.println("Error in loading scene : "+ex.getMessage());
-//                }
-//                DataStructureController loginController = fxmlLoader.getController();
-//                loginController.setUsername(Username);
-//                loginController.setDBeforeController(this);
-//                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
-//                stage.setScene(scene);
-//                stage.show();
-//            }
-//            else if (choice.equalsIgnoreCase("Algorithms")){
-//                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Algorithms/Algorithms.fxml"));
-//                Scene scene = null;
-//                try {
-//                    scene = new Scene(fxmlLoader.load());
-//                } catch (IOException ex) {
-//                    System.out.println("Error in loading scene : "+ex.getMessage());
-//                }
-//                AlgorithmsController loginController = fxmlLoader.getController();
-//                loginController.setUsername(Username);
-//                loginController.setDBeforeController(this);
-//                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
-//                stage.setScene(scene);
-//                stage.show();
-//            }
         };
     }
     public void loadChoices(){
@@ -194,6 +151,7 @@ public class DBeforeController {
     private String Username;
     public void setUsername(String username) {
         this.Username = username;
+        WelcomeText.setText("Welcome "+username);
     }
     private DHomeController dHomeController;
     public void setDBeforeController(DHomeController dHomeController) {

@@ -293,7 +293,9 @@ public class ServerHandler implements Runnable {
             }
         }
     }
+    private void viewCoursesOfDoctor(String id){
 
+    }
     private boolean StudentLogin(String id, String password) {
         try {
             Statement statement = connection.createStatement();

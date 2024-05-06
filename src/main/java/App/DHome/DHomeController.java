@@ -14,12 +14,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class DHomeController {
+    @FXML
+    private Label WelcomeText;
     @FXML
     private Button DoctorProfile;
     @FXML
@@ -41,6 +44,7 @@ public class DHomeController {
     private String Username;
     public void setUsername(String username) {
         Username = username;
+        WelcomeText.setText("Welcome "+username);
     }
     private EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
@@ -84,9 +88,9 @@ public class DHomeController {
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-            DStudentController loginController = fxmlLoader.getController();
-//            loginController.setUsername(Username);
-            loginController.setDHomeController(this);
+            DStudentController dStudentController = fxmlLoader.getController();
+            dStudentController.setUsername(Username);
+            dStudentController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();

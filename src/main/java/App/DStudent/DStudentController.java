@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class DStudentController {
+    private String username;
     @FXML
     private Button DoctorProfile;
     @FXML
@@ -228,6 +229,10 @@ public class DStudentController {
     private DExamController dExamController;
     public void setDHomeController(DExamController dExamController) {
         this.dExamController = dExamController;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }
 

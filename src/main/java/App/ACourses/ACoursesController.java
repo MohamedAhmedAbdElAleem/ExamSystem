@@ -54,6 +54,11 @@ public class ACoursesController {
     private Button AdminsButton;
     @FXML
     private Button LogOutButton;
+    private String username1;
+
+    private AHomeController ahomeController;
+    private AAdminsController aAdminsController;
+    private ADoctorsController aDoctorsController;
     public EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AdminLogin/AdminLogin.fxml"));
@@ -132,8 +137,6 @@ public class ACoursesController {
             stage.show();
         };
     }
-
-
     public void initialize() {
         AddCourse.setOnAction(AddCourseButtonClicked());
         DoctorsButton.setOnAction(DoctorsButtonClicked());
@@ -149,7 +152,6 @@ public class ACoursesController {
         CcreditHoursColumn.setCellValueFactory(new PropertyValueFactory<>("CcreditHours"));
         DocIDColumn.setCellValueFactory(new PropertyValueFactory<>("DocID"));
     }
-
     private EventHandler<ActionEvent> NotificationButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Notification/Notification.fxml"));
@@ -168,7 +170,6 @@ public class ACoursesController {
             stage.showAndWait();
         };
     }
-
     private EventHandler<ActionEvent> AdminProfileButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(App.AdminProfile.AdminProfileController.class.getResource("AdminProfile.fxml"));
@@ -188,7 +189,6 @@ public class ACoursesController {
             stage.showAndWait();
         };
     }
-
     private void viewCourses() {
         Client client = new Client();
         client.sendMessage("viewCourses");
@@ -196,7 +196,6 @@ public class ACoursesController {
         courses = client.getCourses();
         CoursesTable.setItems(courses);
     }
-
     private EventHandler<ActionEvent> DeleteCourseButtonClicked() {
         return e -> {
             // Load the AddCourse.fxml file
@@ -221,7 +220,6 @@ public class ACoursesController {
             viewCourses();
         };
     }
-
     private EventHandler<ActionEvent> AddCourseButtonClicked() {
         return e -> {
             // Load the AddCourse.fxml file
@@ -246,22 +244,15 @@ public class ACoursesController {
             viewCourses();
         };
     }
-
-    private AHomeController ahomeController;
     public void setAHomeController(AHomeController aHomeController) {
         this.ahomeController = aHomeController;
     }
-
-    private AAdminsController aAdminsController;
     public void setAHomeController(AAdminsController aAdminsController) {
         this.aAdminsController = aAdminsController;
     }
-
-    private ADoctorsController aDoctorsController;
     public void setAHomeController(ADoctorsController aDoctorsController) {
         this.aDoctorsController = aDoctorsController;
     }
-    private String username1;
     public void setUsername(String username1) {
         this.username1 = username1;
     }
