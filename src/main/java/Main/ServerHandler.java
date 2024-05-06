@@ -205,7 +205,59 @@ public class ServerHandler implements Runnable {
                     } catch (SQLException e) {
                         System.out.println("Error in editDoctor : "+e.getMessage());
                     }
-                }else{
+                }else if (input.equalsIgnoreCase("viewCourses"))
+                {
+                    Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM courses");
+                    while (resultSet.next())
+                    {
+                        writer.println(resultSet.getString("Cid"));
+                        writer.println(resultSet.getString("Cname"));
+                        writer.println(resultSet.getString("CcreditHours"));
+                        writer.println(resultSet.getString("DocID"));
+                    }
+                    writer.println("end");
+                }else if (input.equalsIgnoreCase("addCourse"))
+                {
+                    String Cname = reader.readLine();
+                    String CcreditHours = reader.readLine();
+                    String DocID = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("INSERT INTO courses (Cname,CcreditHours,DocID) VALUES ('"+Cname+"','"+CcreditHours+"','"+DocID+"')");
+                        writer.println("Course added successfully");
+                    } catch (SQLException e) {
+                        System.out.println("Error in addCourse : "+e.getMessage());
+                    }
+                }else if (input.equalsIgnoreCase("checkCourseId"))
+                {
+                    String id = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM courses WHERE Cid = '"+id+"'");
+                        if (resultSet.next())
+                        {
+                            writer.println("true");
+//                            writer.println(resultSet.getString("Cname"));
+//                            writer.println(resultSet.getString("CcreditHours"));
+//                            writer.println(resultSet.getString("DocID"));
+                        }else{
+                            writer.println("false");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("Error in checkCourseId : "+e.getMessage());
+                    }
+                }else if (input.equalsIgnoreCase("deleteCourse"))
+                {
+                    String id = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("DELETE FROM courses WHERE Cid = '"+id+"'");
+                        writer.println("Course deleted successfully");
+                    } catch (SQLException e) {
+                        System.out.println("Error in deleteCourse : "+e.getMessage());
+                    }
+                } else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
                     writer.println(output);

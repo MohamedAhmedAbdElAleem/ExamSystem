@@ -4,41 +4,40 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
-    private int courseId;
-    private String name;
-    private List<Exam> exams;
+    private String Cid;
+    private String Cname;
+    private String CcreditHours;
+    private String DocID;
 
-    public Course(int courseId, String name) {
-        this.courseId = courseId;
-        this.name = name;
-        this.exams = new ArrayList<>();
+    public String getCid() {
+        return Cid;
     }
 
-    public void addExam(Exam exam) {
-        exams.add(exam);
+    public void setCid(String cid) {
+        Cid = cid;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public String getCname() {
+        return Cname;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setCname(String cname) {
+        Cname = cname;
     }
 
-    public String getName() {
-        return name;
+    public String getCcreditHours() {
+        return CcreditHours;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCcreditHours(String ccreditHours) {
+        CcreditHours = ccreditHours;
     }
 
-    public List<Exam> getExams() {
-        return exams;
+    public String getDocID() {
+        return DocID;
     }
 
-    public void setExams(List<Exam> exams) {
-        this.exams = exams;
+    public void setDocID(String docID) {
+        DocID = docID;
     }
 }
