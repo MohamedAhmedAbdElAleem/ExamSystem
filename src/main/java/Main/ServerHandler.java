@@ -39,33 +39,71 @@ public class ServerHandler implements Runnable {
                 }
                 if(input.equalsIgnoreCase("LogIn")) {
                     String Status = reader.readLine();
-//                    System.out.println("LogIn request for : "+Status);
-                        String username = reader.readLine();
+                        String id = reader.readLine();
                         String password = reader.readLine();
-                        Boolean output = LogIn(username, password, Status);
-                        writer.println(output);
-                        if(output)
-                            writer.println(username1);
-//                        System.out.println(output + " for user : "+username);
+                        if (Status.equalsIgnoreCase("Admin"))
+                        {
+                            boolean output = AdminLogIn(id, password);
+                            writer.println(output);
+                            if(output)
+                                writer.println(username1);
+                        }else if (Status.equalsIgnoreCase("Doctor"))
+                        {
+                            boolean output = DoctorLogin(id, password);
+                            writer.println(output);
+                            if(output)
+                                writer.println(username1);
+                        }
+                        else if (Status.equalsIgnoreCase("Student"))
+                        {
+                            boolean output = StudentLogin(id, password);
+                            writer.println(output);
+                            if(output)
+                                writer.println(username1);
+                        }
                 }else if (input.equalsIgnoreCase("register"))
                 {
                     String username = reader.readLine();
                     String password = reader.readLine();
                     String Status = reader.readLine();
-                    if(IsAlreadyRegistered(username)){
-                        writer.println("User already registered");
-                        continue;
-                    }
-                    String output = register(username, password, Status);
-                    System.out.println("User registered : "+username);
-                    writer.println("User registered");
-
                 }else if (input.equalsIgnoreCase("getAdminDashBoardNumbers"))
                 {
                     getAdminDashBoardNumbers();
                     writer.println(AdminsNumber);
                     writer.println(DoctorsNumber);
                     writer.println(StudentsNumber);
+                }else if (input.equalsIgnoreCase("getAdmins"))
+                {
+                    Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM admins");
+                    while (resultSet.next())
+                    {
+                        writer.println(resultSet.getString("Aid"));
+                        writer.println(resultSet.getString("Aname"));
+                    }
+                    writer.println("end");
+                }else if (input.equalsIgnoreCase("getDoctors"))
+                {
+                    Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors");
+                    while (resultSet.next())
+                    {
+                        writer.println(resultSet.getString("Did"));
+                        writer.println(resultSet.getString("Dname"));
+                        writer.println(resultSet.getString("Dpassword"));
+                    }
+                    writer.println("end");
+                }else if (input.equalsIgnoreCase("getStudents"))
+                {
+                    Statement statement = connection.createStatement();
+                    ResultSet resultSet = statement.executeQuery("SELECT * FROM students");
+                    while (resultSet.next())
+                    {
+                        writer.println(resultSet.getString("Sid"));
+                        writer.println(resultSet.getString("Sname"));
+                        writer.println(resultSet.getString("Spassword"));
+                    }
+                    writer.println("end");
                 } else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
@@ -83,54 +121,67 @@ public class ServerHandler implements Runnable {
         }
     }
 
+    private boolean StudentLogin(String id, String password) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid = '"+id+"' AND Spassword = '"+password+"'");
+            if (resultSet.next())
+            {
+                username1 = resultSet.getString("Sname");
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in StudentLogin : "+e.getMessage());
+        }
+        return false;
+    }
+
+    private boolean DoctorLogin(String id, String password) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors WHERE Did = '"+id+"' AND Dpassword = '"+password+"'");
+            if (resultSet.next())
+            {
+                username1 = resultSet.getString("Dname");
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in DoctorLogin : "+e.getMessage());
+        }
+        return false;
+    }
+
+    private boolean AdminLogIn(String id, String password) {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM admins WHERE Aid = '"+id+"' AND Apassword = '"+password+"'");
+            if (resultSet.next())
+            {
+                username1 = resultSet.getString("Aname");
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error in AdminLogIn : "+e.getMessage());
+        }
+        return false;
+    }
+
     private String processInput(String input) throws SQLException {
         return input;
     }
-    private String LogIn(String Uid,String password) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE UID = '" + Uid + "' AND UPassword = '" + password + "'");
-        if (resultSet.next()) {
-            return "Login Successful state : "+resultSet.getString("status");
-        } else {
-            return "Login Failed";
-        }
 
-    }
-    private boolean LogIn(String Uid,String password,String Status) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE UID = '" + Uid + "' AND UPassword = '" + password + "'");
-        if (resultSet.next()) {
-            if (resultSet.getString("status").equalsIgnoreCase(Status)){
-                username1 = resultSet.getString("UName");
-                return true;
-            }
-        }
-            return false;
-
-    }
-    private String register(String username,String password,String Status) throws SQLException {
-        System.out.println("Register request for user : "+username);
-        Statement statement = connection.createStatement();
-        statement.executeUpdate("INSERT INTO users (UName, UPassword, status) VALUES ('" + username + "', '" + password + "', '" + Status + "')");
-        return "User registered";
-    }
-    private boolean IsAlreadyRegistered(String username) throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM users WHERE UName = '" + username + "'");
-        return resultSet.next();
-    }
     int AdminsNumber;
     int DoctorsNumber;
     int StudentsNumber;
     private void getAdminDashBoardNumbers() throws SQLException {
         Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM users WHERE status = 'Admin'");
+        ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM admins");
         resultSet.next();
         AdminsNumber = resultSet.getInt(1);
-        resultSet = statement.executeQuery("SELECT COUNT(*) FROM users WHERE status = 'Doctor'");
+        resultSet = statement.executeQuery("SELECT COUNT(*) FROM doctors");
         resultSet.next();
         DoctorsNumber = resultSet.getInt(1);
-        resultSet = statement.executeQuery("SELECT COUNT(*) FROM users WHERE status = 'Student'");
+        resultSet = statement.executeQuery("SELECT COUNT(*) FROM students");
         resultSet.next();
         StudentsNumber = resultSet.getInt(1);
     }

@@ -4,6 +4,7 @@ module App {
     requires java.sql;
     exports Main to javafx.graphics;
 
+    opens Main to javafx.fxml, javafx.base;
     opens App.AdminLogin to javafx.fxml;
     exports App.AdminLogin;
 

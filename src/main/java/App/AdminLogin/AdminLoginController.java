@@ -31,16 +31,17 @@ public class AdminLoginController {
     private Button BackButton;
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
-            String username = UID.getText();
+            String id = UID.getText();
             String password = UPassword.getText();
             // Send the username and password to the server
             Client client = new Client();
             client.sendMessage("login");
             client.sendMessage("Admin");
-            client.sendMessage(username);
+            client.sendMessage(id);
             client.sendMessage(password);
             String message = client.receiveMessage();
             if (message.equalsIgnoreCase("true")){
+
                 String username1 = client.receiveMessage();
                 Username = username1;
 //                System.out.println("Login Successful for user : "+username1);
