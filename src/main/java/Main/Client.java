@@ -170,4 +170,13 @@ public class Client {
         sendMessage("exit");
         return Boolean.parseBoolean(result);
     }
+
+    public void editAdmin(String id, String name, String password) {
+        sendMessage("editAdmin");
+        sendMessage(id);
+        sendMessage(name);
+        sendMessage(password);
+        String result = this.receiveMessage();
+        System.out.println(result);
+    }
 }
