@@ -8,14 +8,11 @@ import App.AddDoctor.AddDoctorController;
 import App.AdminLogin.AdminLoginController;
 import App.AdminProfile.AdminProfileController;
 import App.DID.DIDController;
-<<<<<<< Updated upstream
 import Main.Admin;
 import Main.Client;
 import Main.Doctor;
 import javafx.collections.ObservableList;
-=======
 import App.Notification.NotificationController;
->>>>>>> Stashed changes
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -168,13 +165,10 @@ public class ADoctorsController {
         CourseButton.setOnAction(CoursesButtonClicked());
         AdminsButton.setOnAction(AdminsButtonClicked());
         AHomeButton.setOnAction(AHomeButtonClicked());
-<<<<<<< Updated upstream
         ViewTableButtonClicked();
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("Did"));
         NameColumn.setCellValueFactory(new PropertyValueFactory<>("Dname"));
         SSNColumn.setCellValueFactory(new PropertyValueFactory<>("Dssn"));
-
-=======
         AdminProfile.setOnAction(AdminProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
     }
@@ -216,7 +210,6 @@ public class ADoctorsController {
             stage.setScene(scene);
             stage.showAndWait();
         };
->>>>>>> Stashed changes
     }
 
     private EventHandler<ActionEvent> EditDeleteDoctorButtonClicked(String Process) {
