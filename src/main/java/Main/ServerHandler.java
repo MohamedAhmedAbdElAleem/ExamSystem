@@ -156,7 +156,55 @@ public class ServerHandler implements Runnable {
                     } catch (SQLException e) {
                         System.out.println("Error in editAdmin : "+e.getMessage());
                     }
-
+                }else if (input.equalsIgnoreCase("addDoctor")) {
+                    System.out.println("addDoctor");
+                    try {
+                        String name = reader.readLine();
+                        String password = reader.readLine();
+                        String ssn = reader.readLine();
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("INSERT INTO doctors (Dname,Dpassword,Dssn,DbirthDate) VALUES ('" + name + "','" + password + "','" + ssn + "','2020-01-01')");
+                        writer.println("Doctor added successfully");
+                    } catch (IOException | SQLException e) {
+                        System.out.println("Error in addDoctor : " + e.getMessage());
+                    }
+                } else if(input.equalsIgnoreCase("checkDoctorId")) {
+                    String id = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors WHERE Did = '" + id + "'");
+                        if (resultSet.next()) {
+                            writer.println("true");
+                            writer.println(resultSet.getString("Dname"));
+                            writer.println(resultSet.getString("Dpassword"));
+                            writer.println(resultSet.getString("Dssn"));
+                        } else {
+                            writer.println("false");
+                        }
+                    } catch (SQLException e) {
+                        System.out.println("Error in checkDoctorId : " + e.getMessage());
+                    }
+                }else if (input.equalsIgnoreCase("deleteDoctor")) {
+                    String id = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("DELETE FROM doctors WHERE Did = '" + id + "'");
+                        writer.println("Doctor deleted successfully");
+                    } catch (SQLException e) {
+                        System.out.println("Error in deleteDoctor : " + e.getMessage());
+                    }
+                }else if (input.equalsIgnoreCase("editDoctor")){
+                    String id = reader.readLine();
+                    String name = reader.readLine();
+                    String password = reader.readLine();
+                    String ssn = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate("UPDATE doctors SET Dname = '"+name+"', Dpassword = '"+password+"', Dssn = '"+ssn+"' WHERE Did = '"+id+"'");
+                        writer.println("Doctor edited successfully");
+                    } catch (SQLException e) {
+                        System.out.println("Error in editDoctor : "+e.getMessage());
+                    }
                 }else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);

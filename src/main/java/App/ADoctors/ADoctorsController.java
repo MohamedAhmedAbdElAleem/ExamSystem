@@ -124,15 +124,15 @@ public class ADoctorsController {
             stage.show();
         };
     }
-    private EventHandler<ActionEvent> AddAdminsButtonClicked() {
+    private EventHandler<ActionEvent> AddDoctorButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AddDoctor/AddDoctor.fxml"));
             Scene scene = null;
             try {
                 scene = new Scene(fxmlLoader.load());
                 AddDoctorController addAdminsController = fxmlLoader.getController();
-                addAdminsController.setUsername(username1);
                 addAdminsController.setAAdminsController(this);
+                addAdminsController.setUsername(username1);
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
@@ -141,6 +141,7 @@ public class ADoctorsController {
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            ViewTableButtonClicked();
         };
     }
     private void ViewTableButtonClicked() {
@@ -151,7 +152,7 @@ public class ADoctorsController {
         DoctorsTable.setItems(doctors);
     }
     public void initialize() {
-        AddDoctor.setOnAction(AddAdminsButtonClicked());
+        AddDoctor.setOnAction(AddDoctorButtonClicked());
         EditDoctor.setOnAction(EditDeleteDoctorButtonClicked("Edit"));
         DeleteDoctor.setOnAction(EditDeleteDoctorButtonClicked("Delete"));
         LogOutButton.setOnAction(LogOutButtonClicked());
@@ -183,6 +184,7 @@ public class ADoctorsController {
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            ViewTableButtonClicked();
         };
     }
 

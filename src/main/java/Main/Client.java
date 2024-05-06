@@ -16,7 +16,7 @@ public class Client {
 
     public Client() {
         try {
-            socket = new Socket("192.168.1.5", 8080);
+            socket = new Socket("localhost", 8080);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         } catch (IOException e) {
