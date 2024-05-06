@@ -7,10 +7,13 @@ import App.AddCourse.AddCourseController;
 import App.AdminLogin.AdminLoginController;
 import App.AdminProfile.AdminProfileController;
 import App.CID.CIDController;
+<<<<<<< Updated upstream
 import App.Notification.NotificationController;
+=======
 import Main.Client;
 import Main.Course;
 import javafx.collections.ObservableList;
+>>>>>>> Stashed changes
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -29,9 +32,11 @@ import java.util.PropertyResourceBundle;
 
 public class ACoursesController {
     @FXML
+<<<<<<< Updated upstream
     private Button Notification;
     @FXML
     private Button AdminProfile;
+=======
     private TableView<Course> CoursesTable;
     @FXML
     private TableColumn<Course, String> CidColumn;
@@ -42,6 +47,7 @@ public class ACoursesController {
     @FXML
     private TableColumn<Course, String> DocIDColumn;
 
+>>>>>>> Stashed changes
     @FXML
     private Button DeleteCourse;
     @FXML
@@ -141,6 +147,7 @@ public class ACoursesController {
         LogOutButton.setOnAction(LogOutButtonClicked());
         AHomeButton.setOnAction(AHomeButtonClicked());
         DeleteCourse.setOnAction(DeleteCourseButtonClicked());
+<<<<<<< Updated upstream
         AdminProfile.setOnAction(AdminProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
     }
@@ -182,6 +189,7 @@ public class ACoursesController {
             stage.setScene(scene);
             stage.showAndWait();
         };
+=======
         viewCourses();
         CidColumn.setCellValueFactory(new PropertyValueFactory<>("Cid"));
         CnameColumn.setCellValueFactory(new PropertyValueFactory<>("Cname"));
@@ -195,6 +203,7 @@ public class ACoursesController {
         ObservableList<Course> courses = null;
         courses = client.getCourses();
         CoursesTable.setItems(courses);
+>>>>>>> Stashed changes
     }
 
     private EventHandler<ActionEvent> DeleteCourseButtonClicked() {
