@@ -2,10 +2,7 @@ package Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -13,12 +10,17 @@ public class Client {
     private Socket socket;
     private PrintWriter out;
     private BufferedReader in;
+    private ObjectInputStream objectInputStream;
+    private ObjectOutputStream objectOutputStream;
+
 
     public Client() {
         try {
             socket = new Socket("localhost", 8080);
             out = new PrintWriter(socket.getOutputStream(), true);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            objectInputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             System.out.println("Error in client : "+e.getMessage());
         }
@@ -212,66 +214,37 @@ public class Client {
     }
     public ObservableList<Course> getCourses() {
         ObservableList<Course> courseList = FXCollections.observableArrayList();
-        String line = null;
         try {
-            line = in.readLine();
-            while (line != null && !line.equalsIgnoreCase("end")) {
-                Course course = new Course();
-                course.setCid(line); // Assume the first line is the Cid
-                line = in.readLine(); // Read the next line
-                if (line != null && !line.equalsIgnoreCase("end")) {
-                    course.setCname(line); // Assume the second line is the Cname
-                    line = in.readLine(); // Read the next line
-                    if (line != null && !line.equalsIgnoreCase("end")) {
-                        course.setCcreditHours(line); // Assume the third line is the CcreditHours
-                        line = in.readLine(); // Read the next line
-                        if (line != null && !line.equalsIgnoreCase("end")) {
-                            course.setDocID(line); // Assume the fourth line is the DocID
-                            courseList.add(course); // Add the course to the list
-                            line = in.readLine(); // Read the next line
-                        }
-                    }
+            while (true) {
+                Course line = null;
+                try {
+                    line = (Course) objectInputStream.readObject();
+                } catch (IOException e) {
+                    break;
                 }
+                courseList.add(line);
             }
-        } catch (IOException e) {
-            System.out.println("Error in getting Courses");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error in getting Courses: " + e.getMessage());
         }
         return courseList;
     }
 
-    public ObservableList<String> getSubjectList() {
-        ObservableList<String> subjectList = FXCollections.observableArrayList();
-        sendMessage("getSubjectList");
-
-
-        return subjectList;
-    }
-
     public ObservableList<Course> getCoursesOfDoctor() {
         ObservableList<Course> courseList = FXCollections.observableArrayList();
-        String line = null;
         try {
-            line = in.readLine();
-            while (line != null && !line.equalsIgnoreCase("end")) {
-                Course course = new Course();
-                course.setCid(line); // Assume the first line is the Cid
-                line = in.readLine(); // Read the next line
-                if (line != null && !line.equalsIgnoreCase("end")) {
-                    course.setCname(line); // Assume the second line is the Cname
-                    line = in.readLine(); // Read the next line
-                    if (line != null && !line.equalsIgnoreCase("end")) {
-                        course.setCcreditHours(line); // Assume the third line is the CcreditHours
-                        line = in.readLine(); // Read the next line
-                        if (line != null && !line.equalsIgnoreCase("end")) {
-                            course.setDocID(line); // Assume the fourth line is the DocID
-                            courseList.add(course); // Add the course to the list
-                            line = in.readLine(); // Read the next line
-                        }
-                    }
+            while (true) {
+
+                Course line = null;
+                try {
+                    line = (Course) objectInputStream.readObject();
+                } catch (IOException e) {
+                    break;
                 }
+                courseList.add(line);
             }
-        } catch (IOException e) {
-            System.out.println("Error in getting Courses");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error in getting Courses: " + e.getMessage());
         }
         return courseList;
     }

@@ -1,8 +1,5 @@
 package Main;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,6 +11,7 @@ public class ServerHandler implements Runnable {
     private Socket clientSocket;
     private Connection connection;
     private String username1;
+    private Course course;
 
     public ServerHandler(Socket clientSocket, Connection connection) {
         this.clientSocket = clientSocket;
@@ -24,7 +22,8 @@ public class ServerHandler implements Runnable {
     public void run() {
         try (
                 BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-//                BufferedReader reader2 = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                ObjectInputStream objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
                 PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true)
         ) {
             String input;
@@ -211,10 +210,12 @@ public class ServerHandler implements Runnable {
                     ResultSet resultSet = statement.executeQuery("SELECT * FROM courses");
                     while (resultSet.next())
                     {
-                        writer.println(resultSet.getString("Cid"));
-                        writer.println(resultSet.getString("Cname"));
-                        writer.println(resultSet.getString("CcreditHours"));
-                        writer.println(resultSet.getString("DocID"));
+                        course = new Course();
+                        course.setCid(resultSet.getString("Cid"));
+                        course.setCname(resultSet.getString("Cname"));
+                        course.setCcreditHours(resultSet.getString("CcreditHours"));
+                        course.setDocID(resultSet.getString("DocID"));
+                        objectOutputStream.writeObject(course);
                     }
                     writer.println("end");
                 }else if (input.equalsIgnoreCase("viewCoursesOfDoctor"))
@@ -225,10 +226,12 @@ public class ServerHandler implements Runnable {
                         ResultSet resultSet = statement.executeQuery("SELECT * FROM courses WHERE DocID = '"+id+"'");
                         while (resultSet.next())
                         {
-                            writer.println(resultSet.getString("Cid"));
-                            writer.println(resultSet.getString("Cname"));
-                            writer.println(resultSet.getString("CcreditHours"));
-                            writer.println(resultSet.getString("DocID"));
+                            course = new Course();
+                            course.setCid(resultSet.getString("Cid"));
+                            course.setCname(resultSet.getString("Cname"));
+                            course.setCcreditHours(resultSet.getString("CcreditHours"));
+                            course.setDocID(resultSet.getString("DocID"));
+                            objectOutputStream.writeObject(course);
                         }
                         writer.println("end");
                     } catch (SQLException e) {

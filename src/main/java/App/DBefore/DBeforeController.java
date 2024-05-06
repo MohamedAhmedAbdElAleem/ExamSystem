@@ -141,7 +141,6 @@ public class DBeforeController {
     }
     @FXML
     public void initialize() {
-        loadChoices();
         LogOutButton.setOnAction(LogOutButtonClicked());
         ContinueButton.setOnAction(ContinueButtonClicked());
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
