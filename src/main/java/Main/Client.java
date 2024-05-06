@@ -1,4 +1,7 @@
 package Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -104,4 +107,19 @@ public class Client {
                 && !username.contains("'") && !password.contains("'");
     }
 
+    public ObservableList<Admin> getAdmins() throws IOException {
+        ObservableList<Admin> adminList = FXCollections.observableArrayList();
+        String line = in.readLine();
+        while (line != null && !line.equalsIgnoreCase("end")) {
+            Admin admin = new Admin();
+            admin.setAid(Integer.parseInt(line)); // Assume the first line is the Aid
+            line = in.readLine(); // Read the next line
+            if (line != null && !line.equalsIgnoreCase("end")) {
+                admin.setAname(line); // Assume the second line is the Aname
+                adminList.add(admin); // Add the admin to the list
+                line = in.readLine(); // Read the next line
+            }
+        }
+        return adminList;
+    }
 }

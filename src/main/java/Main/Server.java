@@ -17,7 +17,7 @@ public class Server {
         try {
             serverSocket = new ServerSocket(8080);
             threadPool = Executors.newFixedThreadPool(1000); // Use a fixed-size thread pool with 1000 threads
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ali", "root", "ialy24405");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/exam", "root", "ialy24405");
         } catch (IOException | SQLException e) {
             System.out.println("Error in server : "+e.getMessage());
         }

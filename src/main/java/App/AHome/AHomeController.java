@@ -126,11 +126,8 @@ public class AHomeController {
         Client client = new Client();
         client.sendMessage("getAdminDashBoardNumbers");
         String AdminsNumber = client.receiveMessage();
-//        System.out.println(AdminsNumber);
         String DoctorsNumber = client.receiveMessage();
-//        System.out.println(DoctorsNumber);
         String StudentsNumber = client.receiveMessage();
-//        System.out.println(StudentsNumber);
         setAdminsNumber(AdminsNumber);
         setDoctorsNumber(DoctorsNumber);
         setStudentsNumber(StudentsNumber);

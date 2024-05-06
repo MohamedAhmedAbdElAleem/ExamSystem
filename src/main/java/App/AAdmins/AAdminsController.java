@@ -6,17 +6,21 @@ import App.AID.AIDController;
 import App.AddAdmin.AddAdminController;
 import App.AdminLogin.AdminLoginController;
 import App.Welcome.WelcomeController;
+import Main.Admin;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import Main.Client;
+<<<<<<< HEAD
 import javafx.stage.Modality;
+=======
+import javafx.scene.control.cell.PropertyValueFactory;
+>>>>>>> 9aa152d14ce8f318fe28fe5a0a349a0af65c2d4c
 import javafx.stage.Stage;
 import App.AHome.AHomeController;
 
@@ -37,6 +41,13 @@ public class AAdminsController {
     private Button CourseButton;
     @FXML
     private Button LogOutButton;
+    @FXML
+    private TableView<Admin> AdminsTable;
+    @FXML
+    private TableColumn<Admin, Integer> IDColumn;
+    @FXML
+    private TableColumn<Admin, String> NameColumn;
+
     public EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AdminLogin/AdminLogin.fxml"));
@@ -135,7 +146,7 @@ public class AAdminsController {
             stage.showAndWait();
         };
     }
-    public void initialize() {
+    public void initialize() throws IOException {
         AddAdmins.setOnAction(AddAdminsButtonClicked());
         EditAdmins.setOnAction(EditDeleteAdminsButtonClicked("Edit"));
         DeleteAdmins.setOnAction(EditDeleteAdminsButtonClicked("Delete"));
@@ -143,6 +154,12 @@ public class AAdminsController {
         CourseButton.setOnAction(CoursesButtonClicked());
         DoctorsButton.setOnAction(DoctorsButtonClicked());
         AHomeButton.setOnAction(AHomeButtonClicked());
+        Client client = new Client();
+        client.sendMessage("getAdmins");
+        ObservableList<Admin> admins = client.getAdmins();
+        AdminsTable.setItems(admins);
+        IDColumn.setCellValueFactory(new PropertyValueFactory<>("Aid"));
+        NameColumn.setCellValueFactory(new PropertyValueFactory<>("Aname"));
     }
 
     private EventHandler<ActionEvent> AddAdminsButtonClicked() {
