@@ -16,11 +16,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import Main.Client;
-<<<<<<< HEAD
 import javafx.stage.Modality;
-=======
 import javafx.scene.control.cell.PropertyValueFactory;
->>>>>>> 9aa152d14ce8f318fe28fe5a0a349a0af65c2d4c
 import javafx.stage.Stage;
 import App.AHome.AHomeController;
 
