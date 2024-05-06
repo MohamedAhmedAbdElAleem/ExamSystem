@@ -35,13 +35,13 @@ public class DoctorLoginController {
     private Button BackButton;
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
-            String username = UID.getText();
+            String id = UID.getText();
             String password = UPassword.getText();
             // Send the username and password to the server
             Client client = new Client();
             client.sendMessage("login");
             client.sendMessage("Doctor");
-            client.sendMessage(username);
+            client.sendMessage(id);
             client.sendMessage(password);
             String message = client.receiveMessage();
             if (message.equalsIgnoreCase("true")){
@@ -56,8 +56,9 @@ public class DoctorLoginController {
                     System.out.println("Error in loading scene : "+ex.getMessage());
                 }
                 DBeforeController loginController = fxmlLoader.getController();
-                loginController.setUsername(username1);
                 loginController.setAdminLoginController(this);
+                loginController.setUsername(username1);
+                loginController.setID(id);
                 Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
                 stage.setScene(scene);
                 stage.show();

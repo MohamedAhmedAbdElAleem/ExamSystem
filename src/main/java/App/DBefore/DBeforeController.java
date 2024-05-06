@@ -7,7 +7,10 @@ import App.DStudent.DStudentController;
 import App.DoctorLogin.DoctorLoginController;
 import App.DoctorProfile.DoctorProfileController;
 import App.Notification.NotificationController;
+import Main.Client;
+import Main.Course;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,7 +36,11 @@ public class DBeforeController {
     private Button LogOutButton;
     @FXML
     private ComboBox<String> choice1;
-
+    private String Id;
+    public void setID(String id) {
+        this.Id = id;
+        loadChoices();
+    }
     private EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DoctorLogin/DoctorLogin.fxml"));
@@ -119,10 +126,22 @@ public class DBeforeController {
 //            }
         };
     }
+    public void loadChoices(){
+        Client client = new Client();
+        client.sendMessage("viewCoursesOfDoctor");
+        client.sendMessage(Id);
+        ObservableList<Course> courses = null;
+        courses = client.getCoursesOfDoctor();
+        ObservableList<String> courseNames = FXCollections.observableArrayList();
+        for (Course course : courses){
+            courseNames.add(course.getCname());
+        }
+        choice1.setItems(courseNames);
+//        choice1.getItems().add("Algorithms");
+    }
     @FXML
     public void initialize() {
-        choice1.setItems(FXCollections.observableArrayList("Advanced Programming Application", "Data Structure"));
-        choice1.getItems().add("Algorithms");
+        loadChoices();
         LogOutButton.setOnAction(LogOutButtonClicked());
         ContinueButton.setOnAction(ContinueButtonClicked());
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
@@ -196,4 +215,5 @@ public class DBeforeController {
     public void setDBeforeController(DExamController dExamController) {
         this.dExamController = dExamController;
     }
+
 }

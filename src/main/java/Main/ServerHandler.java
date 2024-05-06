@@ -217,6 +217,23 @@ public class ServerHandler implements Runnable {
                         writer.println(resultSet.getString("DocID"));
                     }
                     writer.println("end");
+                }else if (input.equalsIgnoreCase("viewCoursesOfDoctor"))
+                {
+                    String id = reader.readLine();
+                    try {
+                        Statement statement = connection.createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM courses WHERE DocID = '"+id+"'");
+                        while (resultSet.next())
+                        {
+                            writer.println(resultSet.getString("Cid"));
+                            writer.println(resultSet.getString("Cname"));
+                            writer.println(resultSet.getString("CcreditHours"));
+                            writer.println(resultSet.getString("DocID"));
+                        }
+                        writer.println("end");
+                    } catch (SQLException e) {
+                        System.out.println("Error in viewCoursesOfDoctor : "+e.getMessage());
+                    }
                 }else if (input.equalsIgnoreCase("addCourse"))
                 {
                     String Cname = reader.readLine();

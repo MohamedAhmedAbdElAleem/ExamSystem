@@ -3,7 +3,7 @@ package Main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course {
+public class Course implements java.io.Serializable{
     private String Cid;
     private String Cname;
     private String CcreditHours;
