@@ -179,4 +179,33 @@ public class Client {
         String result = this.receiveMessage();
         System.out.println(result);
     }
+
+    public ObservableList<Doctor> getDoctors() {
+        ObservableList<Doctor> doctorList = FXCollections.observableArrayList();
+        String line = null;
+        try {
+            line = in.readLine();
+        while (line != null && !line.equalsIgnoreCase("end")) {
+            Doctor doctor = new Doctor();
+            doctor.setDid(line); // Assume the first line is the Did
+            line = in.readLine(); // Read the next line
+            if (line != null && !line.equalsIgnoreCase("end")) {
+                doctor.setDname(line); // Assume the second line is the Dname
+                line = in.readLine(); // Read the next line
+                if (line != null && !line.equalsIgnoreCase("end")) {
+                    doctor.setDpassword(line); // Assume the third line is the Dpassword
+                    line = in.readLine(); // Read the next line
+                    if (line != null && !line.equalsIgnoreCase("end")) {
+                        doctor.setDssn(line); // Assume the fourth line is the Dssn
+                        doctorList.add(doctor); // Add the doctor to the list
+                        line = in.readLine(); // Read the next line
+                    }
+                }
+            }
+        }
+        } catch (IOException e) {
+            System.out.println("Error in getting Doctors");
+        }
+        return doctorList;
+    }
 }

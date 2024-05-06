@@ -7,6 +7,10 @@ import App.AddAdmin.AddAdminController;
 import App.AddDoctor.AddDoctorController;
 import App.AdminLogin.AdminLoginController;
 import App.DID.DIDController;
+import Main.Admin;
+import Main.Client;
+import Main.Doctor;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +18,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -34,6 +41,15 @@ public class ADoctorsController {
     private Button AdminsButton;
     @FXML
     private Button LogOutButton;
+    @FXML
+    private TableView<Doctor> DoctorsTable;
+    @FXML
+    private TableColumn<Doctor, String> IDColumn;
+    @FXML
+    private TableColumn<Doctor, String> NameColumn;
+    @FXML
+    private TableColumn<Doctor, String> SSNColumn;
+
     public EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AdminLogin/AdminLogin.fxml"));
@@ -127,7 +143,13 @@ public class ADoctorsController {
             stage.showAndWait();
         };
     }
-
+    private void ViewTableButtonClicked() {
+        Client client = new Client();
+        client.sendMessage("getDoctors");
+        ObservableList<Doctor> doctors = null;
+        doctors = client.getDoctors();
+        DoctorsTable.setItems(doctors);
+    }
     public void initialize() {
         AddDoctor.setOnAction(AddAdminsButtonClicked());
         EditDoctor.setOnAction(EditDeleteDoctorButtonClicked("Edit"));
@@ -136,6 +158,11 @@ public class ADoctorsController {
         CourseButton.setOnAction(CoursesButtonClicked());
         AdminsButton.setOnAction(AdminsButtonClicked());
         AHomeButton.setOnAction(AHomeButtonClicked());
+        ViewTableButtonClicked();
+        IDColumn.setCellValueFactory(new PropertyValueFactory<>("Did"));
+        NameColumn.setCellValueFactory(new PropertyValueFactory<>("Dname"));
+        SSNColumn.setCellValueFactory(new PropertyValueFactory<>("Dssn"));
+
     }
 
     private EventHandler<ActionEvent> EditDeleteDoctorButtonClicked(String Process) {

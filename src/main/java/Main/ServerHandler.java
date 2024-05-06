@@ -80,6 +80,7 @@ public class ServerHandler implements Runnable {
                         writer.println(resultSet.getString("Did"));
                         writer.println(resultSet.getString("Dname"));
                         writer.println(resultSet.getString("Dpassword"));
+                        writer.println(resultSet.getString("Dssn"));
                     }
                     writer.println("end");
                 } else if (input.equalsIgnoreCase("getStudents")) {

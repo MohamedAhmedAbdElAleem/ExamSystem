@@ -3,33 +3,41 @@ package Main;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Doctor extends User {
-    private String name;
-    private Map<Integer, Course> courses;
+public class Doctor {
+    private String Did;
+    private String Dname;
+    private String Dpassword;
+    private String Dssn;
 
-    public Doctor(int doctorId, String name) {
-        super(doctorId, null, null, "doctor");
-        this.name = name;
-        this.courses = new HashMap<>();
+    public String getDid() {
+        return Did;
     }
 
-    public void addCourse(Course course) {
-        courses.put(course.getCourseId(), course);
+    public void setDid(String did) {
+        Did = did;
     }
 
-    public String getName() {
-        return name;
+    public String getDname() {
+        return Dname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDname(String dname) {
+        Dname = dname;
     }
 
-    public Map<Integer, Course> getCourses() {
-        return courses;
+    public String getDpassword() {
+        return Dpassword;
     }
 
-    public void setCourses(Map<Integer, Course> courses) {
-        this.courses = courses;
+    public void setDpassword(String dpassword) {
+        Dpassword = dpassword;
+    }
+
+    public String getDssn() {
+        return Dssn;
+    }
+
+    public void setDssn(String dssn) {
+        Dssn = dssn;
     }
 }
