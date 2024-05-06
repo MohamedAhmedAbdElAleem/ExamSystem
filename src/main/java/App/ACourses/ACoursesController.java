@@ -243,6 +243,7 @@ public class ACoursesController {
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            viewCourses();
         };
     }
 

@@ -163,7 +163,7 @@ public class ServerHandler implements Runnable {
                         String password = reader.readLine();
                         String ssn = reader.readLine();
                         Statement statement = connection.createStatement();
-                        statement.executeUpdate("INSERT INTO doctors (Dname,Dpassword,Dssn,DbirthDate) VALUES ('" + name + "','" + password + "','" + ssn + "','2020-01-01')");
+                        statement.executeUpdate("INSERT INTO doctors (Dname,Dpassword,Dssn) VALUES ('" + name + "','" + password + "','" + ssn + "')");
                         writer.println("Doctor added successfully");
                     } catch (IOException | SQLException e) {
                         System.out.println("Error in addDoctor : " + e.getMessage());
