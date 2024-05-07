@@ -76,10 +76,13 @@ public class DBeforeController {
             }
             DHomeController loginController = fxmlLoader.getController();
             loginController.setUsername(Username);
+            loginController.setId(Id);
+            loginController.setSelectedCourse(choice);
             loginController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            loadChoices();
 
         };
     }
@@ -102,6 +105,7 @@ public class DBeforeController {
         ContinueButton.setOnAction(ContinueButtonClicked());
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+        loadChoices();
     }
 
 

@@ -116,7 +116,7 @@ public class Client {
         String line = in.readLine();
         while (line != null && !line.equalsIgnoreCase("end")) {
             Admin admin = new Admin();
-            admin.setAid(Integer.parseInt(line)); // Assume the first line is the Aid
+            admin.setAid(line); // Assume the first line is the Aid
             line = in.readLine(); // Read the next line
             if (line != null && !line.equalsIgnoreCase("end")) {
                 admin.setAname(line); // Assume the second line is the Aname

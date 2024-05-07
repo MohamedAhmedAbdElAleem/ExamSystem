@@ -9,6 +9,7 @@ public class SIDController {
 
     private String username;
     private String process;
+    private String id;
     private DStudentController dStudentController;
 
     public void setUsername(String username1) {
@@ -23,4 +24,7 @@ public class SIDController {
         this.dStudentController = dStudentController;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }

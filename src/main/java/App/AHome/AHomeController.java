@@ -206,7 +206,6 @@ public class AHomeController {
     public void setAHomeController(AAdminsController aAdminsController) {
         this.aAdminsController = aAdminsController;
     }
-
     public void setAHomeController(ADoctorsController aDoctorsController) {
         this.aDoctorsController = aDoctorsController;
     }

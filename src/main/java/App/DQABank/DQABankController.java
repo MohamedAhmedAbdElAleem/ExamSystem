@@ -70,9 +70,11 @@ public class DQABankController {
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-            DStudentController loginController = fxmlLoader.getController();
-//            loginController.setUsername(Username);
-            loginController.setDHomeController(this);
+            DStudentController dStudentController = fxmlLoader.getController();
+            dStudentController.setUsername(Username);
+            dStudentController.setId(id);
+            dStudentController.setSelectedCourse(selectedCourse);
+            dStudentController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -88,8 +90,11 @@ public class DQABankController {
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-            DExamController loginController = fxmlLoader.getController();
-            loginController.setDStudentController(this);
+            DExamController dExamController = fxmlLoader.getController();
+            dExamController.setUsername(Username);
+            dExamController.setId(id);
+            dExamController.setSelectedCourse(selectedCourse);
+            dExamController.setDStudentController(this);
             Stage stage = (Stage) DHomeButton.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -104,9 +109,10 @@ public class DQABankController {
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-            DBeforeController loginController = fxmlLoader.getController();
-//            loginController.setUsername(Username);
-            loginController.setDBeforeController(this);
+            DBeforeController beforeController = fxmlLoader.getController();
+            beforeController.setUsername(Username);
+            beforeController.setID(id);
+            beforeController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -121,8 +127,11 @@ public class DQABankController {
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-            DHomeController loginController = fxmlLoader.getController();
-            loginController.setDStudentController(this);
+            DHomeController dHomeController = fxmlLoader.getController();
+            dHomeController.setUsername(Username);
+            dHomeController.setId(id);
+            dHomeController.setSelectedCourse(selectedCourse);
+            dHomeController.setDStudentController(this);
             Stage stage = (Stage) DHomeButton.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -170,9 +179,9 @@ public class DQABankController {
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-            DoctorProfileController loginController = fxmlLoader.getController();
-//           //loginController.setUsername(Username);
-            loginController.setDQABankController(this);
+            DoctorProfileController doctorProfileController = fxmlLoader.getController();
+            doctorProfileController.setUsername(Username);
+            doctorProfileController.setDQABankController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
@@ -248,5 +257,17 @@ public class DQABankController {
     private DExamController dExamController;
     public void setDStudentController(DExamController dExamController) {
         this.dExamController = dExamController;
+    }
+    private String Username;
+    public void setUsername(String username) {
+        this.Username = username;
+    }
+    private String id;
+    public void setId(String id) {
+        this.id = id;
+    }
+    private String selectedCourse;
+    public void setSelectedCourse(String selectedCourse) {
+        this.selectedCourse = selectedCourse;
     }
 }

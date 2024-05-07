@@ -37,6 +37,12 @@ public class DHomeController {
     private Button BackButton;
     @FXML
     private Button QBankButton;
+    private String id;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private DBeforeController dBeforeController;
     public void setDBeforeController(DBeforeController dBeforeController) {
         this.dBeforeController = dBeforeController;
@@ -73,7 +79,9 @@ public class DHomeController {
             }
             DBeforeController loginController = fxmlLoader.getController();
             loginController.setUsername(Username);
+            loginController.setID(id);
             loginController.setDBeforeController(this);
+            loginController.loadChoices();
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -90,6 +98,8 @@ public class DHomeController {
             }
             DStudentController dStudentController = fxmlLoader.getController();
             dStudentController.setUsername(Username);
+            dStudentController.setId(id);
+            dStudentController.setSelectedCourse(selectedCourse);
             dStudentController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -107,7 +117,9 @@ public class DHomeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             DExamController loginController = fxmlLoader.getController();
-//            loginController.setUsername(Username);
+            loginController.setUsername(Username);
+            loginController.setId(id);
+            loginController.setSelectedCourse(selectedCourse);
             loginController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -123,9 +135,11 @@ public class DHomeController {
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-            DQABankController loginController = fxmlLoader.getController();
-//            loginController.setUsername(Username);
-            loginController.setDHomeController(this);
+            DQABankController dqaBankController = fxmlLoader.getController();
+            dqaBankController.setUsername(Username);
+            dqaBankController.setId(id);
+            dqaBankController.setSelectedCourse(selectedCourse);
+            dqaBankController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -170,7 +184,7 @@ public class DHomeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             DoctorProfileController loginController = fxmlLoader.getController();
-//           //loginController.setUsername(Username);
+            loginController.setUsername(Username);
             loginController.setDHomeController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -193,5 +207,9 @@ public class DHomeController {
     private DExamController dExamController;
     public void setDStudentController(DExamController dExamController) {
         this.dExamController = dExamController;
+    }
+    private String selectedCourse;
+    public void setSelectedCourse(String choice) {
+        selectedCourse = choice;
     }
 }

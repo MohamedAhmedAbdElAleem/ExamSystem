@@ -1,11 +1,13 @@
 package Main;
 
-public class Admin {
-    private int Aid;
+import java.io.Serializable;
+
+public class Admin implements Serializable {
+    private String Aid;
     private String Aname;
     private String Apassword;
 
-    public Admin(int userId, String username) {
+    public Admin(String userId, String username) {
         this.Aid = userId;
         this.Aname = username;
     }
@@ -14,11 +16,11 @@ public class Admin {
 
     }
 
-    public int getAid() {
+    public String getAid() {
         return Aid;
     }
 
-    public void setAid(int aid) {
+    public void setAid(String aid) {
         Aid = aid;
     }
 

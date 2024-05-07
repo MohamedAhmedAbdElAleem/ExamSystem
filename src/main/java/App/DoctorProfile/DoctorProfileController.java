@@ -47,4 +47,8 @@ public class DoctorProfileController {
     public void setDBeforeController(DBeforeController dBeforeController) {
         this.dBeforeController = dBeforeController;
     }
+    private String username;
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
