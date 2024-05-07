@@ -9,7 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.net.Socket;
+import java.net.*;
 import java.util.Scanner;
 
 public class Client {
@@ -18,21 +18,30 @@ public class Client {
     private BufferedReader in;
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
+    private static final int CONNECTION_TIMEOUT = 5000;
 
-
+    Validation validation = new Validation();
     public Client() {
-        try {
-            socket = new Socket("192.168.1.8", 8080);
-            out = new PrintWriter(socket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            objectInputStream = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException e) {
-            System.out.println("Error in client : "+e.getMessage());
-        }
+    try {
+        socket = new Socket();
+        socket.connect(socketAddress(), CONNECTION_TIMEOUT);
+        out = new PrintWriter(socket.getOutputStream(), true);
+        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+        objectInputStream = new ObjectInputStream(socket.getInputStream());
+    } catch (ConnectException | SocketTimeoutException e) {
+        validation.showErrorPopUp("Server is not Responding");
+        /* If the server is not responding, the program goes to the WelcomeApplication*/
+
+    } catch (IOException e) {
+        validation.showErrorPopUp("Server is not Responding");
+        /* If the server is not responding, the program goes to the WelcomeApplication*/
     }
+}
 
-
+private SocketAddress socketAddress() {
+    return new InetSocketAddress("192.168.1.8", 8080);
+}
 
     public void sendMessage(String message) {
         out.println(message);
