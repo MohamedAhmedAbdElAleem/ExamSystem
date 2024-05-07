@@ -7,6 +7,7 @@ import App.DQABank.DQABankController;
 import App.DStudent.DStudentController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class DoctorProfileController {
@@ -14,6 +15,12 @@ public class DoctorProfileController {
     private Button DoneButton;
     private DHomeController dHomeController;
     private DExamController dExamController;
+    @FXML
+    private Label DoctorNameLabel;
+    @FXML
+    private Label DoctorIdLabel;
+    @FXML
+    private Label DoctorSsnLabel;
 
     private DBeforeController dBeforeController;
 
@@ -50,5 +57,16 @@ public class DoctorProfileController {
     private String username;
     public void setUsername(String username) {
         this.username = username;
+        DoctorNameLabel.setText(username);
+    }
+    private String id;
+    public void setId(String id) {
+        this.id = id;
+        DoctorIdLabel.setText(id);
+    }
+    private String ssn;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+        DoctorSsnLabel.setText(ssn);
     }
 }

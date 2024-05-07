@@ -12,6 +12,7 @@ public class ServerHandler implements Runnable {
     private Connection connection;
     private String username1;
     private Admin admin;
+    private Doctor doctor;
     private Course course;
     BufferedReader reader;
     ObjectOutputStream objectOutputStream;
@@ -113,9 +114,10 @@ public class ServerHandler implements Runnable {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM courses WHERE Cid = '"+id+"'");
-            writer.println("Course deleted successfully");
+            writer.println("true");
         } catch (SQLException e) {
             System.out.println("Error in deleteCourse : "+e.getMessage());
+            writer.println("false");
         }
     }
 
@@ -141,11 +143,23 @@ public class ServerHandler implements Runnable {
         String DocID = reader.readLine();
         try {
             Statement statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO courses (Cname,CcreditHours,DocID) VALUES ('"+Cname+"','"+CcreditHours+"','"+DocID+"')");
-            writer.println("true");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors WHERE Did = '" + DocID + "'");
+            if (resultSet.next()) {
+                try {
+                    statement = connection.createStatement();
+                    statement.executeUpdate("INSERT INTO courses (Cname,CcreditHours,DocID) VALUES ('"+Cname+"','"+CcreditHours+"','"+DocID+"')");
+                    writer.println("true");
+                } catch (SQLException e) {
+                    System.out.println("Error in addCourse : "+e.getMessage());
+                    writer.println("false");
+                }
+            } else {
+                writer.println("false");
+            }
         } catch (SQLException e) {
-            System.out.println("Error in addCourse : "+e.getMessage());
+            System.out.println("Error in checkDoctorId : " + e.getMessage());
         }
+
     }
 
     private synchronized void ViewCoursesOfDoctor() throws IOException {
@@ -353,8 +367,13 @@ public class ServerHandler implements Runnable {
         } else if (status.equalsIgnoreCase("Doctor")) {
             boolean output = DoctorLogin(id, password);
             writer.println(output);
-            if (output)
-                writer.println(username1);
+            if (output) {
+                System.out.println("Doctor : "+doctor.getDname());
+                System.out.println("Doctor : "+doctor.getDssn());
+
+                writer.println(doctor.getDname());
+                writer.println(doctor.getDssn());
+            }
         } else if (status.equalsIgnoreCase("Student")) {
             boolean output = StudentLogin(id, password);
             writer.println(output);
@@ -384,7 +403,11 @@ public class ServerHandler implements Runnable {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors WHERE Did = '"+id+"' AND Dpassword = '"+password+"'");
             if (resultSet.next())
             {
-                username1 = resultSet.getString("Dname");
+                doctor = new Doctor();
+                doctor.setDid(resultSet.getString("Did"));
+                doctor.setDname(resultSet.getString("Dname"));
+                doctor.setDpassword(resultSet.getString("Dpassword"));
+                doctor.setDssn(resultSet.getString("Dssn"));
                 return true;
             }
         } catch (SQLException e) {

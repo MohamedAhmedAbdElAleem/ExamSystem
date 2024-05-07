@@ -49,6 +49,7 @@ public class DoctorLoginController {
             String message = client.receiveMessage();
             if (message.equalsIgnoreCase("true")){
                 String username1 = client.receiveMessage();
+                String SSN = client.receiveMessage();
                 Username = username1;
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
@@ -76,7 +77,7 @@ public class DoctorLoginController {
                 }
                 DBeforeController loginController = fxmlLoader.getController();
                 loginController.setUsername(Username);
-                loginController.setUsername(username1);
+                loginController.setSsn(SSN);
                 loginController.setID(id);
                 loginController.setDoctorLoginController(this);
                 stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage

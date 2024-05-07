@@ -187,6 +187,8 @@ public class DHomeController {
             }
             DoctorProfileController loginController = fxmlLoader.getController();
             loginController.setUsername(Username);
+            loginController.setId(id);
+            loginController.setSsn(ssn);
             loginController.setDHomeController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -220,5 +222,9 @@ public class DHomeController {
     private String CourseId;
     public void setCourseId(String courseid) {
         this.CourseId = courseid;
+    }
+    private String ssn;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 }

@@ -78,6 +78,7 @@ public class DBeforeController {
             }
             DHomeController loginController = fxmlLoader.getController();
             loginController.setUsername(Username);
+            loginController.setSsn(ssn);
             loginController.setId(Id);
             loginController.setSelectedCourse(choice);
             for (Course course : courses){
@@ -186,5 +187,9 @@ public class DBeforeController {
 
     public void setDoctorLoginController(DoctorLoginController doctorLoginController) {
         this.doctorLoginController = doctorLoginController;
+    }
+    private String ssn;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 }
