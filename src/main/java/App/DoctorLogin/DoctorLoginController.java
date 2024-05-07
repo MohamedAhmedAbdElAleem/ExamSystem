@@ -76,6 +76,7 @@ public class DoctorLoginController {
                 }
                 DBeforeController loginController = fxmlLoader.getController();
                 loginController.setUsername(Username);
+                loginController.setUsername(username1);
                 loginController.setID(id);
                 loginController.setDoctorLoginController(this);
                 stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage

@@ -50,7 +50,7 @@ public class AddCourseController {
             client.sendMessage(id);
             String response = client.receiveMessage();
             if (response.equalsIgnoreCase("true")){
-                showSuccessPopUp("Course Added Successfully");
+                showSuccessPopUp(name+" Course Added Successfully");
             } else {
                 showErrorPopUp("Error At The Inputs or Doctor ID");
             }
