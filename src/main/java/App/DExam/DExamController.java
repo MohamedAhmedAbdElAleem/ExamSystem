@@ -47,6 +47,7 @@ public class DExamController {
             DHomeController dHomeController = fxmlLoader.getController();
             dHomeController.setUsername(Username);
             dHomeController.setId(id);
+            dHomeController.setCourseId(courseId);
             dHomeController.setSelectedCourse(selectedCourse);
             dHomeController.setDStudentController(this);
             Stage stage = (Stage) DHomeButton.getScene().getWindow();
@@ -67,6 +68,7 @@ public class DExamController {
             DQABankController dqaBankController = fxmlLoader.getController();
             dqaBankController.setUsername(Username);
             dqaBankController.setId(id);
+            dqaBankController.setCourseId(courseId);
             dqaBankController.setSelectedCourse(selectedCourse);
             dqaBankController.setDStudentController(this);
             Stage stage = (Stage) DHomeButton.getScene().getWindow();
@@ -86,6 +88,7 @@ public class DExamController {
             DStudentController dStudentController = fxmlLoader.getController();
             dStudentController.setUsername(Username);
             dStudentController.setId(id);
+            dStudentController.setCourseId(courseId);
             dStudentController.setSelectedCourse(selectedCourse);
             dStudentController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -202,5 +205,9 @@ public class DExamController {
     private String selectedCourse;
     public void setSelectedCourse(String selectedCourse) {
         this.selectedCourse = selectedCourse;
+    }
+    private String courseId;
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 }

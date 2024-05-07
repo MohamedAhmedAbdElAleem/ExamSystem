@@ -3,33 +3,63 @@ package Main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student extends User{
-    private String name;
-    private List<Course> enrolledCourses;
+public class Student implements java.io.Serializable{
+    private String Sname;
+    private String Sid;
+    private String Sssn;
+    private String Semail;
+    private String SregistrationNumber;
+    private String Spassword;
 
-    public Student(int studentId, String name) {
-        super(studentId, null, null, "student");
-        this.name = name;
-        this.enrolledCourses = new ArrayList<>();
+
+    public Student() {
     }
 
-    public void addEnrolledCourse(Course course) {
-        enrolledCourses.add(course);
+    public String getSname() {
+        return Sname;
     }
 
-    public String getName() {
-        return name;
+    public void setSname(String sname) {
+        Sname = sname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getSid() {
+        return Sid;
     }
 
-    public List<Course> getEnrolledCourses() {
-        return enrolledCourses;
+    public void setSid(String sid) {
+        Sid = sid;
     }
 
-    public void setEnrolledCourses(List<Course> enrolledCourses) {
-        this.enrolledCourses = enrolledCourses;
+    public String getSssn() {
+        return Sssn;
+    }
+
+    public void setSssn(String sssn) {
+        Sssn = sssn;
+    }
+
+    public String getSemail() {
+        return Semail;
+    }
+
+    public void setSemail(String semail) {
+        Semail = semail;
+    }
+
+    public String getSregistrationNumber() {
+        return SregistrationNumber;
+    }
+
+    public void setSregistrationNumber(String sregistrationNumber) {
+        SregistrationNumber = sregistrationNumber;
+    }
+
+    public String getSpassword() {
+        return Spassword;
+    }
+
+    public void setSpassword(String spassword) {
+        Spassword = spassword;
     }
 }

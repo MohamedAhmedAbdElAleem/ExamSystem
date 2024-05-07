@@ -10,6 +10,9 @@ import App.DoctorLogin.DoctorLoginController;
 import App.DoctorProfile.DoctorProfileController;
 import App.Notification.NotificationController;
 import App.SID.SIDController;
+import Main.Client;
+import Main.Student;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,6 +50,17 @@ public class DStudentController {
     private Button BackButton;
     @FXML
     private Button LogOutButton;
+    @FXML
+    private TableView<Student> StudentsView;
+    @FXML
+    private TableColumn<Student,String> ID;
+    @FXML
+    private TableColumn<Student,String> Name;
+    @FXML
+    private TableColumn<Student,String> Email;
+    @FXML
+    private TableColumn<Student,String> RegistrationNumber;
+
     private EventHandler<ActionEvent> DHomeButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DHome/DHome.fxml"));
@@ -56,6 +73,7 @@ public class DStudentController {
             DHomeController dHomeController = fxmlLoader.getController();
             dHomeController.setUsername(username);
             dHomeController.setId(id);
+            dHomeController.setCourseId(courseId);
             dHomeController.setSelectedCourse(selectedCourse);
             dHomeController.setDStudentController(this);
             Stage stage = (Stage) DHomeButton.getScene().getWindow();
@@ -76,6 +94,7 @@ public class DStudentController {
             DQABankController dqaBankController = fxmlLoader.getController();
             dqaBankController.setUsername(username);
             dqaBankController.setId(id);
+            dqaBankController.setCourseId(courseId);
             dqaBankController.setSelectedCourse(selectedCourse);
             dqaBankController.setDStudentController(this);
             Stage stage = (Stage) DHomeButton.getScene().getWindow();
@@ -95,6 +114,7 @@ public class DStudentController {
             DExamController dExamController = fxmlLoader.getController();
             dExamController.setUsername(username);
             dExamController.setId(id);
+            dExamController.setCourseId(courseId);
             dExamController.setSelectedCourse(selectedCourse);
             dExamController.setDStudentController(this);
             Stage stage = (Stage) DHomeButton.getScene().getWindow();
@@ -168,6 +188,19 @@ public class DStudentController {
         DeleteStudent.setOnAction(EditDeleteStudentButtonClicked("Delete"));
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+//        ViewStudents();
+        ID.setCellValueFactory(new PropertyValueFactory<>("Sid"));
+        Name.setCellValueFactory(new PropertyValueFactory<>("Sname"));
+        Email.setCellValueFactory(new PropertyValueFactory<>("Semail"));
+        RegistrationNumber.setCellValueFactory(new PropertyValueFactory<>("SregistrationNumber"));
+    }
+
+    private void ViewStudents() {
+        Client client = new Client();
+        client.sendMessage("GetStudentsOfCourse");
+        client.sendMessage(courseId);
+        ObservableList<Student> students = client.getStudents();
+        StudentsView.setItems(students);
     }
 
     private EventHandler<ActionEvent> NotificationButtonClicked() {
@@ -253,6 +286,13 @@ public class DStudentController {
     private String selectedCourse;
     public void setSelectedCourse(String selectedCourse) {
         this.selectedCourse = selectedCourse;
+//        System.out.println(selectedCourse);
+    }
+    private String courseId;
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+        ViewStudents();
+        System.out.println("CourseId in DStudentController : "+courseId);
     }
 }
 

@@ -101,6 +101,7 @@ public class DHomeController {
             DStudentController dStudentController = fxmlLoader.getController();
             dStudentController.setUsername(Username);
             dStudentController.setId(id);
+            dStudentController.setCourseId(CourseId);
             dStudentController.setSelectedCourse(selectedCourse);
             dStudentController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -121,6 +122,7 @@ public class DHomeController {
             DExamController loginController = fxmlLoader.getController();
             loginController.setUsername(Username);
             loginController.setId(id);
+            loginController.setCourseId(CourseId);
             loginController.setSelectedCourse(selectedCourse);
             loginController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -140,6 +142,7 @@ public class DHomeController {
             DQABankController dqaBankController = fxmlLoader.getController();
             dqaBankController.setUsername(Username);
             dqaBankController.setId(id);
+            dqaBankController.setCourseId(CourseId);
             dqaBankController.setSelectedCourse(selectedCourse);
             dqaBankController.setDHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -222,6 +225,7 @@ public class DHomeController {
     private String CourseId;
     public void setCourseId(String courseid) {
         this.CourseId = courseid;
+        System.out.println("CourseId in DHomeController : "+CourseId);
     }
     private String ssn;
     public void setSsn(String ssn) {

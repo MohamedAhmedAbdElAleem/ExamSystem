@@ -13,6 +13,7 @@ public class ServerHandler implements Runnable {
     private String username1;
     private Admin admin;
     private Doctor doctor;
+    private Student student;
     private Course course;
     BufferedReader reader;
     ObjectOutputStream objectOutputStream;
@@ -92,6 +93,8 @@ public class ServerHandler implements Runnable {
                 }else if (input.equalsIgnoreCase("deleteCourse"))
                 {
                     DeleteCourse();
+                }else if (input.equalsIgnoreCase("GetStudentsOfCourse")) {
+                    GetStudentsOfCourse();
                 } else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
@@ -106,6 +109,33 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void GetStudentsOfCourse() {
+        String id = null;
+        try {
+            id = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid IN (SELECT StudentstID FROM enroll WHERE CoursesID = '"+id+"')");
+            while (resultSet.next())
+            {
+                student = new Student();
+                student.setSid(resultSet.getString("Sid"));
+                student.setSname(resultSet.getString("Sname"));
+                student.setSpassword(resultSet.getString("Spassword"));
+                student.setSssn(resultSet.getString("Sssn"));
+                student.setSemail(resultSet.getString("Semail"));
+                student.setSregistrationNumber(resultSet.getString("SregistrationNumber"));
+                objectOutputStream.writeObject(student);
+//
+//                writer.println(resultSet.getString("Sid"));
+//                writer.println(resultSet.getString("Sname"));
+//                writer.println(resultSet.getString("Spassword"));
+            }
+            writer.println("end");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getStudentsOfCourse : "+e.getMessage());
         }
     }
 

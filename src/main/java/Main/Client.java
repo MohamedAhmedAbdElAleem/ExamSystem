@@ -248,4 +248,22 @@ public class Client {
         }
         return courseList;
     }
+
+    public ObservableList<Student> getStudents() {
+        ObservableList<Student> studentList = FXCollections.observableArrayList();
+        try {
+            while (true) {
+                Student line = null;
+                try {
+                    line = (Student) objectInputStream.readObject();
+                } catch (IOException e) {
+                    break;
+                }
+                studentList.add(line);
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error in getting Students: " + e.getMessage());
+        }
+        return studentList;
+    }
 }
