@@ -39,7 +39,6 @@ public class ServerHandler implements Runnable {
             while (true) {
                 input = reader.readLine();
                 if (input == null || "exit".equalsIgnoreCase(input)) {
-                    System.out.println("Client disconnected");
                     break;
                 }
                 if (input.equalsIgnoreCase("LogIn")) {
@@ -99,12 +98,12 @@ public class ServerHandler implements Runnable {
                 }
             }
         } catch (IOException | SQLException e) {
-            System.out.println("Error in server Handler: "+e.getMessage());
+//            System.out.println("Error in server Handler: "+e.getMessage());
         } finally {
             try {
                 if (clientSocket != null) clientSocket.close();
             } catch (IOException e) {
-                System.out.println("Error in server Handler: "+e.getMessage());
+//                System.out.println("Error in server Handler: "+e.getMessage());
             }
         }
     }

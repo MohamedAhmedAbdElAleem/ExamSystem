@@ -40,6 +40,8 @@ public class DBeforeController {
     @FXML
     private Label WelcomeText;
     private String Id;
+    private ObservableList<Course> courses;
+    private String Courseid;
     public void setID(String id) {
         this.Id = id;
         loadChoices();
@@ -78,6 +80,13 @@ public class DBeforeController {
             loginController.setUsername(Username);
             loginController.setId(Id);
             loginController.setSelectedCourse(choice);
+            for (Course course : courses){
+                if(course.getCname().equals(choice)){
+                    Courseid = course.getCid();
+                    break;
+                }
+            }
+            loginController.setCourseId(Courseid);
             loginController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -90,7 +99,7 @@ public class DBeforeController {
         Client client = new Client();
         client.sendMessage("viewCoursesOfDoctor");
         client.sendMessage(Id);
-        ObservableList<Course> courses = null;
+        courses = null;
         courses = client.getCoursesOfDoctor();
         ObservableList<String> courseNames = FXCollections.observableArrayList();
         for (Course course : courses){

@@ -217,5 +217,9 @@ public class DHomeController {
 
     public void setDoctorLoginController(DoctorLoginController doctorLoginController) {
         this.doctorLoginController = doctorLoginController;
+    private String CourseId;
+    public void setCourseId(String courseid) {
+        this.CourseId = courseid;
+        System.out.println("CourseId: "+CourseId);
     }
 }
