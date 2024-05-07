@@ -439,6 +439,7 @@ public class ServerHandler implements Runnable {
                 writer.println(doctor.getDssn());
             }
         } else if (status.equalsIgnoreCase("Student")) {
+
             boolean output = StudentLogin(id, password);
             writer.println(output);
             if (output)

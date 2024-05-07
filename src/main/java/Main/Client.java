@@ -268,7 +268,7 @@ public class Client {
     }
 
     public Student getStudent() {
-        Student student = new Student();
+        Student student = null;
         try {
             student = (Student) objectInputStream.readObject();
         } catch (IOException | ClassNotFoundException e) {

@@ -116,7 +116,7 @@ public class SBeforeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             StudentProfileController loginController = fxmlLoader.getController();
-           loginController.setStudent(student);
+            loginController.setStudent(student);
             loginController.setSBeforeController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
