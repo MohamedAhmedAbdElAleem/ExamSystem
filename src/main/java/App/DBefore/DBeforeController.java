@@ -158,9 +158,7 @@ public class DBeforeController {
 
 
     private DoctorLoginController doctorLoginController;
-    public void setAdminLoginController(DoctorLoginController doctorLoginController) {
-        this.doctorLoginController = doctorLoginController;
-    }
+
     private String Username;
     public void setUsername(String username) {
         this.Username = username;
@@ -186,4 +184,7 @@ public class DBeforeController {
         this.dExamController = dExamController;
     }
 
+    public void setDoctorLoginController(DoctorLoginController doctorLoginController) {
+        this.doctorLoginController = doctorLoginController;
+    }
 }

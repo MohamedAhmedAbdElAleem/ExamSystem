@@ -65,13 +65,13 @@ public class StudentLoginController {
                 stage.setScene(scene);
                 stage.showAndWait();
 
-                fxmlLoader = new FXMLLoader(getClass().getResource("/App/SHome/SHome.fxml")); // Reuse fxmlLoader
+                fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml")); // Reuse fxmlLoader
                 try {
                     scene = new Scene(fxmlLoader.load()); // Reuse scene
                 } catch (IOException ex) {
                     System.out.println("Error in loading scene : "+ex.getMessage());
                 }
-                SHomeController loginController = fxmlLoader.getController();
+                SBeforeController loginController = fxmlLoader.getController();
 //                loginController.setUsername(username1);
                 loginController.setStudentLoginController(this);
                 stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage

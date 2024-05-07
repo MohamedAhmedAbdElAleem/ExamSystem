@@ -68,13 +68,13 @@ public class DoctorLoginController {
                 stage.setScene(scene);
                 stage.showAndWait();
 
-                fxmlLoader = new FXMLLoader(getClass().getResource("/App/DHome/DHome.fxml")); // Reuse fxmlLoader
+                fxmlLoader = new FXMLLoader(getClass().getResource("/App/DBefore/DBefore.fxml")); // Reuse fxmlLoader
                 try {
                     scene = new Scene(fxmlLoader.load()); // Reuse scene
                 } catch (IOException ex) {
                     System.out.println("Error in loading scene : "+ex.getMessage());
                 }
-                DHomeController loginController = fxmlLoader.getController();
+                DBeforeController loginController = fxmlLoader.getController();
                 loginController.setUsername(username1);
                 loginController.setDoctorLoginController(this);
                 stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
