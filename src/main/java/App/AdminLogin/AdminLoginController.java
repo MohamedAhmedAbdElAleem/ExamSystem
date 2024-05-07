@@ -3,6 +3,7 @@ package App.AdminLogin;
 import App.AAdmins.AAdminsController;
 import App.ACourses.ACoursesController;
 import App.ADoctors.ADoctorsController;
+import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import Main.Client;
@@ -76,9 +78,29 @@ public class AdminLoginController {
             stage.setScene(scene);
             stage.show();
         }
+            else {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/ErrorPopUp/ErrorPopUp.fxml"));
+                Parent parent = null;
+                try {
+                    parent = fxmlLoader.load();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                ErrorPopUpController errorPopUpController = fxmlLoader.getController();
+                errorPopUpController.setErrorMessage("Wrong ID or Password");
+
+
+                Scene scene = new Scene(parent);
+                Stage stage = new Stage();
+                stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // This line makes the new window modal
+                stage.setScene(scene);
+                stage.showAndWait();
+            }
         client.close();
                 };
             }
+
     public EventHandler<ActionEvent> BackButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Welcome/Welcome.fxml"));

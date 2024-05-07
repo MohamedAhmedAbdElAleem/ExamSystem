@@ -6,12 +6,15 @@ import App.DExam.DExamController;
 import App.DHome.DHomeController;
 import App.DQABank.DQABankController;
 import App.DStudent.DStudentController;
+import App.ErrorPopUp.ErrorPopUpController;
+import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -47,21 +50,54 @@ public class DoctorLoginController {
             if (message.equalsIgnoreCase("true")){
                 String username1 = client.receiveMessage();
                 Username = username1;
-//                System.out.println("Login Successful for user : "+username1);
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DBefore/DBefore.fxml"));
-                Scene scene = null;
+
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
+                Parent parent = null;
                 try {
-                    scene = new Scene(fxmlLoader.load());
+                    parent = fxmlLoader.load();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
+                sucessfulPopUpController.setSuccessfulMessage("Login Successful for user : "+username1);
+
+                Scene scene = new Scene(parent);
+                Stage stage = new Stage();
+                stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Correct usage of Modality
+                stage.setScene(scene);
+                stage.showAndWait();
+
+                fxmlLoader = new FXMLLoader(getClass().getResource("/App/DHome/DHome.fxml")); // Reuse fxmlLoader
+                try {
+                    scene = new Scene(fxmlLoader.load()); // Reuse scene
                 } catch (IOException ex) {
                     System.out.println("Error in loading scene : "+ex.getMessage());
                 }
-                DBeforeController loginController = fxmlLoader.getController();
-                loginController.setAdminLoginController(this);
+                DHomeController loginController = fxmlLoader.getController();
                 loginController.setUsername(username1);
-                loginController.setID(id);
-                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
+                loginController.setDoctorLoginController(this);
+                stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
                 stage.setScene(scene);
                 stage.show();
+            }
+            else {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/ErrorPopUp/ErrorPopUp.fxml"));
+                Parent parent = null;
+                try {
+                    parent = fxmlLoader.load();
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                ErrorPopUpController errorPopUpController = fxmlLoader.getController();
+                errorPopUpController.setErrorMessage("Wrong ID or Password");
+
+                Scene scene = new Scene(parent);
+                Stage stage = new Stage();
+                stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // This line makes the new window modal
+                stage.setScene(scene);
+                stage.showAndWait();
             }
             client.close();
         };

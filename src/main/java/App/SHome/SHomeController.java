@@ -37,6 +37,9 @@ public class SHomeController {
     private Button BackButton;
     @FXML
     private Button LogOutButton;
+    @FXML
+    private StudentLoginController studentLoginController;
+
     public void initialize() {
         LogOutButton.setOnAction(LogOutButtonClicked());
         BackButton.setOnAction(BackbuttonClicked());
@@ -185,5 +188,9 @@ public class SHomeController {
     private SExamsController sExamsController;
     public void setSExamsController(SExamsController sExamsController) {
         this.sExamsController = sExamsController;
+    }
+
+    public void setStudentLoginController(StudentLoginController studentLoginController) {
+        this.studentLoginController = studentLoginController;
     }
 }

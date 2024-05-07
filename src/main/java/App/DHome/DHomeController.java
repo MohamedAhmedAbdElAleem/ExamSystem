@@ -37,6 +37,8 @@ public class DHomeController {
     private Button BackButton;
     @FXML
     private Button QBankButton;
+    @FXML
+    private DoctorLoginController doctorLoginController;
     private String id;
 
     public void setId(String id) {
@@ -211,5 +213,9 @@ public class DHomeController {
     private String selectedCourse;
     public void setSelectedCourse(String choice) {
         selectedCourse = choice;
+    }
+
+    public void setDoctorLoginController(DoctorLoginController doctorLoginController) {
+        this.doctorLoginController = doctorLoginController;
     }
 }
