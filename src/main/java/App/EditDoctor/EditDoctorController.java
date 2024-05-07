@@ -2,6 +2,7 @@ package App.EditDoctor;
 
 import App.ADoctors.ADoctorsController;
 import Main.Client;
+import Main.Doctor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -47,5 +48,11 @@ public class EditDoctorController {
 
     public void setADoctorsController(ADoctorsController aDoctorsController) {
         this.aDoctorsController = aDoctorsController;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        Name.setText(doctor.getDname());
+        Password.setText(doctor.getDpassword());
+        SSN.setText(doctor.getDssn());
     }
 }

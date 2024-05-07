@@ -3,6 +3,7 @@ package App.DID;
 import App.ADoctors.ADoctorsController;
 import App.EditDoctor.EditDoctorController;
 import Main.Client;
+import Main.Doctor;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,22 +41,33 @@ public class DIDController {
 //                    aDoctorsController.initialize();
                 }
             } else if(process.equalsIgnoreCase("edit")) {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EditDoctor/EditDoctor.fxml"));
-                Scene scene = null;
-                try {
-                    scene = new Scene(fxmlLoader.load());
-                } catch (IOException ex) {
-                    System.out.println("Error in loading scene : "+ex.getMessage());
-                }
-                EditDoctorController editDoctorController = fxmlLoader.getController();
-                editDoctorController.setID(doctorID);
+                Client client = new Client();
+                client.sendMessage("getDoctor");
+                client.sendMessage(doctorID);
+                String response = client.receiveMessage();
+                if (response.equalsIgnoreCase("false")) {
+                    System.out.println("Doctor not found");
+                } else {
+                    Doctor doctor = null;
+                    doctor = (Doctor) client.receiveObject();
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EditDoctor/EditDoctor.fxml"));
+                    Scene scene = null;
+                    try {
+                        scene = new Scene(fxmlLoader.load());
+                    } catch (IOException ex) {
+                        System.out.println("Error in loading scene : " + ex.getMessage());
+                    }
+                    EditDoctorController editDoctorController = fxmlLoader.getController();
+                    editDoctorController.setID(doctorID);
+                    editDoctorController.setDoctor(doctor);
 //                editDoctorController.setProcess("edit");
-                editDoctorController.setADoctorsController(aDoctorsController);
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setScene(scene);
-                stage.show();
+                    editDoctorController.setADoctorsController(aDoctorsController);
+                    Stage stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.setScene(scene);
+                    stage.show();
 
+                }
             }
         };
     }

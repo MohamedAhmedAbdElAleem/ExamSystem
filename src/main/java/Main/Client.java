@@ -294,4 +294,13 @@ public class Client {
         }
 
     }
+
+    public Object receiveObject() {
+        try {
+            return objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error in receiving object : " + e.getMessage());
+            return null;
+        }
+    }
 }
