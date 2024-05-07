@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ADoctors.ADoctorsController">
+<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ADoctors.ADoctorsController">
    <children>
       <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="140.0" prefWidth="1302.0" style="-fx-background-color: #202020;">
          <children>
@@ -121,9 +125,9 @@
          <children>
             <TableView fx:id="DoctorsTable" layoutX="17.0" layoutY="57.0" prefHeight="491.0" prefWidth="899.0" styleClass="Tables" stylesheets="@../style.css">
                <columns>
-                  <TableColumn fx:id="IDColumn" prefWidth="147.20001220703125" text="ID" />
-                  <TableColumn fx:id="NameColumn" prefWidth="248.60003662109375" text="Name" />
-                  <TableColumn fx:id="SSNColumn" minWidth="2.20001220703125" prefWidth="270.0" text="SSN" />
+                  <TableColumn fx:id="IDColumn" prefWidth="285.60003662109375" resizable="false" style="setResizable: false;" text="ID" />
+                  <TableColumn fx:id="NameColumn" prefWidth="277.5999755859375" resizable="false" style="setResizable: false;" text="Name" />
+                  <TableColumn fx:id="SSNColumn" minWidth="2.20001220703125" prefWidth="334.39996337890625" resizable="false" style="setResizable: false;" text="SSN" />
                </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="11.0" prefHeight="32.0" prefWidth="132.0" text="Doctors List" textAlignment="CENTER" textFill="WHITE">

@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ACourses.ACoursesController">
+<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ACourses.ACoursesController">
    <children>
       <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="140.0" prefWidth="1302.0" style="-fx-background-color: #202020;">
          <children>
@@ -121,10 +125,10 @@
          <children>
             <TableView fx:id="CoursesTable" layoutX="17.0" layoutY="57.0" prefHeight="491.0" prefWidth="899.0" styleClass="Tables" stylesheets="@../style.css">
                <columns>
-                  <TableColumn fx:id="CidColumn" prefWidth="132.20001220703125" text="Code" />
-                  <TableColumn fx:id="CnameColumn" prefWidth="149.0" text="Name" />
-                  <TableColumn fx:id="CcreditHoursColumn" prefWidth="183.199951171875" text="creditHours" />
-                  <TableColumn fx:id="DocIDColumn" prefWidth="182.2000732421875" text="Doctor" />
+                  <TableColumn fx:id="CidColumn" prefWidth="125.60003662109375" resizable="false" text="Code" />
+                  <TableColumn fx:id="CnameColumn" prefWidth="252.79998779296875" resizable="false" text="Course Name" />
+                  <TableColumn fx:id="CcreditHoursColumn" prefWidth="265.5999755859375" resizable="false" text="Credit Hours" />
+                  <TableColumn fx:id="DocIDColumn" prefWidth="255.199951171875" resizable="false" text="Doctor Name" />
                </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="11.0" prefHeight="32.0" prefWidth="133.0" text="Courses List" textAlignment="CENTER" textFill="WHITE">

@@ -14,7 +14,6 @@
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
     <data-source source="LOCAL" name="exam@localhost" uuid="d675177e-01dd-4a10-b864-c85e8cd7f1d0">
-      <driver-ref>mysql_aurora_aws</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>software.aws.rds.jdbc.mysql.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql:aws://localhost:3306/exam</jdbc-url>
