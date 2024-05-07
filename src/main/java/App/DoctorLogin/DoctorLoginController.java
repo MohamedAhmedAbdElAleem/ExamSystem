@@ -9,6 +9,7 @@ import App.DStudent.DStudentController;
 import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,6 +37,8 @@ public class DoctorLoginController {
     private Button LogInButton;
     @FXML
     private Button BackButton;
+
+    Validation validation = new Validation();
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
             String id = UID.getText();
@@ -51,25 +54,10 @@ public class DoctorLoginController {
                 String username1 = client.receiveMessage();
                 String SSN = client.receiveMessage();
                 Username = username1;
-
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
-                Parent parent = null;
-                try {
-                    parent = fxmlLoader.load();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
-                sucessfulPopUpController.setSuccessfulMessage("Login Successful for user : "+username1);
-
-                Scene scene = new Scene(parent);
-                Stage stage = new Stage();
-                stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Correct usage of Modality
-                stage.setScene(scene);
-                stage.showAndWait();
-
-                fxmlLoader = new FXMLLoader(getClass().getResource("/App/DBefore/DBefore.fxml")); // Reuse fxmlLoader
+                validation.showSuccessPopUp("Doctor Login Successful");
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DBefore/DBefore.fxml")); // Reuse fxmlLoader
+                Scene scene = null;
+                Stage stage = null;
                 try {
                     scene = new Scene(fxmlLoader.load()); // Reuse scene
                 } catch (IOException ex) {
@@ -85,22 +73,7 @@ public class DoctorLoginController {
                 stage.show();
             }
             else {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/ErrorPopUp/ErrorPopUp.fxml"));
-                Parent parent = null;
-                try {
-                    parent = fxmlLoader.load();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                ErrorPopUpController errorPopUpController = fxmlLoader.getController();
-                errorPopUpController.setErrorMessage("Wrong ID or Password");
-
-                Scene scene = new Scene(parent);
-                Stage stage = new Stage();
-                stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // This line makes the new window modal
-                stage.setScene(scene);
-                stage.showAndWait();
+                validation.showErrorPopUp("Invalid Username or Password");
             }
             client.close();
         };

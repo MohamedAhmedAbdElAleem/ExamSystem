@@ -8,6 +8,7 @@ import App.SResults.SResultsController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
 import Main.Student;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,6 +38,8 @@ public class StudentLoginController {
     @FXML
     private Button GetPassword;
 
+    Validation validation = new Validation();
+
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
             String id = UID.getText();
@@ -50,24 +53,10 @@ public class StudentLoginController {
             String message = client.receiveMessage();
             if(message.equalsIgnoreCase("true")){
                 Student student = client.getStudent();
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
-                Parent parent = null;
-                try {
-                    parent = fxmlLoader.load();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-                SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
-                sucessfulPopUpController.setSuccessfulMessage("Login Successful for user : "+student.getSname());
-
-                Scene scene = new Scene(parent);
-                Stage stage = new Stage();
-                stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Correct usage of Modality
-                stage.setScene(scene);
-                stage.showAndWait();
-
-                fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml")); // Reuse fxmlLoader
+                validation.showSuccessPopUp("Student Login Successful");
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml")); // Reuse fxmlLoader
+                Scene scene = null;
+                Stage stage = null;
                 try {
                     scene = new Scene(fxmlLoader.load()); // Reuse scene
                 } catch (IOException ex) {
@@ -82,24 +71,7 @@ public class StudentLoginController {
                 stage.show();
             }
             else {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/ErrorPopUp/ErrorPopUp.fxml"));
-                Parent parent = null;
-                try {
-                    parent = fxmlLoader.load();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-
-
-
-                ErrorPopUpController errorPopUpController = fxmlLoader.getController();
-                errorPopUpController.setErrorMessage("Wrong ID or Password");
-
-                Scene scene = new Scene(parent);
-                Stage stage = new Stage();
-                stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // This line makes the new window modal
-                stage.setScene(scene);
-                stage.showAndWait();
+                validation.showErrorPopUp("Invalid Username or Password");
             }
             client.close();
         };

@@ -6,6 +6,7 @@ import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import Main.Client;
 import Main.Doctor;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.VLineTo;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,6 +30,7 @@ public class DIDController {
     private String process;
     private ADoctorsController aDoctorsController;
 
+    Validation validation = new Validation();
     public void initialize() {
         ProccedButton.setOnAction(ProccedButtonClicked());
     }
@@ -36,7 +39,7 @@ public class DIDController {
         return e -> {
             String doctorID = DoctorID.getText();
             if (DoctorID.getText().isEmpty()) {
-                showErrorPopUp("Please fill all the fields");
+                validation.showErrorPopUp("Please fill all the fields");
                 return;
             }
             if(process.equalsIgnoreCase("delete")) {
@@ -45,9 +48,9 @@ public class DIDController {
                 client.sendMessage(doctorID);
                 String response = client.receiveMessage();
                 if (response.equals("Doctor deleted successfully")) {
-                    showSuccessPopUp("Doctor Deleted Successfully");
+                    validation.showSuccessPopUp("Doctor Deleted Successfully");
                 } else {
-                    showErrorPopUp("Doctor not found");
+                    validation.showErrorPopUp("Doctor not found");
 
                 }
             } else if(process.equalsIgnoreCase("edit")) {
@@ -68,14 +71,13 @@ public class DIDController {
                     EditDoctorController editDoctorController = fxmlLoader.getController();
                     editDoctorController.setID(doctorID);
                     editDoctorController.setDoctor(doctor);
-//                editDoctorController.setProcess("edit");
                     editDoctorController.setADoctorsController(aDoctorsController);
                     Stage stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.setScene(scene);
                     stage.show();
                 } else {
-                    showErrorPopUp("Doctor not found");
+                    validation.showErrorPopUp("Doctor not found");
                 }
             }
         };
@@ -91,44 +93,5 @@ public class DIDController {
 
     public void setADoctorsController(ADoctorsController aDoctorsController) {
         this.aDoctorsController = aDoctorsController;
-    }
-    private void showSuccessPopUp(String message) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
-        sucessfulPopUpController.setSuccessfulMessage(message);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
-
-    private void showErrorPopUp(String message) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/ErrorPopUp/ErrorPopUp.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        ErrorPopUpController errorPopUpController = fxmlLoader.getController();
-        errorPopUpController.setErrorMessage(message);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-
-
     }
 }

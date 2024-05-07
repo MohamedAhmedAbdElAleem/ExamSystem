@@ -5,6 +5,7 @@ import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import Main.Client;
 import Main.Doctor;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -28,6 +29,7 @@ public class EditDoctorController {
     private Button EditButton;
     private String doctorID;
     private ADoctorsController aDoctorsController;
+    Validation validation = new Validation();
     public void setID(String doctorID) {
         this.doctorID = doctorID;
     }
@@ -49,9 +51,9 @@ public class EditDoctorController {
              client.sendMessage(ssn);
              String response = client.receiveMessage();
              if (response.equals("Doctor edited successfully")) {
-                    showSuccessPopUp("Doctor Edited Successfully");
+                 validation.showSuccessPopUp("Doctor Edited Successfully");
                 } else {
-                    showErrorPopUp("Doctor not found");
+                 validation.showErrorPopUp("Doctor not found");
              }
         };
     }
@@ -65,43 +67,6 @@ public class EditDoctorController {
         Password.setText(doctor.getDpassword());
         SSN.setText(doctor.getDssn());
     }
-    private void showSuccessPopUp(String message) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
-        sucessfulPopUpController.setSuccessfulMessage(message);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
-
-    private void showErrorPopUp(String message) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/ErrorPopUp/ErrorPopUp.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        ErrorPopUpController errorPopUpController = fxmlLoader.getController();
-        errorPopUpController.setErrorMessage(message);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
 
 
-    }
 }
