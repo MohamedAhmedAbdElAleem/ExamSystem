@@ -62,4 +62,5 @@ public class Student implements java.io.Serializable{
     public void setSpassword(String spassword) {
         Spassword = spassword;
     }
+
 }

@@ -8,6 +8,7 @@ import App.SResults.SResultsController;
 import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
+import Main.Student;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -124,7 +125,7 @@ public class SExamsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             StudentProfileController loginController = fxmlLoader.getController();
-//           //loginController.setUsername(Username);
+            loginController.setStudent(student);
             loginController.setSExamsController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -144,6 +145,7 @@ public class SExamsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SResultsController sResultsController = fxmlLoader.getController();
+            sResultsController.setStudent(student);
             sResultsController.setSHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -161,6 +163,7 @@ public class SExamsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SHomeController sHomeController = fxmlLoader.getController();
+            sHomeController.setStudent(student);
             sHomeController.setSExamsController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -176,5 +179,11 @@ public class SExamsController {
     private SResultsController sResultsController;
     public void setSHomeController(SResultsController sResultsController) {
         this.sResultsController = sResultsController;
+    }
+
+    private Student student;
+    public void setStudent(Student student) {
+        this.student = student;
+
     }
 }

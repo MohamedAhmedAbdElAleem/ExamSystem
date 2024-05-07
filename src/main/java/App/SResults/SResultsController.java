@@ -8,6 +8,7 @@ import App.SHome.SHomeController;
 import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
+import Main.Student;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,6 +46,7 @@ public class SResultsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SBeforeController sBeforeController = fxmlLoader.getController();
+            sBeforeController.setStudent(student);
             sBeforeController.setStudentLoginController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -87,6 +89,7 @@ public class SResultsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SHomeController sHomeController = fxmlLoader.getController();
+            sHomeController.setStudent(student);
             sHomeController.setSResultsController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -104,6 +107,7 @@ public class SResultsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SExamsController sExamsController = fxmlLoader.getController();
+            sExamsController.setStudent(student);
             sExamsController.setSHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -158,7 +162,7 @@ public class SResultsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             StudentProfileController loginController = fxmlLoader.getController();
-//           //loginController.setUsername(Username);
+            loginController.setStudent(student);
             loginController.setSResultsController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -177,5 +181,10 @@ public class SResultsController {
     private SExamsController sExamsController;
     public void setSHomeController(SExamsController sExamsController) {
         this.sExamsController = sExamsController;
+    }
+
+    private Student student;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

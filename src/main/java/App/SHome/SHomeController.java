@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -40,6 +41,8 @@ public class SHomeController {
     private Button LogOutButton;
     @FXML
     private StudentLoginController studentLoginController;
+    @FXML
+    private Label StudentWelcome;
 
     public void initialize() {
         LogOutButton.setOnAction(LogOutButtonClicked());
@@ -99,7 +102,7 @@ public class SHomeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             StudentProfileController loginController = fxmlLoader.getController();
-//           //loginController.setUsername(Username);
+            loginController.setStudent(student);
             loginController.setSHomeController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -119,6 +122,7 @@ public class SHomeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SResultsController sResultsController = fxmlLoader.getController();
+            sResultsController.setStudent(student);
             sResultsController.setSHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -136,6 +140,7 @@ public class SHomeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SExamsController sExamsController = fxmlLoader.getController();
+            sExamsController.setStudent(student);
             sExamsController.setSHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -153,6 +158,7 @@ public class SHomeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SBeforeController sBeforeController = fxmlLoader.getController();
+            sBeforeController.setStudent(student);
             sBeforeController.setStudentLoginController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -197,5 +203,6 @@ public class SHomeController {
     private Student student;
     public void setStudent(Student student) {
         this.student = student;
+        StudentWelcome.setText("Welcome "+student.getSname());
     }
 }

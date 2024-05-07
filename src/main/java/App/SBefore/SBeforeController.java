@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -35,6 +36,9 @@ public class SBeforeController {
     private Button ContinueButton;
     @FXML
     private ComboBox<String> choice1;
+    @FXML
+    private Label StudentWelcome;
+
     private EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/StudentLogin/StudentLogin.fxml"));
@@ -66,7 +70,6 @@ public class SBeforeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SHomeController sHomeController = fxmlLoader.getController();
-//            loginController.setUsername(Username);
             sHomeController.setStudent(student);
             sHomeController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -113,7 +116,7 @@ public class SBeforeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             StudentProfileController loginController = fxmlLoader.getController();
-//           //loginController.setUsername(Username);
+           loginController.setStudent(student);
             loginController.setSBeforeController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -147,5 +150,6 @@ public class SBeforeController {
     private Student student;
     public void setStudent(Student student) {
         this.student = student;
+        StudentWelcome.setText("Welcome "+student.getSname());
     }
 }
