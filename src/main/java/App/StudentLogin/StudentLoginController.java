@@ -1,5 +1,6 @@
 package App.StudentLogin;
 import App.ErrorPopUp.ErrorPopUpController;
+import App.GetPassword.GetPasswordController;
 import App.SBefore.SBeforeController;
 import App.SExams.SExamsController;
 import App.SHome.SHomeController;
@@ -33,6 +34,8 @@ public class StudentLoginController {
     private Button LogInButton;
     @FXML
     private Button BackButton;
+    @FXML
+    private Button GetPassword;
 
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
@@ -105,7 +108,27 @@ public class StudentLoginController {
     public void initialize() {
         LogInButton.setOnAction(LogInButtonClicked());
         BackButton.setOnAction(BackButtonClicked());
+        GetPassword.setOnAction(GetPasswordButtonClicked());
     }
+
+    private EventHandler<ActionEvent> GetPasswordButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/GetPassword/GetPassword.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            GetPasswordController loginController = fxmlLoader.getController();
+            loginController.setLoginController(this);
+            Stage stage = new Stage();
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
+    }
+
     public EventHandler<ActionEvent> BackButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Welcome/Welcome.fxml"));
