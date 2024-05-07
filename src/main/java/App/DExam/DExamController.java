@@ -46,6 +46,7 @@ public class DExamController {
             }
             DHomeController dHomeController = fxmlLoader.getController();
             dHomeController.setUsername(Username);
+            dHomeController.setSsn(ssn);
             dHomeController.setId(id);
             dHomeController.setCourseId(courseId);
             dHomeController.setSelectedCourse(selectedCourse);
@@ -67,6 +68,7 @@ public class DExamController {
             }
             DQABankController dqaBankController = fxmlLoader.getController();
             dqaBankController.setUsername(Username);
+            dqaBankController.setSsn(ssn);
             dqaBankController.setId(id);
             dqaBankController.setCourseId(courseId);
             dqaBankController.setSelectedCourse(selectedCourse);
@@ -87,6 +89,7 @@ public class DExamController {
             }
             DStudentController dStudentController = fxmlLoader.getController();
             dStudentController.setUsername(Username);
+            dStudentController.setSsn(ssn);
             dStudentController.setId(id);
             dStudentController.setCourseId(courseId);
             dStudentController.setSelectedCourse(selectedCourse);
@@ -108,7 +111,8 @@ public class DExamController {
             }
             DBeforeController dBeforeController = fxmlLoader.getController();
             dBeforeController.setUsername(Username);
-            dBeforeController.setID(id);
+            dBeforeController.setSsn(ssn);
+            dBeforeController.setId(id);
             dBeforeController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -161,6 +165,8 @@ public class DExamController {
             }
             DoctorProfileController doctorProfileController = fxmlLoader.getController();
             doctorProfileController.setUsername(Username);
+            doctorProfileController.setSsn(ssn);
+            doctorProfileController.setId(id);
             doctorProfileController.setDExamController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -209,5 +215,10 @@ public class DExamController {
     private String courseId;
     public void setCourseId(String courseId) {
         this.courseId = courseId;
+    }
+
+    private String ssn;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 }

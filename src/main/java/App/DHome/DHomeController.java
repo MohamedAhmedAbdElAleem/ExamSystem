@@ -81,7 +81,8 @@ public class DHomeController {
             }
             DBeforeController loginController = fxmlLoader.getController();
             loginController.setUsername(Username);
-            loginController.setID(id);
+            loginController.setSsn(ssn);
+            loginController.setId(id);
             loginController.setDBeforeController(this);
             loginController.loadChoices();
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -100,6 +101,7 @@ public class DHomeController {
             }
             DStudentController dStudentController = fxmlLoader.getController();
             dStudentController.setUsername(Username);
+            dStudentController.setSsn(ssn);
             dStudentController.setId(id);
             dStudentController.setCourseId(CourseId);
             dStudentController.setSelectedCourse(selectedCourse);
@@ -121,6 +123,7 @@ public class DHomeController {
             }
             DExamController loginController = fxmlLoader.getController();
             loginController.setUsername(Username);
+            loginController.setSsn(ssn);
             loginController.setId(id);
             loginController.setCourseId(CourseId);
             loginController.setSelectedCourse(selectedCourse);
@@ -141,6 +144,7 @@ public class DHomeController {
             }
             DQABankController dqaBankController = fxmlLoader.getController();
             dqaBankController.setUsername(Username);
+            dqaBankController.setSsn(ssn);
             dqaBankController.setId(id);
             dqaBankController.setCourseId(CourseId);
             dqaBankController.setSelectedCourse(selectedCourse);

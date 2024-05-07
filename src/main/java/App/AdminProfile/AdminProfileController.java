@@ -9,12 +9,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class AdminProfileController {
     @FXML
     private Button DoneButton;
+    @FXML
+    private Label AdminIDLabel;
+    @FXML
+    private Label AdminNameLabel;
     private AHomeController aHomeController;
     public void setAHomeController(AHomeController aHomeController) {
         this.aHomeController = aHomeController;
@@ -46,9 +51,12 @@ public class AdminProfileController {
     private String ID;
     public void setID(String id) {
         this.ID = id;
+        this.AdminIDLabel.setText( "ID : "+id);
+
     }
     private String username1;
     public void setUsername(String username1) {
         this.username1 = username1;
+        this.AdminNameLabel.setText("Name : "+username1);
     }
 }

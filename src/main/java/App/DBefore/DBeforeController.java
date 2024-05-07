@@ -42,8 +42,15 @@ public class DBeforeController {
     private String Id;
     private ObservableList<Course> courses;
     private String Courseid;
+    @FXML
+    private Label DoctorNameLabel;
+    @FXML
+    private Label DoctorSsnLabel;
+    @FXML
+    private Label DoctorIdLabel;
     public void setID(String id) {
         this.Id = id;
+//        this.DoctorIdLabel.setText("Doctor ID : "+id);
         loadChoices();
     }
     private EventHandler<ActionEvent> LogOutButtonClicked() {
@@ -148,7 +155,9 @@ public class DBeforeController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             DoctorProfileController loginController = fxmlLoader.getController();
-//           //loginController.setUsername(Username);
+             loginController.setUsername(Username);
+            loginController.setSsn(ssn);
+            loginController.setId(Id);
             loginController.setDBeforeController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -163,6 +172,7 @@ public class DBeforeController {
     private String Username;
     public void setUsername(String username) {
         this.Username = username;
+//        this.DoctorNameLabel.setText("Doctor Name : "+username);
         WelcomeText.setText("Welcome "+username);
     }
     private DHomeController dHomeController;
@@ -191,5 +201,10 @@ public class DBeforeController {
     private String ssn;
     public void setSsn(String ssn) {
         this.ssn = ssn;
+//        this.DoctorSsnLabel.setText("Doctor SSN : "+ssn);
+    }
+
+    public void setId(String id) {
+        this.Id = id;
     }
 }

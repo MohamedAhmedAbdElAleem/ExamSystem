@@ -57,16 +57,16 @@ public class DoctorProfileController {
     private String username;
     public void setUsername(String username) {
         this.username = username;
-        DoctorNameLabel.setText(username);
+        DoctorNameLabel.setText("Doctor Name : "+username);
     }
     private String id;
     public void setId(String id) {
         this.id = id;
-        DoctorIdLabel.setText(id);
+        DoctorIdLabel.setText("Doctor ID : "+id);
     }
     private String ssn;
     public void setSsn(String ssn) {
         this.ssn = ssn;
-        DoctorSsnLabel.setText(ssn);
+        DoctorSsnLabel.setText("Doctor SSN : "+ssn);
     }
 }

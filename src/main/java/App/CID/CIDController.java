@@ -39,10 +39,15 @@ public class CIDController {
                 client.sendMessage("deleteCourse");
                 client.sendMessage(id);
                 response = client.receiveMessage();
-                showSuccessPopUp("Course Deleted Successfully");
                 if (response.equalsIgnoreCase("true")){
-
+                    showSuccessPopUp("Course Deleted Successfully");
                 }
+                else {
+                    showErrorPopUp("Course ID Not Found");
+                }
+            }
+            else {
+                showErrorPopUp("Course ID Not Found");
             }
         };
 

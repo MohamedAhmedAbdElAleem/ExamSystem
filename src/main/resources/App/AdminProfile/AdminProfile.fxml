@@ -26,12 +26,12 @@
             <Image url="@../Images/Profile.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="337.0" prefHeight="58.0" prefWidth="416.0" text="Name : " textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="AdminNameLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="17.0" layoutY="337.0" prefHeight="58.0" prefWidth="416.0" text="Name : " textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="243.0" prefHeight="58.0" prefWidth="416.0" text="ID : " textFill="WHITE">
+      <Label fx:id="AdminIDLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="23.0" layoutY="243.0" prefHeight="58.0" prefWidth="416.0" text="ID : " textFill="WHITE">
          <font>
             <Font name="System Bold" size="22.0" />
          </font>

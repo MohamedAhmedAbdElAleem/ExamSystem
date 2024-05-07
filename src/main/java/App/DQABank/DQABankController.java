@@ -45,6 +45,7 @@ public class DQABankController {
     private Button DeleteQuestion;
 
 
+
     private EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DoctorLogin/DoctorLogin.fxml"));
@@ -72,6 +73,7 @@ public class DQABankController {
             }
             DStudentController dStudentController = fxmlLoader.getController();
             dStudentController.setUsername(Username);
+            dStudentController.setSsn(ssn);
             dStudentController.setId(id);
             dStudentController.setCourseId(courseId);
             dStudentController.setSelectedCourse(selectedCourse);
@@ -93,6 +95,7 @@ public class DQABankController {
             }
             DExamController dExamController = fxmlLoader.getController();
             dExamController.setUsername(Username);
+            dExamController.setSsn(ssn);
             dExamController.setId(id);
             dExamController.setCourseId(courseId);
             dExamController.setSelectedCourse(selectedCourse);
@@ -113,7 +116,8 @@ public class DQABankController {
             }
             DBeforeController beforeController = fxmlLoader.getController();
             beforeController.setUsername(Username);
-            beforeController.setID(id);
+            beforeController.setSsn(ssn);
+            beforeController.setId(id);
             beforeController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -131,6 +135,7 @@ public class DQABankController {
             }
             DHomeController dHomeController = fxmlLoader.getController();
             dHomeController.setUsername(Username);
+            dHomeController.setSsn(ssn);
             dHomeController.setId(id);
             dHomeController.setCourseId(courseId);
             dHomeController.setSelectedCourse(selectedCourse);
@@ -184,6 +189,8 @@ public class DQABankController {
             }
             DoctorProfileController doctorProfileController = fxmlLoader.getController();
             doctorProfileController.setUsername(Username);
+            doctorProfileController.setSsn(ssn);
+            doctorProfileController.setId(id);
             doctorProfileController.setDQABankController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -276,5 +283,10 @@ public class DQABankController {
     private String courseId;
     public void setCourseId(String courseId) {
         this.courseId = courseId;
+    }
+
+    private String ssn;
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
     }
 }
