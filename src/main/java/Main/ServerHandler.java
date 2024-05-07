@@ -297,6 +297,7 @@ public class ServerHandler implements Runnable {
             writer.println("Doctor edited successfully");
         } catch (SQLException e) {
             System.out.println("Error in editDoctor : "+e.getMessage());
+            writer.println("Doctor not found");
         }
     }
 
