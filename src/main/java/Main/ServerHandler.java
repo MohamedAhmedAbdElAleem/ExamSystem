@@ -388,7 +388,7 @@ public class ServerHandler implements Runnable {
         writer.println("end");
     }
 
-    private synchronized void logIn(String status, String id, String password) {
+    private synchronized void logIn(String status, String id, String password) throws IOException {
         if (status.equalsIgnoreCase("Admin")) {
             boolean output = AdminLogIn(id, password);
             writer.println(output);
@@ -398,8 +398,8 @@ public class ServerHandler implements Runnable {
             boolean output = DoctorLogin(id, password);
             writer.println(output);
             if (output) {
-                System.out.println("Doctor : "+doctor.getDname());
-                System.out.println("Doctor : "+doctor.getDssn());
+//                System.out.println("Doctor : "+doctor.getDname());
+//                System.out.println("Doctor : "+doctor.getDssn());
 
                 writer.println(doctor.getDname());
                 writer.println(doctor.getDssn());
@@ -408,7 +408,13 @@ public class ServerHandler implements Runnable {
             boolean output = StudentLogin(id, password);
             writer.println(output);
             if (output)
-                writer.println(username1);
+            {
+//                System.out.println("Student : "+student.getSname());
+//                System.out.println("Student : "+student.getSssn());
+//                System.out.println("Student : "+student.getSemail());
+//                System.out.println("Student : "+student.getSregistrationNumber());
+                objectOutputStream.writeObject(student);
+            }
         }
     }
 
@@ -418,7 +424,13 @@ public class ServerHandler implements Runnable {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid = '"+id+"' AND Spassword = '"+password+"'");
             if (resultSet.next())
             {
-                username1 = resultSet.getString("Sname");
+                student = new Student();
+                student.setSid(resultSet.getString("Sid"));
+                student.setSname(resultSet.getString("Sname"));
+                student.setSpassword(resultSet.getString("Spassword"));
+                student.setSssn(resultSet.getString("Sssn"));
+                student.setSemail(resultSet.getString("Semail"));
+                student.setSregistrationNumber(resultSet.getString("SregistrationNumber"));
                 return true;
             }
         } catch (SQLException e) {

@@ -7,6 +7,7 @@ import App.SResults.SResultsController;
 import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
+import Main.Student;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -192,5 +193,9 @@ public class SHomeController {
 
     public void setStudentLoginController(StudentLoginController studentLoginController) {
         this.studentLoginController = studentLoginController;
+    }
+    private Student student;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }

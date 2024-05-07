@@ -6,6 +6,7 @@ import App.SHome.SHomeController;
 import App.SResults.SResultsController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
+import Main.Student;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -35,19 +36,17 @@ public class StudentLoginController {
 
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
-            String username = UID.getText();
+            String id = UID.getText();
             String password = UPassword.getText();
             // Send the username and password to the server
             Client client = new Client();
             client.sendMessage("login");
             client.sendMessage("Student");
-            client.sendMessage(username);
+            client.sendMessage(id);
             client.sendMessage(password);
             String message = client.receiveMessage();
             if(message.equalsIgnoreCase("true")){
-                String username1 = client.receiveMessage();
-                Username = username1;
-
+                Student student = client.getStudent();
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
                 Parent parent = null;
                 try {
@@ -57,7 +56,7 @@ public class StudentLoginController {
                 }
 
                 SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
-                sucessfulPopUpController.setSuccessfulMessage("Login Successful for user : "+username1);
+                sucessfulPopUpController.setSuccessfulMessage("Login Successful for user : "+student.getSname());
 
                 Scene scene = new Scene(parent);
                 Stage stage = new Stage();
@@ -73,6 +72,7 @@ public class StudentLoginController {
                 }
                 SBeforeController loginController = fxmlLoader.getController();
 //                loginController.setUsername(username1);
+                loginController.setStudent(student);
                 loginController.setStudentLoginController(this);
                 stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
                 stage.setScene(scene);

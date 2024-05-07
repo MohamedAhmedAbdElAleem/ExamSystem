@@ -266,4 +266,14 @@ public class Client {
         }
         return studentList;
     }
+
+    public Student getStudent() {
+        Student student = new Student();
+        try {
+            student = (Student) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error in getting Student: " + e.getMessage());
+        }
+        return student;
+    }
 }

@@ -7,6 +7,7 @@ import App.SHome.SHomeController;
 import App.SResults.SResultsController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
+import Main.Student;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -66,6 +67,7 @@ public class SBeforeController {
             }
             SHomeController sHomeController = fxmlLoader.getController();
 //            loginController.setUsername(Username);
+            sHomeController.setStudent(student);
             sHomeController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -141,5 +143,9 @@ public class SBeforeController {
     private SResultsController sResultsController;
     public void setStudentLoginController(SResultsController sResultsController) {
         this.sResultsController = sResultsController;
+    }
+    private Student student;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }
