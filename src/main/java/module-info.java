@@ -136,4 +136,7 @@ module App {
 
     opens App.ErrorPopUp to javafx.fxml;
     exports App.ErrorPopUp;
+
+    opens App.AssignStudent to javafx.fxml;
+    exports App.AssignStudent;
 }

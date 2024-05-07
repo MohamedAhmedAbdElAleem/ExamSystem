@@ -1,6 +1,7 @@
 package App.DStudent;
 
 import App.AddStudent.AddStudentController;
+import App.AssignStudent.AssignStudentController;
 import App.DBefore.DBeforeController;
 import App.DExam.DExamController;
 import App.DHome.DHomeController;
@@ -60,6 +61,8 @@ public class DStudentController {
     private TableColumn<Student,String> Email;
     @FXML
     private TableColumn<Student,String> RegistrationNumber;
+    @FXML
+    private Button AssignButton;
 
     private EventHandler<ActionEvent> DHomeButtonClicked() {
         return e -> {
@@ -198,6 +201,26 @@ public class DStudentController {
         Name.setCellValueFactory(new PropertyValueFactory<>("Sname"));
         Email.setCellValueFactory(new PropertyValueFactory<>("Semail"));
         RegistrationNumber.setCellValueFactory(new PropertyValueFactory<>("SregistrationNumber"));
+        AssignButton.setOnAction(AssignButtonClicked());
+    }
+
+    private EventHandler<ActionEvent> AssignButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AssignStudent/AssignStudent.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            AssignStudentController assignStudentController = fxmlLoader.getController();
+            assignStudentController.setCourseId(courseId);
+            assignStudentController.setDStudentController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
+        };
     }
 
     private void ViewStudents() {
