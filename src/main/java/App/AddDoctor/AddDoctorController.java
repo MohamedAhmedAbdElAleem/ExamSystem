@@ -21,7 +21,11 @@ public class AddDoctorController {
     private ADoctorsController aDoctorsController;
     @FXML
     public EventHandler<ActionEvent> AddDoctorButtonClicked() {
-
+        if (Name.getText().isEmpty() || Password.getText().isEmpty() || SSN.getText().isEmpty())
+        {
+            System.out.println("Please fill all the fields");
+            return null;
+        }
         return e -> {
             String name = Name.getText();
             String password = Password.getText();
