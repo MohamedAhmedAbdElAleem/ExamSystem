@@ -26,7 +26,11 @@ public class AddAdminController {
         this.aAdminsController = aAdminsController;
     }
     private EventHandler<ActionEvent> AddButtonClicked() {
-
+        if (AName.getText().isEmpty() || APassword.getText().isEmpty()
+        ) {
+            return e -> {
+            };
+        }
         return e -> {
             Client client = new Client();
             String name = AName.getText();
