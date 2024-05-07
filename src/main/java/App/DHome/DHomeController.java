@@ -220,6 +220,5 @@ public class DHomeController {
     private String CourseId;
     public void setCourseId(String courseid) {
         this.CourseId = courseid;
-        System.out.println("CourseId: "+CourseId);
     }
 }

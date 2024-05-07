@@ -76,6 +76,7 @@ public class AAdminsController {
                 // Get the AAdminsController instance
                 ACoursesController aAdminsController = fxmlLoader.getController();
                 aAdminsController.setUsername(username);
+                aAdminsController.setId(id);
                 aAdminsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -95,6 +96,7 @@ public class AAdminsController {
                 // Get the ADoctorsController instance
                 ADoctorsController aDoctorsController = fxmlLoader.getController();
                 aDoctorsController.setUsername(username);
+                aDoctorsController.setId(id);
                 aDoctorsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -117,6 +119,7 @@ public class AAdminsController {
                 // Get the AHomeController instance
                 AHomeController aHomeController = fxmlLoader.getController();
                 aHomeController.setUsername(username);
+                aHomeController.setID(id);
                 aHomeController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -193,6 +196,7 @@ public class AAdminsController {
                 // Get the AAdminsController instance
                 AdminProfileController adminProfileController = fxmlLoader.getController();
 //                adminProfileController.setUsername(username1);
+                adminProfileController.setID(id);
                 adminProfileController.setAAdminsController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -265,5 +269,9 @@ public class AAdminsController {
             System.out.println("Error in getting Admins");
         }
         AdminsTable.setItems(admins);
+    }
+    private String id;
+    public void setId(String id) {
+        this.id = id;
     }
 }

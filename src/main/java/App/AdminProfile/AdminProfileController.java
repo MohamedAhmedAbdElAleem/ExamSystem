@@ -43,4 +43,8 @@ public class AdminProfileController {
             stage.close();
         });
     }
+    private String ID;
+    public void setID(String id) {
+        this.ID = id;
+    }
 }

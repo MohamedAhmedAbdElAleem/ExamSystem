@@ -76,6 +76,7 @@ public class AHomeController {
                 // Get the AAdminsController instance
                 AAdminsController aAdminsController = fxmlLoader.getController();
                 aAdminsController.setUsername(username1);
+                aAdminsController.setId(id);
                 aAdminsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -94,6 +95,7 @@ public class AHomeController {
                 // Get the AAdminsController instance
                 ACoursesController aAdminsController = fxmlLoader.getController();
                 aAdminsController.setUsername(username1);
+                aAdminsController.setId(id);
                 aAdminsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -114,6 +116,7 @@ public class AHomeController {
                 // Get the ADoctorsController instance
                 ADoctorsController aDoctorsController = fxmlLoader.getController();
                 aDoctorsController.setUsername(username1);
+                aDoctorsController.setId(id);
                 aDoctorsController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -172,6 +175,7 @@ public class AHomeController {
                 // Get the AAdminsController instance
                 AdminProfileController adminProfileController = fxmlLoader.getController();
 //                adminProfileController.setUsername(username1);
+                adminProfileController.setID(id);
                 adminProfileController.setAHomeController(this); // Pass reference to current controller
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
@@ -208,6 +212,10 @@ public class AHomeController {
     }
     public void setAHomeController(ADoctorsController aDoctorsController) {
         this.aDoctorsController = aDoctorsController;
+    }
+    private String id;
+    public void setID(String id) {
+        this.id = id;
     }
 
 }

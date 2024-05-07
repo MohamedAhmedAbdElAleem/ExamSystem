@@ -73,6 +73,7 @@ public class AdminLoginController {
             }
             AHomeController loginController = fxmlLoader.getController();
             loginController.setUsername(username1);
+            loginController.setID(id);
             loginController.setAdminLoginController(this);
             stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
             stage.setScene(scene);
