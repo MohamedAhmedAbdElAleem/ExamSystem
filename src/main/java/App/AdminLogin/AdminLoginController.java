@@ -3,12 +3,14 @@ package App.AdminLogin;
 import App.AAdmins.AAdminsController;
 import App.ACourses.ACoursesController;
 import App.ADoctors.ADoctorsController;
+import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -41,29 +43,42 @@ public class AdminLoginController {
             client.sendMessage(password);
             String message = client.receiveMessage();
             if (message.equalsIgnoreCase("true")){
+            String username1 = client.receiveMessage();
+            Username = username1;
 
-                String username1 = client.receiveMessage();
-                Username = username1;
-//                System.out.println("Login Successful for user : "+username1);
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AHome/AHome.fxml"));
-                Scene scene = null;
-                try {
-                    scene = new Scene(fxmlLoader.load());
-                } catch (IOException ex) {
-                    System.out.println("Error in loading scene : "+ex.getMessage());
-                }
-                AHomeController loginController = fxmlLoader.getController();
-                loginController.setUsername(username1);
-                loginController.setAdminLoginController(this);
-                Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
-                stage.setScene(scene);
-                stage.show();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
+            Parent parent = null;
+            try {
+                parent = fxmlLoader.load();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
-            // Display the message from the server
-//            System.out.println(message);
-            client.close();
-        };
-    }
+
+            SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
+            sucessfulPopUpController.setSuccessfulMessage("Login Successful for user : "+username1);
+
+            Scene scene = new Scene(parent);
+            Stage stage = new Stage();
+            stage.initModality(javafx.stage.Modality.APPLICATION_MODAL); // Correct usage of Modality
+            stage.setScene(scene);
+            stage.showAndWait();
+
+            fxmlLoader = new FXMLLoader(getClass().getResource("/App/AHome/AHome.fxml")); // Reuse fxmlLoader
+            try {
+                scene = new Scene(fxmlLoader.load()); // Reuse scene
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            AHomeController loginController = fxmlLoader.getController();
+            loginController.setUsername(username1);
+            loginController.setAdminLoginController(this);
+            stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
+            stage.setScene(scene);
+            stage.show();
+        }
+        client.close();
+                };
+            }
     public EventHandler<ActionEvent> BackButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Welcome/Welcome.fxml"));

@@ -130,4 +130,10 @@ module App {
 
     opens App.Notification to javafx.fxml;
     exports App.Notification;
+
+    opens App.SucessfulPopUp to javafx.fxml;
+    exports App.SucessfulPopUp;
+
+    opens App.ErrorPopUp to javafx.fxml;
+    exports App.ErrorPopUp;
 }
