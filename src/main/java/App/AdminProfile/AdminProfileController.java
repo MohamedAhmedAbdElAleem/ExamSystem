@@ -47,4 +47,8 @@ public class AdminProfileController {
     public void setID(String id) {
         this.ID = id;
     }
+    private String username1;
+    public void setUsername(String username1) {
+        this.username1 = username1;
+    }
 }

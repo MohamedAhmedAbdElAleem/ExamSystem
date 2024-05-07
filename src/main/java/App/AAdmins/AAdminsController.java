@@ -195,7 +195,7 @@ public class AAdminsController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the AAdminsController instance
                 AdminProfileController adminProfileController = fxmlLoader.getController();
-//                adminProfileController.setUsername(username1);
+                adminProfileController.setUsername(username);
                 adminProfileController.setID(id);
                 adminProfileController.setAAdminsController(this); // Pass reference to current controller
             } catch (IOException ex) {

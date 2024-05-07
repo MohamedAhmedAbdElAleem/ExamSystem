@@ -203,7 +203,7 @@ public class ADoctorsController {
                 scene = new Scene(fxmlLoader.load());
                 // Get the AAdminsController instance
                 AdminProfileController adminProfileController = fxmlLoader.getController();
-//                adminProfileController.setUsername(username1);
+                adminProfileController.setUsername(username1);
                 adminProfileController.setID(id);
                 adminProfileController.setADoctorsController(this); // Pass reference to current controller
             } catch (IOException ex) {
