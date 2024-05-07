@@ -143,6 +143,7 @@ public class ServerHandler implements Runnable {
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO courses (Cname,CcreditHours,DocID) VALUES ('"+Cname+"','"+CcreditHours+"','"+DocID+"')");
             writer.println("Course added successfully\nAnd The Course Code :");
+            writer.println("true");
         } catch (SQLException e) {
             System.out.println("Error in addCourse : "+e.getMessage());
         }
