@@ -4,6 +4,7 @@ import App.AAdmins.AAdminsController;
 import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import Main.Client;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,46 +26,8 @@ public class AddAdminController {
     private TextField AName;
     @FXML
     private TextField APassword;
+    Validation validation = new Validation();
 
-    private void showSuccessPopUp(String message) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
-        sucessfulPopUpController.setSuccessfulMessage(message);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
-
-    private void showErrorPopUp(String message) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/ErrorPopUp/ErrorPopUp.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        ErrorPopUpController errorPopUpController = fxmlLoader.getController();
-        errorPopUpController.setErrorMessage(message);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-
-
-    }
     public void setUsername(String username) {
         this.username = username;
     }
@@ -75,13 +38,13 @@ public class AddAdminController {
     private EventHandler<ActionEvent> AddButtonClicked() {
         return e -> {
             if (AName.getText().isEmpty() || APassword.getText().isEmpty()) {
-                showErrorPopUp("Please fill all the fields");
+                validation.showErrorPopUp("Please fill all the fields");
             } else {
                 Client client = new Client();
                 String name = AName.getText();
                 String password = APassword.getText();
                 client.addAdmin(name, password);
-                showSuccessPopUp("Admin Added Successfully");
+                validation.showSuccessPopUp("Admin Added Successfully");
             }
         };
     }

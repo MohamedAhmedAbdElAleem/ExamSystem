@@ -5,6 +5,7 @@ import App.EditAdmin.EditAdminController;
 import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import Main.Client;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,45 +26,8 @@ public class AIDController {
     private AAdminsController aAdminsController;
     @FXML
     private Button ProceedButton;
-    private void showSuccessPopUp(String message) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SucessfulPopUp/SucessfulPopUp.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
 
-        SucessfulPopUpController sucessfulPopUpController = fxmlLoader.getController();
-        sucessfulPopUpController.setSuccessfulMessage(message);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-    }
-
-    private void showErrorPopUp(String message) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/ErrorPopUp/ErrorPopUp.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        ErrorPopUpController errorPopUpController = fxmlLoader.getController();
-        errorPopUpController.setErrorMessage(message);
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
-
-
-    }
+    Validation validation = new Validation();
     public EventHandler<ActionEvent> ProceedButtonClicked() {
         return e -> {
 
@@ -88,17 +52,17 @@ public class AIDController {
                     Stage stage = (Stage) ProceedButton.getScene().getWindow();
                     stage.setScene(scene);
                     } else {
-                     showErrorPopUp("Admin not found");
+                     validation.showErrorPopUp("Admin not found");
                     }
 
             } else if (process.equals("Delete")) {
                 String Id = IDInput.getText();
                 Client client = new Client();
                 if(client.checkAdminId2(Id)) {
-                    showSuccessPopUp("Admin Deleted Successfully");
+                    validation.showSuccessPopUp("Admin Deleted Successfully");
                         client.deleteAdmin(Id);
                 } else {
-                    showErrorPopUp("Admin not found");
+                    validation.showErrorPopUp("Admin not found");
                 }
             }
         };

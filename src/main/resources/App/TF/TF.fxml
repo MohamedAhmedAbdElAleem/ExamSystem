@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -15,15 +16,7 @@
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Button layoutX="46.0" layoutY="472.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="171.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button layoutX="242.0" layoutY="472.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="164.0" style="-fx-background-color: #c96f71;" text="Back" textFill="WHITE">
+      <Button layoutX="74.0" layoutY="472.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="262.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -41,12 +34,15 @@
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </TextField>
-      <RadioButton layoutX="242.0" layoutY="351.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="130.0" text="False" textFill="WHITE">
+      <RadioButton fx:id="FalseRadio" layoutX="242.0" layoutY="351.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="130.0" text="False" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="TFAns" />
+         </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="87.0" layoutY="351.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" text="True" textFill="WHITE">
+      <RadioButton fx:id="TrueRadio" layoutX="87.0" layoutY="351.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" text="True" textFill="WHITE" toggleGroup="$TFAns">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>

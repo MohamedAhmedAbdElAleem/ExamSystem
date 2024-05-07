@@ -9,6 +9,7 @@ import App.AdminProfile.AdminProfileController;
 import App.Notification.NotificationController;
 import App.Welcome.WelcomeController;
 import Main.Admin;
+import Main.Validation;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -51,6 +52,7 @@ public class AAdminsController {
     @FXML
     private TableColumn<Admin, String> NameColumn;
 
+    Validation validation = new Validation();
     public EventHandler<ActionEvent> LogOutButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AdminLogin/AdminLogin.fxml"));
