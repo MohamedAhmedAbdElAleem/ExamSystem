@@ -75,7 +75,8 @@ public class DoctorLoginController {
                     System.out.println("Error in loading scene : "+ex.getMessage());
                 }
                 DBeforeController loginController = fxmlLoader.getController();
-                loginController.setUsername(username1);
+                loginController.setUsername(Username);
+                loginController.setID(id);
                 loginController.setDoctorLoginController(this);
                 stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
                 stage.setScene(scene);
