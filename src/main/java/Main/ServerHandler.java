@@ -106,6 +106,12 @@ public class ServerHandler implements Runnable {
                 }else if (input.equalsIgnoreCase("updateStudent"))
                 {
                     UpdateStudent();
+                }else if (input.equalsIgnoreCase("UnAssignStudent"))
+                {
+                    UnAssignStudent();
+                }else if (input.equalsIgnoreCase("AssignStudent"))
+                {
+                    AssignStudent();
                 }
                 else{
                     String output = processInput(input);
@@ -121,6 +127,32 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void AssignStudent() {
+        try {
+            String id = reader.readLine();
+            String courseID = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("INSERT INTO enroll (StudentstID, CoursesID) VALUES ('"+id+"','"+courseID+"')");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in assignStudent : "+e.getMessage());
+            writer.println("false");
+        }
+    }
+
+    private void UnAssignStudent() {
+        try {
+            String id = reader.readLine();
+            String courseID = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM enroll WHERE StudentstID = '"+id+"' AND CoursesID = '"+courseID+"'");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in unAssignStudent : "+e.getMessage());
+            writer.println("false");
         }
     }
 

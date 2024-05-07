@@ -193,7 +193,7 @@ public class DStudentController {
         LogOutButton.setOnAction(LogOutButtonClicked());
         AddStudent.setOnAction(AddStudentButtonClicked());
         EditStudent.setOnAction(EditDeleteStudentButtonClicked("Edit"));
-        DeleteStudent.setOnAction(EditDeleteStudentButtonClicked("Delete"));
+        DeleteStudent.setOnAction(EditDeleteStudentButtonClicked("UnAssiqn"));
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
 //        ViewStudents();
@@ -220,6 +220,7 @@ public class DStudentController {
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            ViewStudents();
         };
     }
 
@@ -279,6 +280,7 @@ public class DStudentController {
                 SIDController sidController = fxmlLoader.getController();
                 sidController.setUsername(username);
                 sidController.setId(id);
+                sidController.setCourseId(courseId);
                 sidController.setProcess(Process);
                 sidController.setDStudentController(this);
             } catch (IOException ex) {
@@ -288,6 +290,7 @@ public class DStudentController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+            ViewStudents();
         };
     }
 

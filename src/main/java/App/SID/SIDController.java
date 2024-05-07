@@ -38,6 +38,18 @@ public class SIDController {
         return e -> {
             String sid = SID.getText();
 
+            if (process.equals("UnAssiqn")) {
+                Client client = new Client();
+                String responce = client.UnAssignStudent(sid,courseid);
+                if (responce.equals("true")) {
+//                    dStudentController.refresh();
+                }else
+                {
+                    System.out.println("Error in unAssinging student");
+                }
+                ((Node) (e.getSource())).getScene().getWindow().hide();
+                return;
+            }
             if(sid.isEmpty()){
                 return;
             }
@@ -77,5 +89,9 @@ public class SIDController {
 
     public void setId(String id) {
         this.id = id;
+    }
+    private String courseid;
+    public void setCourseId(String courseId) {
+        this.courseid = courseId;
     }
 }

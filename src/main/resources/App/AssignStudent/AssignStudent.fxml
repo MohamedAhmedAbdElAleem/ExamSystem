@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="550.0" minWidth="450.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssignStudent.AssignStudentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="550.0" minWidth="450.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.AssignStudent.AssignStudentController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="58.0" layoutY="36.0" prefHeight="58.0" prefWidth="338.0" text="Assign Student To Course" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Button fx:id="DoneButton" layoutX="108.0" layoutY="471.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
+      <Button fx:id="ProceedButton" layoutX="108.0" layoutY="471.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -20,7 +20,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <TextField layoutX="53.0" layoutY="253.0" prefHeight="42.0" prefWidth="345.0" promptText="Student ID" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+      <TextField fx:id="SID" layoutX="53.0" layoutY="253.0" prefHeight="42.0" prefWidth="345.0" promptText="Student ID" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>

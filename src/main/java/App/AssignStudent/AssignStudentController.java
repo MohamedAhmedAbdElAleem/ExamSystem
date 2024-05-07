@@ -17,6 +17,31 @@ import java.io.IOException;
 
 public class AssignStudentController {
 
+    @FXML
+    private TextField SID;
+    @FXML
+    private Button ProceedButton;
+    public void initialize() {
+        ProceedButton.setOnAction(ProceedButtonClicked());
+    }
+
+    private EventHandler<ActionEvent> ProceedButtonClicked() {
+        return e -> {
+            String sid = SID.getText();
+            if(sid.isEmpty()){
+                return;
+            }
+            Client client = new Client();
+            String responce = client.AssignStudent(sid,courseId);
+            if (responce.equals("true")) {
+
+            }else
+            {
+                System.out.println("Error in Assinging student");
+            }
+            ((Stage) ProceedButton.getScene().getWindow()).close();
+        };
+    }
 
     private DStudentController dStudentController;
     private String courseId;

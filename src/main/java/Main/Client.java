@@ -372,4 +372,20 @@ public class Client {
         String result = receiveMessage();
         return result;
     }
+
+    public String UnAssignStudent(String id, String courseid) {
+        sendMessage("UnAssignStudent");
+        sendMessage(id);
+        sendMessage(courseid);
+        String responce = receiveMessage();
+        return responce;
+    }
+
+    public String AssignStudent(String sid, String courseId) {
+        sendMessage("AssignStudent");
+        sendMessage(sid);
+        sendMessage(courseId);
+        String responce = receiveMessage();
+        return responce;
+    }
 }
