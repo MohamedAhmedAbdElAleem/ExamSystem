@@ -351,4 +351,25 @@ public class Client {
             return null;
         }
     }
+
+    public Student process(String getStudentDetails, String sid) {
+        sendMessage(getStudentDetails);
+        sendMessage(sid);
+        String result = receiveMessage();
+        if (result.equalsIgnoreCase("true")) {
+            return getStudent();
+        }
+        return null;
+    }
+
+    public String process(String updateStudent, Student student) {
+        sendMessage(updateStudent);
+        sendMessage(student.getSname());
+        sendMessage(student.getSregistrationNumber());
+        sendMessage(student.getSssn());
+        sendMessage(student.getSemail());
+        sendMessage(student.getSid());
+        String result = receiveMessage();
+        return result;
+    }
 }

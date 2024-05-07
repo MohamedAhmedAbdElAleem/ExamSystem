@@ -100,6 +100,12 @@ public class ServerHandler implements Runnable {
                 }else if (input.equalsIgnoreCase("getDoctor"))
                 {
                     GetDoctor();
+                }else if (input.equalsIgnoreCase("getStudentDetails"))
+                {
+                    GetStudent();
+                }else if (input.equalsIgnoreCase("updateStudent"))
+                {
+                    UpdateStudent();
                 }
                 else{
                     String output = processInput(input);
@@ -115,6 +121,48 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void UpdateStudent() {
+        try {
+            String name = reader.readLine();
+            String SregistrationNumber = reader.readLine();
+            String ssn = reader.readLine();
+            String email = reader.readLine();
+            String id = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE students SET Sname = '"+name+"', Sssn = '"+ssn+"', Semail = '"+email+"', SregistrationNumber = '"+SregistrationNumber+"' WHERE Sid = '"+id+"'");
+            writer.println("true");
+            System.out.println("Student updated successfully");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in updateStudent : "+e.getMessage());
+            writer.println("false");
+            System.out.println("Student not found");
+        }
+    }
+
+    private void GetStudent() {
+        String id = null;
+        try {
+            id = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid = '"+id+"'");
+            if (resultSet.next())
+            {
+                writer.println("true");
+                student = new Student();
+                student.setSid(resultSet.getString("Sid"));
+                student.setSname(resultSet.getString("Sname"));
+                student.setSpassword(resultSet.getString("Spassword"));
+                student.setSssn(resultSet.getString("Sssn"));
+                student.setSemail(resultSet.getString("Semail"));
+                student.setSregistrationNumber(resultSet.getString("SregistrationNumber"));
+                objectOutputStream.writeObject(student);
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getStudent : "+e.getMessage());
+            writer.println("false");
         }
     }
 
