@@ -324,7 +324,7 @@ public class ServerHandler implements Runnable {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate("UPDATE admins SET Aname = '"+name+"', Apassword = '"+password+"' WHERE Aid = '"+id+"'");
-            writer.println("Admin edited successfully");
+            writer.println("true");
         } catch (SQLException e) {
             System.out.println("Error in editAdmin : "+e.getMessage());
         }
