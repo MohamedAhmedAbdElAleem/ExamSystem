@@ -172,12 +172,13 @@ public class DStudentController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             AddStudentController addStudentController = fxmlLoader.getController();
-
+            addStudentController.setCourseId(courseId);
             addStudentController.setDStudentController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+            ViewStudents();
         };
     }
 
@@ -298,7 +299,7 @@ public class DStudentController {
     public void setCourseId(String courseId) {
         this.courseId = courseId;
         ViewStudents();
-        System.out.println("CourseId in DStudentController : "+courseId);
+//        System.out.println("CourseId in DStudentController : "+courseId);
     }
 
     private String ssn;

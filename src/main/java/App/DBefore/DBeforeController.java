@@ -100,7 +100,6 @@ public class DBeforeController {
             stage.setScene(scene);
             stage.show();
             loadChoices();
-
         };
     }
     public void loadChoices(){
@@ -122,7 +121,7 @@ public class DBeforeController {
         ContinueButton.setOnAction(ContinueButtonClicked());
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
-        loadChoices();
+
     }
 
 
@@ -206,5 +205,6 @@ public class DBeforeController {
 
     public void setId(String id) {
         this.Id = id;
+        loadChoices();
     }
 }

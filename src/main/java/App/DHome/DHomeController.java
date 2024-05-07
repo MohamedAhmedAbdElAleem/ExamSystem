@@ -229,7 +229,7 @@ public class DHomeController {
     private String CourseId;
     public void setCourseId(String courseid) {
         this.CourseId = courseid;
-        System.out.println("CourseId in DHomeController : "+CourseId);
+//        System.out.println("CourseId in DHomeController : "+CourseId);
     }
     private String ssn;
     public void setSsn(String ssn) {

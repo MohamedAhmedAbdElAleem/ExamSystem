@@ -276,4 +276,22 @@ public class Client {
         }
         return student;
     }
+
+    public String sendStudent(Student student, String courseid) {
+        sendMessage(student.getSname());
+        sendMessage(student.getSregistrationNumber());
+        sendMessage(student.getSssn());
+        sendMessage(student.getSemail());
+        String message = receiveMessage();
+        if (message.equalsIgnoreCase("true")) {
+            sendMessage(courseid);
+            if (receiveMessage().equalsIgnoreCase("true"))
+                return "true";
+            else
+                return "false";
+        }else{
+            return "false";
+        }
+
+    }
 }

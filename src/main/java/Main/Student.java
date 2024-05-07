@@ -1,9 +1,10 @@
 package Main;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student implements java.io.Serializable{
+public class Student implements Serializable {
     private String Sname;
     private String Sid;
     private String Sssn;
@@ -13,6 +14,14 @@ public class Student implements java.io.Serializable{
 
 
     public Student() {
+    }
+
+    public Student(String name, String registrationNumber, String ssn, String email) {
+        this.Sname = name;
+        this.SregistrationNumber = registrationNumber;
+        this.Sssn = ssn;
+        this.Semail = email;
+        this.Spassword = "1234";
     }
 
     public String getSname() {

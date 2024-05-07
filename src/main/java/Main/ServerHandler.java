@@ -95,7 +95,10 @@ public class ServerHandler implements Runnable {
                     DeleteCourse();
                 }else if (input.equalsIgnoreCase("GetStudentsOfCourse")) {
                     GetStudentsOfCourse();
-                } else{
+                }else if (input.equalsIgnoreCase("addStudent")) {
+                    AddStudent();
+                }
+                else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
                     writer.println(output);
@@ -110,6 +113,37 @@ public class ServerHandler implements Runnable {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
         }
+    }
+
+    private void AddStudent() {
+        try {
+            String name = reader.readLine();
+            String SregistrationNumber = reader.readLine();
+            String ssn = reader.readLine();
+            String email = reader.readLine();
+            // Insert student into students table
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("INSERT INTO students (Sname, Sssn, Semail,SregistrationNumber) VALUES ('" + name + "','" + ssn + "','" + email + "','"+SregistrationNumber+"')", Statement.RETURN_GENERATED_KEYS);
+            // Retrieve the generated student ID
+            writer.println("true"); // Signal successful student insertion to the client
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            int newSid = -1; // Default value if the student ID retrieval fails
+            if (generatedKeys.next()) {
+                newSid = generatedKeys.getInt(1);
+            }
+
+            // Read the CourseID from the client
+            String courseID = reader.readLine();
+
+            // Insert student-course enrollment into enroll table
+            statement.executeUpdate("INSERT INTO enroll (StudentstID, CoursesID) VALUES ('" + newSid + "','" + courseID + "')");
+
+            writer.println("true"); // Signal successful enrollment to the client
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in addStudent : " + e.getMessage());
+            writer.println("false"); // Signal failure to the client
+        }
+
     }
 
     private void GetStudentsOfCourse() {
