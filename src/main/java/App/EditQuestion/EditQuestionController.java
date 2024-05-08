@@ -20,7 +20,6 @@ import java.io.IOException;
 
 public class EditQuestionController {
 
-    @FXML
     private DQABankController dqaBankController;
 
     public void setDQABankController(DQABankController dqaBankController) {
@@ -33,7 +32,6 @@ public class EditQuestionController {
     @FXML
     private Button ChosenTF;
 
-    @FXML
     public void initialize() {
         ChosenMCQ.setOnAction(ChosenMCQButtonClicked());
         ChosenTF.setOnAction(ChosenTFButtonClicked());

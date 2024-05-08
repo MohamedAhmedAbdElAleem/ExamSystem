@@ -58,7 +58,7 @@ public class EditMCQController {
                 difficultyLevel = "Hard";
             }
             else {
-                System.out.println("Please select difficulty level");
+//                System.out.println("Please select difficulty level");
                 return;
             }
             Client client = new Client();
@@ -74,9 +74,9 @@ public class EditMCQController {
             client.sendMessage(difficultyLevel);
             String response = client.receiveMessage();
             if(response.equalsIgnoreCase("true")) {
-                System.out.println("MCQ edited successfully");
+//                System.out.println("MCQ edited successfully");
             } else {
-                System.out.println("MCQ not edited");
+//                System.out.println("MCQ not edited");
             }
         };
     }

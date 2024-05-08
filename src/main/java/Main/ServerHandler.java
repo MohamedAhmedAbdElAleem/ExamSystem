@@ -125,7 +125,10 @@ public class ServerHandler implements Runnable {
                     getPassword();
                 } else if (input.equalsIgnoreCase("changePassword")) {
                     changePassword();
-                } else{
+                }else if (input.equalsIgnoreCase("editTrueFalse")) {
+                    EditTrueFalse();
+                }
+                else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
                     writer.println(output);
@@ -193,6 +196,23 @@ public class ServerHandler implements Runnable {
         return password.toString();
     }
 
+    private void EditTrueFalse() {
+        try {
+            String courseId = reader.readLine();
+            String questionID = reader.readLine();
+            String question = reader.readLine();
+            String lecture = reader.readLine();
+            String answer = reader.readLine();
+            String difficultyLevel = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE question_bank_"+courseId+" SET question = '"+question+"', lecture = '"+lecture+"', difficulty_level = '"+difficultyLevel+"' WHERE id = '"+questionID+"'");
+            statement.executeUpdate("UPDATE question_bank_"+courseId+" SET answer = '"+answer+"' WHERE id = '"+questionID+"'");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in editTrueFalse : "+e.getMessage());
+            writer.println("false");
+        }
+    }
     private void EditMCQ() {
         try {
             String questionID = reader.readLine();
@@ -204,23 +224,54 @@ public class ServerHandler implements Runnable {
             String correctOption = reader.readLine();
             String lecture = reader.readLine();
             String difficultyLevel = reader.readLine();
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("UPDATE question_bank_"+courseId+" SET question = '"+question+"', lecture = '"+lecture+"', difficulty_level = '"+difficultyLevel+"' WHERE id = '"+questionID+"'");
-            statement.executeUpdate("UPDATE mcq_"+courseId+" SET choice = '"+option2+"' WHERE question_id = '"+questionID+"' AND id = 1");
-            statement.executeUpdate("UPDATE mcq_"+courseId+" SET choice = '"+option3+"' WHERE question_id = '"+questionID+"' AND id = 2");
-            statement.executeUpdate("UPDATE mcq_"+courseId+" SET choice = '"+option4+"' WHERE question_id = '"+questionID+"' AND id = 3");
-            statement.executeUpdate("UPDATE question_bank_"+courseId+" SET answer = '"+correctOption+"' WHERE id = '"+questionID+"'");
+
+            // Update the question and other details in the question bank table
+            PreparedStatement updateQuestionBankStatement = connection.prepareStatement("UPDATE question_bank_" + courseId + " SET question = ?, lecture = ?, difficulty_level = ?, answer = ? WHERE id = ?");
+            updateQuestionBankStatement.setString(1, question);
+            updateQuestionBankStatement.setString(2, lecture);
+            updateQuestionBankStatement.setString(3, difficultyLevel);
+            updateQuestionBankStatement.setString(4, correctOption);
+            updateQuestionBankStatement.setString(5, questionID);
+            updateQuestionBankStatement.executeUpdate();
+
+            // Retrieve the IDs of the MCQ options
+            PreparedStatement getMCQIdsStatement = connection.prepareStatement("SELECT id FROM mcq_" + courseId + " WHERE question_id = ?");
+            getMCQIdsStatement.setString(1, questionID);
+            ResultSet mcqIdsResult = getMCQIdsStatement.executeQuery();
+
+            // Update each option based on its ID
+            PreparedStatement updateMCQStatement = connection.prepareStatement("UPDATE mcq_" + courseId + " SET choice = ? WHERE id = ?");
+            int optionCount = 0;
+            while (mcqIdsResult.next() && optionCount < 3) {
+                switch (optionCount) {
+                    case 0:
+                        updateMCQStatement.setString(1, option2);
+                        break;
+                    case 1:
+                        updateMCQStatement.setString(1, option3);
+                        break;
+                    case 2:
+                        updateMCQStatement.setString(1, option4);
+                        break;
+                }
+                updateMCQStatement.setInt(2, mcqIdsResult.getInt("id"));
+                updateMCQStatement.executeUpdate();
+                optionCount++;
+            }
+
             writer.println("true");
         } catch (IOException | SQLException e) {
-            System.out.println("Error in editMCQ : "+e.getMessage());
+            System.out.println("Error in editMCQ : " + e.getMessage());
             writer.println("false");
         }
     }
+
 
     private void CheckQuestionID() {
         try {
             String questionID = reader.readLine();
             String courseID = reader.readLine();
+            String questionType = reader.readLine();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM question_bank_"+courseID+" WHERE id = '"+questionID+"'");
             if (resultSet.next())

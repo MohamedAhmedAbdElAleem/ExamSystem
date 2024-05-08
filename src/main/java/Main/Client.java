@@ -437,15 +437,6 @@ private SocketAddress socketAddress() {
         sendMessage(option3);
         sendMessage(option4);
         sendMessage(courseId);
-        System.out.println("Question : "+question);
-        System.out.println("Difficulty Level : "+difficultyLevel);
-        System.out.println("Lecture : "+lecture);
-        System.out.println("Answer : "+answer);
-        System.out.println("Option2 : "+option2);
-        System.out.println("Option3 : "+option3);
-        System.out.println("Option4 : "+option4);
-        System.out.println("Course ID : "+courseId);
-
         String result = receiveMessage();
         return result;
     }

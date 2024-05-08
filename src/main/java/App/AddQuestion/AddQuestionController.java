@@ -44,6 +44,15 @@ public class AddQuestionController {
 
     private EventHandler<ActionEvent> ChosenTFButtonClicked() {
         return e -> {
+            if (Easy.isSelected()) {
+                difficultyLevel = "Easy";
+            } else if (Medium.isSelected()) {
+                difficultyLevel = "Medium";
+            } else if (Hard.isSelected()) {
+                difficultyLevel = "Hard";
+            }else{
+
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/TF/TF.fxml"));
             Scene scene = null;
             try {
