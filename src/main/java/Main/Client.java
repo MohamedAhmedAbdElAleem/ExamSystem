@@ -40,7 +40,7 @@ public class Client {
 }
 
 private SocketAddress socketAddress() {
-    return new InetSocketAddress("192.168.1.8", 8080);
+    return new InetSocketAddress("192.168.1.9", 8080);
 }
 
     public void sendMessage(String message) {
