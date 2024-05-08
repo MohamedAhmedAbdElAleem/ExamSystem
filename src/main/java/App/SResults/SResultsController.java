@@ -130,6 +130,7 @@ public class SResultsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             StudentChangePasswordController sChangePasswordController = fxmlLoader.getController();
+            sChangePasswordController.setStudent(student);
             sChangePasswordController.setSResultsController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal

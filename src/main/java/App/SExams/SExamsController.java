@@ -93,6 +93,7 @@ public class SExamsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             StudentChangePasswordController sChangePasswordController = fxmlLoader.getController();
+            sChangePasswordController.setStudent(student);
             sChangePasswordController.setSExamsController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal

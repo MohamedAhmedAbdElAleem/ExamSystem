@@ -38,7 +38,7 @@ public class GetPasswordController {
             client.sendMessage(ID);
             client.sendMessage(SSN);
             String response = client.receiveMessage();
-            if (response.equals("true")) {
+            if (response.equalsIgnoreCase("true")) {
                 String password = client.receiveMessage();
                 validation.showSuccessPopUp("Your password is: " + password);
                 return;

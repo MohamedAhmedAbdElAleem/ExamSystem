@@ -123,7 +123,9 @@ public class ServerHandler implements Runnable {
                     EditMCQ();
                 } else if (input.equalsIgnoreCase("getPassword")) {
                     getPassword();
-                }else{
+                } else if (input.equalsIgnoreCase("changePassword")) {
+                    changePassword();
+                } else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
                     writer.println(output);
@@ -137,6 +139,20 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void changePassword() {
+        try {
+            String ID = reader.readLine();
+            String SSN = reader.readLine();
+            String newPassword = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE students SET Spassword = '"+newPassword+"' WHERE Sid = '"+ID+"' AND Sssn = '"+SSN+"'");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in changePassword : "+e.getMessage());
+            writer.println("false");
         }
     }
 
