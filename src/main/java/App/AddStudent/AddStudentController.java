@@ -3,6 +3,7 @@ package App.AddStudent;
 import App.DStudent.DStudentController;
 import Main.Client;
 import Main.Student;
+import Main.Validation;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -18,6 +19,7 @@ public class AddStudentController {
     private TextField StudentEmail;
     @FXML
     private Button AddStudentButton;
+    Validation validation = new Validation();
     private void AddStudentButtonClicked() {
         String name = StudentName.getText();
         String registrationNumber = StudentRegistartionNumber.getText();
@@ -29,9 +31,10 @@ public class AddStudentController {
         client.sendMessage("addStudent");
         String message = client.sendStudent(student,courseid);
         if(message.equalsIgnoreCase("true")) {
+            validation.showSuccessPopUp("Student Added Successfully");
 
         }else {
-
+            validation.showErrorPopUp("Error At The Inputs");
         }
     }
     public void initialize() {

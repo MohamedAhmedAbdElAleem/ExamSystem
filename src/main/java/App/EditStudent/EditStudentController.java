@@ -3,6 +3,7 @@ package App.EditStudent;
 import App.SID.SIDController;
 import Main.Client;
 import Main.Student;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ public class EditStudentController {
     private TextField Sssn;
     @FXML
     private Button SaveButton;
-
+    Validation validation = new Validation();
     public void initialize() {
         SaveButton.setOnAction(SaveButtonClicked());
     }
@@ -28,39 +29,20 @@ public class EditStudentController {
             String name = Sname.getText();
             String registrationNumber = SregistrationNumber.getText();
             String ssn = Sssn.getText();
-            if(name.isEmpty())
-            {
-                name = result.getSname();
-            }else {
-                result.setSname(name);
+            if (name.isEmpty() || registrationNumber.isEmpty() || ssn.isEmpty()){
+                validation.showErrorPopUp("Error At The Inputs");
+                return;
             }
-            if(registrationNumber.isEmpty())
-            {
-                registrationNumber = result.getSregistrationNumber();
-            }else {
-                result.setSregistrationNumber(registrationNumber);
-            }
-            if(ssn.isEmpty())
-            {
-                ssn = result.getSssn();
-            }
-            else {
-                result.setSssn(ssn);
-            }
-
             Client client = new Client();
             String response =  client.process("updateStudent",result);
             if(response.equals("true"))
             {
-//                sidController.showSuccessPopUp("Student Updated Successfully");
-                System.out.println("Student Updated Successfully");
+                validation.showSuccessPopUp("Student Updated Successfully");
             }
             else
             {
-//                sidController.showErrorPopUp("Student not found");
-                System.out.println("Student not found");
+                validation.showErrorPopUp("Error At The Inputs");
             }
-
         };
     }
 

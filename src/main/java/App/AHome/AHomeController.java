@@ -145,6 +145,11 @@ public class AHomeController {
         setStudentsNumber(StudentsNumber);
         AdminProfile.setOnAction(AdminProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+
+        applyHoverEffect(CourseButton);
+        applyHoverEffect(AdminsButton);
+        applyHoverEffect(DoctorsButton);
+        applyHoverEffect(LogOutButton);
     }
 
 
@@ -216,6 +221,11 @@ public class AHomeController {
     private String id;
     public void setID(String id) {
         this.id = id;
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
     }
 
 }

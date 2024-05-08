@@ -37,7 +37,7 @@
       </AnchorPane>
       <AnchorPane layoutX="9.0" layoutY="148.0" prefHeight="576.0" prefWidth="266.0" style="-fx-background-color: #202020; -fx-background-radius: 30;">
          <children>
-            <Button fx:id="AHomeButton" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #1e1e1e;" text="DashBoard" textFill="#b0b0b0">
+            <Button fx:id="AHomeButton" layoutX="2.0" layoutY="2.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #202020;" text="DashBoard" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -53,7 +53,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button fx:id="AdminsButton" layoutX="2.0" layoutY="73.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #1e1e1e;" text="Admins" textFill="#b0b0b0">
+            <Button fx:id="AdminsButton" layoutX="2.0" layoutY="66.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Admins" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -61,7 +61,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="32.0" layoutY="93.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="32.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/AdminOut.png" />
                </image>
@@ -69,7 +69,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button fx:id="DoctorsButton" layoutX="2.0" layoutY="142.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Doctors" textFill="#b0b0b0">
+            <Button fx:id="DoctorsButton" layoutX="2.0" layoutY="135.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Doctors" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -77,7 +77,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="32.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="32.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/AdminOut.png" />
                </image>
@@ -85,7 +85,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="2.0" layoutY="212.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #2c2c2c;" text="Courses" textFill="WHITE">
+            <Button layoutX="2.0" layoutY="205.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #2c2c2c;" text="Courses" textFill="WHITE">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -93,7 +93,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="32.0" layoutY="231.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="32.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/CourseIn.png" />
                </image>
@@ -128,7 +128,7 @@
                   <TableColumn fx:id="CidColumn" prefWidth="125.60003662109375" resizable="false" text="Code" />
                   <TableColumn fx:id="CnameColumn" prefWidth="252.79998779296875" resizable="false" text="Course Name" />
                   <TableColumn fx:id="CcreditHoursColumn" prefWidth="265.5999755859375" resizable="false" text="Credit Hours" />
-                  <TableColumn fx:id="DocIDColumn" prefWidth="255.199951171875" resizable="false" text="Doctor Name" />
+                  <TableColumn fx:id="DocIDColumn" prefWidth="248.800048828125" resizable="false" text="Doctor Name" />
                </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="11.0" prefHeight="32.0" prefWidth="133.0" text="Courses List" textAlignment="CENTER" textFill="WHITE">

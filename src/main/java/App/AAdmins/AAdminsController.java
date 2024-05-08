@@ -168,6 +168,10 @@ public class AAdminsController {
         NameColumn.setCellValueFactory(new PropertyValueFactory<>("Aname"));
         AdminProfile.setOnAction(AdminProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+        applyHoverEffect(CourseButton);
+        applyHoverEffect(AHomeButton);
+        applyHoverEffect(DoctorsButton);
+        applyHoverEffect(LogOutButton);
     }
 
     private EventHandler<ActionEvent> NotificationButtonClicked() {
@@ -275,5 +279,11 @@ public class AAdminsController {
     private String id;
     public void setId(String id) {
         this.id = id;
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
+
     }
 }

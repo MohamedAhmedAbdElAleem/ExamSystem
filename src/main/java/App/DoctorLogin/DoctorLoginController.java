@@ -54,7 +54,7 @@ public class DoctorLoginController {
                 String username1 = client.receiveMessage();
                 String SSN = client.receiveMessage();
                 Username = username1;
-                validation.showSuccessPopUp("Doctor Login Successful");
+                validation.showSuccessPopUp("Doctor Login Successful For User : "+username1);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DBefore/DBefore.fxml")); // Reuse fxmlLoader
                 Scene scene = null;
                 Stage stage = null;

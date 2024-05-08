@@ -50,7 +50,7 @@ public class AdminLoginController {
             if (message.equalsIgnoreCase("true")){
             String username1 = client.receiveMessage();
             Username = username1;
-            validation.showSuccessPopUp("Admin Login Successful");
+            validation.showSuccessPopUp("Admin Login Successful For User : "+username1);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AHome/AHome.fxml"));
             Scene scene = null;
             Stage stage = null;

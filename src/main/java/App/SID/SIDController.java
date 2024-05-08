@@ -6,6 +6,7 @@ import App.DStudent.DStudentController;
 import App.EditStudent.EditStudentController;
 import Main.Client;
 import Main.Student;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -30,6 +31,7 @@ public class SIDController {
     private String process;
     private String id;
     private DStudentController dStudentController;
+    Validation validation = new Validation();
     public void initialize() {
         ProceedButton.setOnAction(ProceedButtonClicked());
     }
@@ -38,21 +40,21 @@ public class SIDController {
         return e -> {
             String sid = SID.getText();
 
+            if(sid.isEmpty()){
+                validation.showErrorPopUp("Student Not Found");
+                return;
+            }
             if (process.equals("UnAssiqn")) {
                 Client client = new Client();
                 String responce = client.UnAssignStudent(sid,courseid);
                 if (responce.equals("true")) {
-//                    dStudentController.refresh();
+                    validation.showSuccessPopUp("Student UnAssigned Successfully");
                 }else
                 {
-                    System.out.println("Error in unAssinging student");
+                    validation.showErrorPopUp("Student Not Found");
                 }
-                ((Node) (e.getSource())).getScene().getWindow().hide();
-                return;
             }
-            if(sid.isEmpty()){
-                return;
-            }
+
             Client client = new Client();
             Student result = client.process("getStudentDetails",sid);
             if(result == null){

@@ -53,7 +53,7 @@ public class StudentLoginController {
             String message = client.receiveMessage();
             if(message.equalsIgnoreCase("true")){
                 Student student = client.getStudent();
-                validation.showSuccessPopUp("Student Login Successful");
+                validation.showSuccessPopUp("Student Login Successful For User : "+student.getSname());
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml")); // Reuse fxmlLoader
                 Scene scene = null;
                 Stage stage = null;

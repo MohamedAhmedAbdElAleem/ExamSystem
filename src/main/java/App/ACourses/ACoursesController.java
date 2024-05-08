@@ -154,6 +154,10 @@ public class ACoursesController {
         CnameColumn.setCellValueFactory(new PropertyValueFactory<>("Cname"));
         CcreditHoursColumn.setCellValueFactory(new PropertyValueFactory<>("CcreditHours"));
         DocIDColumn.setCellValueFactory(new PropertyValueFactory<>("DocID"));
+        applyHoverEffect(AdminsButton);
+        applyHoverEffect(AHomeButton);
+        applyHoverEffect(DoctorsButton);
+        applyHoverEffect(LogOutButton);
     }
     private EventHandler<ActionEvent> NotificationButtonClicked() {
         return e -> {
@@ -263,5 +267,10 @@ public class ACoursesController {
     private String id;
     public void setId(String id) {
         this.id = id;
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
     }
 }

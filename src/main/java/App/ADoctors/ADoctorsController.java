@@ -177,6 +177,10 @@ public class ADoctorsController {
         SSNColumn.setCellValueFactory(new PropertyValueFactory<>("Dssn"));
         AdminProfile.setOnAction(AdminProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+        applyHoverEffect(AdminsButton);
+        applyHoverEffect(AHomeButton);
+        applyHoverEffect(CourseButton);
+        applyHoverEffect(LogOutButton);
     }
 
     private EventHandler<ActionEvent> NotificationButtonClicked() {
@@ -265,5 +269,9 @@ public class ADoctorsController {
 
     }
 
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
+    }
 
 }
