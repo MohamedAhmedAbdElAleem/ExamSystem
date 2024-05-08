@@ -186,7 +186,6 @@ public class DQABankController {
         QuestionView.getItems().clear();
         Client client = new Client();
         client.sendMessage("getQuestions");
-        System.out.println(courseId);
         client.sendMessage(courseId);
         ObservableList<Question> questions = client.getQuestions();
         QuestionView.setItems(questions);
@@ -288,10 +287,12 @@ public class DQABankController {
             }
             AddQuestionController loginController = fxmlLoader.getController();
             loginController.setDQABankController(this);
+            loginController.setCourseId(courseId);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            ViewQuestions();
         };
     }
 

@@ -415,4 +415,15 @@ private SocketAddress socketAddress() {
         }
         return questionList;
     }
+
+    public String addTFQuestion(String question, String difficultyLevel, String lecture, String answer, String courseId) {
+        sendMessage("addTFQuestion");
+        sendMessage(question);
+        sendMessage(difficultyLevel);
+        sendMessage(lecture);
+        sendMessage(answer);
+        sendMessage(courseId);
+        String result = receiveMessage();
+        return result;
+    }
 }

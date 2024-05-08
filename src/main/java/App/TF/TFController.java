@@ -2,8 +2,13 @@ package App.TF;
 
 import App.AddQuestion.AddQuestionController;
 import App.EditQuestion.EditQuestionController;
+import Main.Client;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
 public class TFController {
@@ -11,7 +16,13 @@ public class TFController {
     @FXML
     private RadioButton TrueButton;
     @FXML
-    private RadioButton FalseButton;
+    private RadioButton FalseRadio;
+    @FXML
+    private TextField Question;
+    @FXML
+    private TextField LectureNumber;
+    @FXML
+    private Button ProceedButton;
 
     private final ToggleGroup group = new ToggleGroup();
 
@@ -25,8 +36,45 @@ public class TFController {
         this.editQuestionController = editQuestionController;
     }
 
-    void initialize() {
+    public void initialize() {
         TrueButton.setToggleGroup(group);
-        FalseButton.setToggleGroup(group);
+        FalseRadio.setToggleGroup(group);
+        ProceedButton.setOnAction(ProceedButtonClicked());
+    }
+
+    private EventHandler<ActionEvent> ProceedButtonClicked() {
+        return e -> {
+            String question = Question.getText();
+            String lecture = LectureNumber.getText();
+            String answer = "";
+            if (TrueButton.isSelected()) {
+                answer = "True";
+            } else if (FalseRadio.isSelected()) {
+                answer = "False";
+            }
+            Client client = new Client();
+            System.out.println("Question: " + question);
+            System.out.println("Lecture: " + lecture);
+            System.out.println("Answer: " + answer);
+            System.out.println("Course ID: " + courseId);
+            System.out.println("Difficulty Level: " + difficultyLevel);
+            String response = client.addTFQuestion(question, difficultyLevel, lecture, answer, courseId);
+            if (response.equalsIgnoreCase("true")) {
+                Question.clear();
+                LectureNumber.clear();
+                group.selectToggle(null);
+            }else {
+//                System.out.println("Error in adding question");
+            }
+        };
+    }
+
+    private String courseId;
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+    private String difficultyLevel;
+    public void setDifficultyLevel(String difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
     }
 }

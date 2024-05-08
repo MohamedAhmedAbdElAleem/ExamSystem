@@ -112,6 +112,8 @@ public class ServerHandler implements Runnable {
                 }else if (input.equalsIgnoreCase("getQuestions"))
                 {
                     GetQuestions();
+                }else if (input.equalsIgnoreCase("addTFQuestion")) {
+                    AddTFQuestion();
                 }
                 else{
                     String output = processInput(input);
@@ -127,6 +129,27 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void AddTFQuestion() {
+        try {
+            String question = reader.readLine();
+            String difficultyLevel = reader.readLine();
+            String lecture = reader.readLine();
+            String answer = reader.readLine();
+            String courseID = reader.readLine();
+            System.out.println("Question : "+question);
+            System.out.println("Difficulty Level : "+difficultyLevel);
+            System.out.println("Lecture : "+lecture);
+            System.out.println("Answer : "+answer);
+            System.out.println("Course ID : "+courseID);
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("INSERT INTO question_bank_"+courseID+" (question, lecture, Qtype, answer, difficulty_level) VALUES ('"+question+"','"+lecture+"','TF','"+answer+"','"+difficultyLevel+"')");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in addTFQuestion : "+e.getMessage());
+            writer.println("false");
         }
     }
 

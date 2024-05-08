@@ -104,7 +104,7 @@ public class DHomeController {
             dStudentController.setUsername(Username);
             dStudentController.setSsn(ssn);
             dStudentController.setId(id);
-            System.out.println("CourseId in DHomeController : "+CourseId);
+
             dStudentController.setCourseId(CourseId);
             dStudentController.setSelectedCourse(selectedCourse);
             dStudentController.setDHomeController(this);

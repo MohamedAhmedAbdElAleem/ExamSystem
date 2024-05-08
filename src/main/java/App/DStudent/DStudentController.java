@@ -99,7 +99,6 @@ public class DStudentController {
             dqaBankController.setUsername(username);
             dqaBankController.setSsn(ssn);
             dqaBankController.setId(id);
-            System.out.println("CourseId in DStudentController : "+courseId);
             dqaBankController.setCourseId(courseId);
             dqaBankController.setSelectedCourse(selectedCourse);
             dqaBankController.setDStudentController(this);

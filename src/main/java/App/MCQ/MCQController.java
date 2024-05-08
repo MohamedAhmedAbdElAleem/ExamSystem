@@ -16,4 +16,12 @@ public class MCQController {
     public void setEditQuestionController(EditQuestionController editQuestionController) {
         this.editQuestionController = editQuestionController;
     }
+    private String courseId;
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+    private String difficultyLevel;
+    public void setDifficultyLevel(String difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
+    }
 }
