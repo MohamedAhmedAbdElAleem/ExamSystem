@@ -120,8 +120,9 @@ public class ServerHandler implements Runnable {
                     CheckQuestionID();
                 }else if (input.equalsIgnoreCase("editMCQ")) {
                     EditMCQ();
-                }
-                else{
+                } else if (input.equalsIgnoreCase("getPassword")) {
+                    getPassword();
+                }else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
                     writer.println(output);
@@ -135,6 +136,24 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void getPassword() {
+        try {
+            String ID = reader.readLine();
+            String SSN = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid = '"+ID+"' AND Sssn = '"+SSN+"'");
+            if (resultSet.next())
+            {
+                writer.println("true");
+                writer.println(resultSet.getString("Spassword"));
+            }else{
+                writer.println("false");
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getPassword : "+e.getMessage());
         }
     }
 
