@@ -426,4 +426,18 @@ private SocketAddress socketAddress() {
         String result = receiveMessage();
         return result;
     }
+
+    public String addMCQQuestion(String question, String difficultyLevel, String lecture, String answer, String option2, String option3, String option4, String courseId) {
+        sendMessage("addMCQQuestion");
+        sendMessage(question);
+        sendMessage(difficultyLevel);
+        sendMessage(lecture);
+        sendMessage(answer);
+        sendMessage(option2);
+        sendMessage(option3);
+        sendMessage(option4);
+        sendMessage(courseId);
+        String result = receiveMessage();
+        return result;
+    }
 }

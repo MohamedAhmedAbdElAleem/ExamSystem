@@ -50,6 +50,8 @@ public class AddQuestionController {
                 difficultyLevel = "Medium";
             } else if (Hard.isSelected()) {
                 difficultyLevel = "Hard";
+            }else{
+//
             }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/TF/TF.fxml"));
             Scene scene = null;
@@ -61,8 +63,6 @@ public class AddQuestionController {
             TFController loginController = fxmlLoader.getController();
             loginController.setCourseId(courseId);
             loginController.setDifficultyLevel(difficultyLevel);
-            System.out.println("Course ID: "+courseId);
-            System.out.println("Difficulty Level: "+difficultyLevel);
             loginController.setAddQuestionController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
@@ -80,6 +80,8 @@ public class AddQuestionController {
                 difficultyLevel = "Medium";
             } else if (Hard.isSelected()) {
                 difficultyLevel = "Hard";
+            }else{
+
             }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/MCQ/MCQ.fxml"));
             Scene scene = null;

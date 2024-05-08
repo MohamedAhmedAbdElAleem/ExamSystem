@@ -114,8 +114,9 @@ public class ServerHandler implements Runnable {
                     GetQuestions();
                 }else if (input.equalsIgnoreCase("addTFQuestion")) {
                     AddTFQuestion();
-                }
-                else{
+                } else if (input.equalsIgnoreCase("addMCQQuestion")) {
+                    AddMCQQuestion();
+                } else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
                     writer.println(output);
@@ -132,6 +133,33 @@ public class ServerHandler implements Runnable {
         }
     }
 
+    private void AddMCQQuestion() {
+        try {
+            String question = reader.readLine();
+            String difficultyLevel = reader.readLine();
+            String lecture = reader.readLine();
+            String answer = reader.readLine();
+            String option2 = reader.readLine();
+            String option3 = reader.readLine();
+            String option4 = reader.readLine();
+            String courseID = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("INSERT INTO question_bank_"+courseID+" (question, lecture, Qtype, answer, difficulty_level) VALUES ('"+question+"','"+lecture+"','MCQ','"+answer+"','"+difficultyLevel+"')", Statement.RETURN_GENERATED_KEYS);
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            int questionID = -1;
+            if (generatedKeys.next()) {
+                questionID = generatedKeys.getInt(1);
+            }
+            statement.executeUpdate("INSERT INTO mcq_"+courseID+" (question_id, choice) VALUES ('"+questionID+"','"+option2+"')");
+            statement.executeUpdate("INSERT INTO mcq_"+courseID+" (question_id, choice) VALUES ('"+questionID+"','"+option3+"')");
+            statement.executeUpdate("INSERT INTO mcq_"+courseID+" (question_id, choice) VALUES ('"+questionID+"','"+option4+"')");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in addMCQQuestion : "+e.getMessage());
+            writer.println("false");
+        }
+    }
+
     private void AddTFQuestion() {
         try {
             String question = reader.readLine();
@@ -139,11 +167,6 @@ public class ServerHandler implements Runnable {
             String lecture = reader.readLine();
             String answer = reader.readLine();
             String courseID = reader.readLine();
-            System.out.println("Question : "+question);
-            System.out.println("Difficulty Level : "+difficultyLevel);
-            System.out.println("Lecture : "+lecture);
-            System.out.println("Answer : "+answer);
-            System.out.println("Course ID : "+courseID);
             Statement statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO question_bank_"+courseID+" (question, lecture, Qtype, answer, difficulty_level) VALUES ('"+question+"','"+lecture+"','TF','"+answer+"','"+difficultyLevel+"')");
             writer.println("true");
@@ -212,11 +235,9 @@ public class ServerHandler implements Runnable {
             Statement statement = connection.createStatement();
             statement.executeUpdate("UPDATE students SET Sname = '"+name+"', Sssn = '"+ssn+"', Semail = '"+email+"', SregistrationNumber = '"+SregistrationNumber+"' WHERE Sid = '"+id+"'");
             writer.println("true");
-            System.out.println("Student updated successfully");
         } catch (IOException | SQLException e) {
             System.out.println("Error in updateStudent : "+e.getMessage());
             writer.println("false");
-            System.out.println("Student not found");
         }
     }
 
@@ -313,10 +334,6 @@ public class ServerHandler implements Runnable {
                 student.setSemail(resultSet.getString("Semail"));
                 student.setSregistrationNumber(resultSet.getString("SregistrationNumber"));
                 objectOutputStream.writeObject(student);
-//
-//                writer.println(resultSet.getString("Sid"));
-//                writer.println(resultSet.getString("Sname"));
-//                writer.println(resultSet.getString("Spassword"));
             }
             writer.println("end");
         } catch (IOException | SQLException e) {

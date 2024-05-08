@@ -53,11 +53,6 @@ public class TFController {
                 answer = "False";
             }
             Client client = new Client();
-            System.out.println("Question: " + question);
-            System.out.println("Lecture: " + lecture);
-            System.out.println("Answer: " + answer);
-            System.out.println("Course ID: " + courseId);
-            System.out.println("Difficulty Level: " + difficultyLevel);
             String response = client.addTFQuestion(question, difficultyLevel, lecture, answer, courseId);
             if (response.equalsIgnoreCase("true")) {
                 Question.clear();
