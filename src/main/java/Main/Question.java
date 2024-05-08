@@ -1,41 +1,31 @@
 package Main;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     private int questionId;
-    private String content;
+    private String Question;
     private String difficultyLevel; // Use String for difficulty level
-    private String lectureLabel;
-    private boolean usedBefore;
-    private boolean isMcq;
-    private boolean isTrueOrFalse;
-
-    public Question(int questionId, String content, String difficultyLevel, String lectureLabel, boolean usedBefore) {
+    private String lecture;
+    private Boolean usedBefore;
+    private String QuestionType;
+    private String Answer;
+    public Question() {
+        this.questionId = 0;
+        this.Question = "";
+        this.difficultyLevel = "";
+        this.lecture = "";
+        this.usedBefore = false;
+        QuestionType = "";
+    }
+    public Question(int questionId, String content, String difficultyLevel, String lectureLabel) {
         this.questionId = questionId;
-        this.content = content;
+        this.Question = content;
         this.difficultyLevel = difficultyLevel;
-        this.lectureLabel = lectureLabel;
-        this.usedBefore = usedBefore;
-        this.isMcq = false;
-        this.isTrueOrFalse = false;
+        this.lecture = lectureLabel;
+        this.usedBefore = false;
+        QuestionType = "";
     }
-    public void setAsMcq() {
-        isMcq = true;
-        isTrueOrFalse = false;
-    }
-
-    public void setAsTrueOrFalse() {
-        isTrueOrFalse = true;
-        isMcq = false;
-    }
-
-    public boolean isMcq() {
-        return isMcq;
-    }
-
-    public boolean isTrueOrFalse() {
-        return isTrueOrFalse;
-    }
-
     public int getQuestionId() {
         return questionId;
     }
@@ -44,12 +34,12 @@ public class Question {
         this.questionId = questionId;
     }
 
-    public String getContent() {
-        return content;
+    public String getQuestion() {
+        return Question;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setQuestion(String content) {
+        this.Question = content;
     }
 
     public String getDifficultyLevel() {
@@ -60,28 +50,39 @@ public class Question {
         this.difficultyLevel = difficultyLevel;
     }
 
-    public String getLectureLabel() {
-        return lectureLabel;
+    public String getLecture() {
+        return lecture;
     }
 
-    public void setLectureLabel(String lectureLabel) {
-        this.lectureLabel = lectureLabel;
+    public void setLecture(String lecture) {
+        this.lecture = lecture;
     }
 
-    public boolean isUsedBefore() {
+    public Boolean isUsedBefore() {
         return usedBefore;
     }
 
-    public void setUsedBefore(boolean usedBefore) {
+    public void setUsedBefore(Boolean usedBefore) {
         this.usedBefore = usedBefore;
     }
 
-    public void setMcq(boolean mcq) {
-        isMcq = mcq;
+    public Boolean getUsedBefore() {
+        return usedBefore;
     }
 
-    public void setTrueOrFalse(boolean trueOrFalse) {
-        isTrueOrFalse = trueOrFalse;
+    public String getQuestionType() {
+        return QuestionType;
     }
 
+    public void setQuestionType(String questionType) {
+        QuestionType = questionType;
+    }
+
+    public String getAnswer() {
+        return Answer;
+    }
+
+    public void setAnswer(String answer) {
+        Answer = answer;
+    }
 }

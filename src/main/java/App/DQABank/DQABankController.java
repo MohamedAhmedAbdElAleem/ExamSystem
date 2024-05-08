@@ -10,6 +10,9 @@ import App.DoctorProfile.DoctorProfileController;
 import App.EditQuestion.EditQuestionController;
 import App.Notification.NotificationController;
 import App.QuestionID.QuestionIDController;
+import Main.Client;
+import Main.Question;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -43,7 +49,22 @@ public class DQABankController {
     private Button LogOutButton;
     @FXML
     private Button DeleteQuestion;
-
+    @FXML
+    private TableView<Question> QuestionView;
+    @FXML
+    private TableColumn<Question, String> IDColumn;
+    @FXML
+    private TableColumn<Question, String> QuestionColumn;
+    @FXML
+    private TableColumn<Question, String> AnswerColumn;
+    @FXML
+    private TableColumn<Question, String> DifficultyColumn;
+    @FXML
+    private TableColumn<Question, String> LectureColumn;
+    @FXML
+    private TableColumn<Question, String> UsedColumn;
+    @FXML
+    private TableColumn<Question, String> TypeColumn;
 
 
     private EventHandler<ActionEvent> LogOutButtonClicked() {
@@ -157,6 +178,25 @@ public class DQABankController {
         DeleteQuestion.setOnAction(DeleteQuestionButtonClicked());
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+//        ViewQuestions();
+
+    }
+
+    private void ViewQuestions() {
+        QuestionView.getItems().clear();
+        Client client = new Client();
+        client.sendMessage("getQuestions");
+        System.out.println(courseId);
+        client.sendMessage(courseId);
+        ObservableList<Question> questions = client.getQuestions();
+        QuestionView.setItems(questions);
+        IDColumn.setCellValueFactory(new PropertyValueFactory<>("questionId"));
+        QuestionColumn.setCellValueFactory(new PropertyValueFactory<>("Question"));
+        AnswerColumn.setCellValueFactory(new PropertyValueFactory<>("Answer"));
+        DifficultyColumn.setCellValueFactory(new PropertyValueFactory<>("difficultyLevel"));
+        LectureColumn.setCellValueFactory(new PropertyValueFactory<>("lecture"));
+        UsedColumn.setCellValueFactory(new PropertyValueFactory<>("usedBefore"));
+        TypeColumn.setCellValueFactory(new PropertyValueFactory<>("QuestionType"));
     }
 
     private EventHandler<ActionEvent> NotificationButtonClicked() {
@@ -283,6 +323,7 @@ public class DQABankController {
     private String courseId;
     public void setCourseId(String courseId) {
         this.courseId = courseId;
+        ViewQuestions();
     }
 
     private String ssn;

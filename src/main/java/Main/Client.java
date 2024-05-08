@@ -397,4 +397,22 @@ private SocketAddress socketAddress() {
         String responce = receiveMessage();
         return responce;
     }
+
+    public ObservableList<Question> getQuestions() {
+        ObservableList<Question> questionList = FXCollections.observableArrayList();
+        try {
+            while (true) {
+                Question line = null;
+                try {
+                    line = (Question) objectInputStream.readObject();
+                } catch (IOException e) {
+                    break;
+                }
+                questionList.add(line);
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error in getting Questions: " + e.getMessage());
+        }
+        return questionList;
+    }
 }

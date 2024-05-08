@@ -69,4 +69,8 @@ public class DoctorProfileController {
         this.ssn = ssn;
         DoctorSsnLabel.setText("Doctor SSN : "+ssn);
     }
+    private String courseid;
+    public void setCourseId(String courseid) {
+        this.courseid = courseid;
+    }
 }

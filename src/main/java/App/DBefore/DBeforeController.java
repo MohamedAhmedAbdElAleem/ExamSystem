@@ -94,6 +94,7 @@ public class DBeforeController {
                     break;
                 }
             }
+            System.out.println("Course ID : "+Courseid);
             loginController.setCourseId(Courseid);
             loginController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
@@ -157,6 +158,7 @@ public class DBeforeController {
              loginController.setUsername(Username);
             loginController.setSsn(ssn);
             loginController.setId(Id);
+            loginController.setCourseId(Courseid);
             loginController.setDBeforeController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal

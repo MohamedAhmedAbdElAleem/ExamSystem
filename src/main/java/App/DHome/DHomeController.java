@@ -19,6 +19,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 public class DHomeController {
     @FXML
@@ -103,6 +104,7 @@ public class DHomeController {
             dStudentController.setUsername(Username);
             dStudentController.setSsn(ssn);
             dStudentController.setId(id);
+            System.out.println("CourseId in DHomeController : "+CourseId);
             dStudentController.setCourseId(CourseId);
             dStudentController.setSelectedCourse(selectedCourse);
             dStudentController.setDHomeController(this);

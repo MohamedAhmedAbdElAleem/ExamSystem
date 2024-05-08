@@ -109,6 +109,9 @@ public class ServerHandler implements Runnable {
                 }else if (input.equalsIgnoreCase("AssignStudent"))
                 {
                     AssignStudent();
+                }else if (input.equalsIgnoreCase("getQuestions"))
+                {
+                    GetQuestions();
                 }
                 else{
                     String output = processInput(input);
@@ -124,6 +127,29 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void GetQuestions() {
+        try {
+            String courseID = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM question_bank_"+courseID);
+            while (resultSet.next())
+            {
+                Question question = new Question();
+                question.setQuestionId(resultSet.getInt("id"));
+                question.setQuestion(resultSet.getString("question"));
+                question.setLecture(resultSet.getString("lecture"));
+                question.setQuestionType(resultSet.getString("Qtype"));
+                question.setAnswer(resultSet.getString("answer"));
+                question.setUsedBefore(resultSet.getBoolean("used"));
+                question.setDifficultyLevel(resultSet.getString("difficulty_level"));
+                objectOutputStream.writeObject(question);
+            }
+            writer.println("end");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getQuestions : "+e.getMessage());
         }
     }
 
