@@ -6,6 +6,7 @@ import App.EditQuestion.EditQuestionController;
 import App.EditTrueFalse.EditTrueFalseController;
 import Main.Client;
 import Main.Question;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,6 +25,7 @@ public class QuestionIDController {
     @FXML
     private TextField QID;
 
+    Validation validation = new Validation();
     private EditQuestionController editQuestionController;
     private DQABankController dqaBankController;
     public void setEditQuestionController(EditQuestionController editQuestionController) {
@@ -41,6 +43,10 @@ public class QuestionIDController {
     private EventHandler<ActionEvent> ProceedButtonClicked() {
         return e -> {
             String questionID = QID.getText();
+            if (questionID.isEmpty()) {
+                validation.showErrorPopUp("Please fill all the fields");
+                return;
+            }
             Client client = new Client();
             client.sendMessage("checkQuestionID");
             client.sendMessage(questionID);
@@ -48,6 +54,7 @@ public class QuestionIDController {
             client.sendMessage(questionType);
             String response = client.receiveMessage();
             if(response.equalsIgnoreCase("true")) {
+
                 Question question = new Question();
                 String Question = client.receiveMessage();
                 String Lecture = client.receiveMessage();
@@ -60,6 +67,10 @@ public class QuestionIDController {
                 question.setQuestionType(QuestionType);
                 question.setAnswer(CorrectOption);
                 question.setDifficultyLevel(DifficultyLevel);
+                if (!QuestionType.equalsIgnoreCase(questionType)) {
+                    validation.showErrorPopUp("Question Not Found");
+                    return;
+                }
 
                 if(questionType.equalsIgnoreCase("MCQ")){
                     String Option2 = client.receiveMessage();
@@ -104,6 +115,14 @@ public class QuestionIDController {
                     stage.setScene(scene);
                     stage.showAndWait();
                 }
+                else
+                {
+                    validation.showErrorPopUp("Question Not Found");
+
+                }
+            }
+            else {
+                validation.showErrorPopUp("Question Not Found");
             }
         };
 

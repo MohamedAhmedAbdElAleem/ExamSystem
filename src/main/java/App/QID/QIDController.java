@@ -2,6 +2,7 @@ package App.QID;
 
 import App.DQABank.DQABankController;
 import Main.Client;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,6 +14,8 @@ public class QIDController {
     private Button ProceedButton;
     @FXML
     private TextField QID;
+
+    Validation  validation = new Validation();
     public void initialize() {
         ProceedButton.setOnAction(ProceedButtonClicked());
     }
@@ -20,6 +23,10 @@ public class QIDController {
     private EventHandler<ActionEvent> ProceedButtonClicked() {
         return e -> {
             String questionID = QID.getText();
+            if (questionID.isEmpty()) {
+                validation.showErrorPopUp("Please fill all the fields");
+                return;
+            }
             Client client = new Client();
             client.sendMessage("checkQuestionIDBeforeDelete");
             client.sendMessage(questionID);
@@ -31,9 +38,11 @@ public class QIDController {
                 client.sendMessage(courseId);
                 String response2 = client.receiveMessage();
                 if(response2.equalsIgnoreCase("true")) {
+                    validation.showSuccessPopUp("Question Deleted Successfully");
+                    QID.clear();
 
                 }else {
-//                    System.out.println("Error in deleting question");
+                    validation.showErrorPopUp("Error At The Inputs");
                 }
 
             }

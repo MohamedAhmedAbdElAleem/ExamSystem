@@ -4,6 +4,7 @@ import App.EditQuestion.EditQuestionController;
 import App.QuestionID.QuestionIDController;
 import Main.Client;
 import Main.Question;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ public class EditTrueFalseController {
     private String courseId;
     private String questionID;
 
-
+    Validation  validation = new Validation();
     public void initialize() {
         ProceedButton.setOnAction(ProceedButtonClicked());
     }
@@ -53,6 +54,13 @@ public class EditTrueFalseController {
                 difficultyLevel = "Medium";
             } else if(Hard.isSelected()) {
                 difficultyLevel = "Hard";
+            }else {
+                validation.showErrorPopUp("Please fill all the fields");
+                return;
+            }
+            if(question.isEmpty() || lecture.isEmpty() || answer.isEmpty() || difficultyLevel.isEmpty()) {
+                validation.showErrorPopUp("Please fill all the fields");
+                return;
             }
             Client client = new Client();
             client.sendMessage("editTrueFalse");
@@ -64,9 +72,16 @@ public class EditTrueFalseController {
             client.sendMessage(difficultyLevel);
             String response = client.receiveMessage();
             if(response.equalsIgnoreCase("true")) {
-                System.out.println("Question edited successfully");
+                validation.showSuccessPopUp("Question edited successfully");
+                Question.clear();
+                Lecture.clear();
+                TrueButton.setSelected(false);
+                FalseRadio.setSelected(false);
+                Easy.setSelected(false);
+                Medium.setSelected(false);
+                Hard.setSelected(false);
             } else {
-                System.out.println("Question not edited");
+                validation.showErrorPopUp("Error at the inputs");
             }
     };
     }

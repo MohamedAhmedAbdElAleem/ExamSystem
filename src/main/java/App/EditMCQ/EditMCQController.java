@@ -3,6 +3,7 @@ package App.EditMCQ;
 import App.QuestionID.QuestionIDController;
 import Main.Client;
 import Main.Question;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -36,7 +37,7 @@ public class EditMCQController {
     private Button ProcessButton;
 
 
-
+    Validation validation = new Validation();
     public void initialize() {
         ProcessButton.setOnAction(ProcessButtonClicked());
     }
@@ -58,7 +59,11 @@ public class EditMCQController {
                 difficultyLevel = "Hard";
             }
             else {
-//                System.out.println("Please select difficulty level");
+                validation.showErrorPopUp("Please Choose Difficulty Level");
+                return;
+            }
+            if(question.isEmpty() || option2.isEmpty() || option3.isEmpty() || option4.isEmpty() || correctOption.isEmpty() || lecture.isEmpty() || difficultyLevel.isEmpty()) {
+                validation.showErrorPopUp("Please fill all the fields");
                 return;
             }
             Client client = new Client();
@@ -74,9 +79,15 @@ public class EditMCQController {
             client.sendMessage(difficultyLevel);
             String response = client.receiveMessage();
             if(response.equalsIgnoreCase("true")) {
-//                System.out.println("MCQ edited successfully");
+                validation.showSuccessPopUp("Question Edited Successfully");
+                Question.clear();
+                Option2.clear();
+                Option3.clear();
+                Option4.clear();
+                CorrectOption.clear();
+                Lecture.clear();
             } else {
-//                System.out.println("MCQ not edited");
+                validation.showErrorPopUp("Error At The Inputs");
             }
         };
     }
@@ -108,7 +119,10 @@ public class EditMCQController {
             Medium.setSelected(true);
         } else if(question.getDifficultyLevel().equalsIgnoreCase("Hard")) {
             Hard.setSelected(true);
+        }else {
+            validation.showErrorPopUp("Error At The Inputs");
         }
+
 
     }
 }
