@@ -12,13 +12,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class EditQuestionController {
-
 
     @FXML
     private DQABankController dqaBankController;
@@ -49,6 +49,8 @@ public class EditQuestionController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             QuestionIDController loginController = fxmlLoader.getController();
+            loginController.setCourseId(courseId);
+            loginController.setQuestionType("TF");
             loginController.setEditQuestionController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -68,11 +70,18 @@ public class EditQuestionController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             QuestionIDController loginController = fxmlLoader.getController();
+            loginController.setCourseId(courseId);
             loginController.setEditQuestionController(this);
+            loginController.setQuestionType("MCQ");
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
         };
+    }
+
+    String courseId;
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 }

@@ -13,7 +13,7 @@
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Button fx:id="ChosenMCQ" layoutX="86.0" layoutY="190.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="263.0" style="-fx-background-color: #c96f71;" text="MCQ Question" textFill="WHITE">
+      <Button fx:id="ChosenMCQ" layoutX="86.0" layoutY="279.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="263.0" style="-fx-background-color: #c96f71;" text="MCQ Question" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -21,7 +21,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="ChosenTF" layoutX="85.0" layoutY="334.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="263.0" style="-fx-background-color: #c96f71;" text="True or False" textFill="WHITE">
+      <Button fx:id="ChosenTF" layoutX="85.0" layoutY="423.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="263.0" style="-fx-background-color: #c96f71;" text="True or False" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>

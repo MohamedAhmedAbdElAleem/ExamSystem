@@ -116,7 +116,12 @@ public class ServerHandler implements Runnable {
                     AddTFQuestion();
                 } else if (input.equalsIgnoreCase("addMCQQuestion")) {
                     AddMCQQuestion();
-                } else{
+                } else if (input.equalsIgnoreCase("checkQuestionID")) {
+                    CheckQuestionID();
+                }else if (input.equalsIgnoreCase("editMCQ")) {
+                    EditMCQ();
+                }
+                else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
                     writer.println(output);
@@ -130,6 +135,59 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void EditMCQ() {
+        try {
+            String questionID = reader.readLine();
+            String courseId = reader.readLine();
+            String question = reader.readLine();
+            String option2 = reader.readLine();
+            String option3 = reader.readLine();
+            String option4 = reader.readLine();
+            String correctOption = reader.readLine();
+            String lecture = reader.readLine();
+            String difficultyLevel = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE question_bank_"+courseId+" SET question = '"+question+"', lecture = '"+lecture+"', difficulty_level = '"+difficultyLevel+"' WHERE id = '"+questionID+"'");
+            statement.executeUpdate("UPDATE mcq_"+courseId+" SET choice = '"+option2+"' WHERE question_id = '"+questionID+"' AND id = 1");
+            statement.executeUpdate("UPDATE mcq_"+courseId+" SET choice = '"+option3+"' WHERE question_id = '"+questionID+"' AND id = 2");
+            statement.executeUpdate("UPDATE mcq_"+courseId+" SET choice = '"+option4+"' WHERE question_id = '"+questionID+"' AND id = 3");
+            statement.executeUpdate("UPDATE question_bank_"+courseId+" SET answer = '"+correctOption+"' WHERE id = '"+questionID+"'");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in editMCQ : "+e.getMessage());
+            writer.println("false");
+        }
+    }
+
+    private void CheckQuestionID() {
+        try {
+            String questionID = reader.readLine();
+            String courseID = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM question_bank_"+courseID+" WHERE id = '"+questionID+"'");
+            if (resultSet.next())
+            {
+                writer.println("true");
+                writer.println(resultSet.getString("question"));
+                writer.println(resultSet.getString("lecture"));
+                writer.println(resultSet.getString("Qtype"));
+                writer.println(resultSet.getString("answer"));
+                writer.println(resultSet.getString("difficulty_level"));
+                if(resultSet.getString("Qtype").equalsIgnoreCase("MCQ")) {
+                    ResultSet resultSet1 = statement.executeQuery("SELECT * FROM mcq_" + courseID + " WHERE question_id = '" + questionID + "'");
+                    while (resultSet1.next()) {
+                        writer.println(resultSet1.getString("choice"));
+                    }
+                }
+
+            }else{
+                writer.println("false");
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in checkQuestionID : "+e.getMessage());
         }
     }
 

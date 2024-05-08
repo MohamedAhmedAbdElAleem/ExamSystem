@@ -10,6 +10,9 @@ public class Question implements Serializable {
     private Boolean usedBefore;
     private String QuestionType;
     private String Answer;
+    private String Option2;
+    private String Option3;
+    private String Option4;
     public Question() {
         this.questionId = 0;
         this.Question = "";
@@ -84,5 +87,29 @@ public class Question implements Serializable {
 
     public void setAnswer(String answer) {
         Answer = answer;
+    }
+
+    public String getOption2() {
+        return Option2;
+    }
+
+    public void setOption2(String option2) {
+        Option2 = option2;
+    }
+
+    public String getOption3() {
+        return Option3;
+    }
+
+    public void setOption3(String option3) {
+        Option3 = option3;
+    }
+
+    public String getOption4() {
+        return Option4;
+    }
+
+    public void setOption4(String option4) {
+        Option4 = option4;
     }
 }

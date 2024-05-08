@@ -241,6 +241,7 @@ public class DQABankController {
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+
         };
     }
 
@@ -261,6 +262,7 @@ public class DQABankController {
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            ViewQuestions();
         };
     }
 
@@ -275,10 +277,12 @@ public class DQABankController {
             }
             EditQuestionController loginController = fxmlLoader.getController();
             loginController.setDQABankController(this);
+            loginController.setCourseId(courseId);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            ViewQuestions();
         };
     }
 
