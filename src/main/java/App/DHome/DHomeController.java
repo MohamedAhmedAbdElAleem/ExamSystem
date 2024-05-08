@@ -164,6 +164,11 @@ public class DHomeController {
         QBankButton.setOnAction(QBankButtonClicked());
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+        applyHoverEffect(LogOutButton);
+        applyHoverEffect(StudentsButton);
+        applyHoverEffect(ExamsButton);
+        applyHoverEffect(BackButton);
+        applyHoverEffect(QBankButton);
     }
 
     private EventHandler<ActionEvent> NotificationButtonClicked() {
@@ -236,5 +241,10 @@ public class DHomeController {
     private String ssn;
     public void setSsn(String ssn) {
         this.ssn = ssn;
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
     }
 }

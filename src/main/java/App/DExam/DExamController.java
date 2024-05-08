@@ -184,6 +184,11 @@ public class DExamController {
         LogOutButton.setOnAction(LogOutButtonClicked());
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+        applyHoverEffect(DHomeButton);
+        applyHoverEffect(QBankButton);
+        applyHoverEffect(StudentsButton);
+        applyHoverEffect(BackButton);
+        applyHoverEffect(LogOutButton);
     }
 
     private DHomeController dHomeController;
@@ -220,5 +225,10 @@ public class DExamController {
     private String ssn;
     public void setSsn(String ssn) {
         this.ssn = ssn;
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
     }
 }

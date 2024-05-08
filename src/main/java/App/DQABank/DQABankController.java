@@ -196,6 +196,12 @@ public class DQABankController {
         LectureColumn.setCellValueFactory(new PropertyValueFactory<>("lecture"));
         UsedColumn.setCellValueFactory(new PropertyValueFactory<>("usedBefore"));
         TypeColumn.setCellValueFactory(new PropertyValueFactory<>("QuestionType"));
+        applyHoverEffect(LogOutButton);
+        applyHoverEffect(StudentsButton);
+        applyHoverEffect(ExamsButton);
+        applyHoverEffect(BackButton);
+        applyHoverEffect(DHomeButton);
+
     }
 
     private EventHandler<ActionEvent> NotificationButtonClicked() {
@@ -330,5 +336,10 @@ public class DQABankController {
     private String ssn;
     public void setSsn(String ssn) {
         this.ssn = ssn;
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
     }
 }

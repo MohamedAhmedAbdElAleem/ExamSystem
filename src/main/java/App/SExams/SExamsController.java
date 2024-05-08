@@ -76,6 +76,11 @@ public class SExamsController {
         StudentProfile.setOnAction(StudentProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
         ChangePassword.setOnAction(ChangePasswordButtonClicked());
+        applyHoverEffect(LogOutButton);
+        applyHoverEffect(BackButton);
+        applyHoverEffect(SHomeButton);
+        applyHoverEffect(ResultButton);
+        applyHoverEffect(ChangePassword);
     }
 
     private EventHandler<ActionEvent> ChangePasswordButtonClicked() {
@@ -185,5 +190,10 @@ public class SExamsController {
     public void setStudent(Student student) {
         this.student = student;
 
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
     }
 }

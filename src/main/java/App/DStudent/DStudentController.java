@@ -202,6 +202,11 @@ public class DStudentController {
         Email.setCellValueFactory(new PropertyValueFactory<>("Semail"));
         RegistrationNumber.setCellValueFactory(new PropertyValueFactory<>("SregistrationNumber"));
         AssignButton.setOnAction(AssignButtonClicked());
+        applyHoverEffect(DHomeButton);
+        applyHoverEffect(QBankButton);
+        applyHoverEffect(ExamsButton);
+        applyHoverEffect(BackButton);
+        applyHoverEffect(LogOutButton);
     }
 
     private EventHandler<ActionEvent> AssignButtonClicked() {
@@ -331,6 +336,11 @@ public class DStudentController {
     private String ssn;
     public void setSsn(String ssn) {
         this.ssn = ssn;
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
     }
 }
 

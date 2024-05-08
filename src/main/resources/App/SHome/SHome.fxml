@@ -36,7 +36,7 @@
       </AnchorPane>
       <AnchorPane layoutX="9.0" layoutY="148.0" prefHeight="576.0" prefWidth="266.0" style="-fx-background-color: #202020; -fx-background-radius: 30;">
          <children>
-            <Button layoutX="2.0" layoutY="2.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #2e2e2e;" text="DashBoard" textFill="WHITE">
+            <Button layoutY="2.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #2e2e2e;" text="DashBoard" textFill="WHITE">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -52,7 +52,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button fx:id="ExamsButton" layoutY="144.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Exams" textFill="#b0b0b0">
+            <Button fx:id="ExamsButton" layoutY="139.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Exams" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -60,7 +60,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="30.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="33.0" layoutY="159.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/ExamOut.png" />
                </image>
@@ -68,7 +68,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button fx:id="BackButton" layoutX="2.0" layoutY="436.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Back" textFill="#b0b0b0">
+            <Button fx:id="BackButton" layoutY="442.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Back" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -76,15 +76,15 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="39.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="33.0" layoutY="464.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/BackOut.png" />
+                  <Image url="@../Images/Back.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button fx:id="LogOutButton" layoutX="2.0" layoutY="512.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #1e1e1e;" text="Logout" textFill="#b0b0b0">
+            <Button fx:id="LogOutButton" layoutY="512.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="266.0" style="-fx-background-radius: 30; -fx-background-color: #1e1e1e;" text="Logout" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -92,7 +92,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="39.0" layoutY="532.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="33.0" layoutY="532.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/LogoutOut.png" />
                </image>
@@ -100,7 +100,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button fx:id="ResultButton" layoutX="-1.0" layoutY="68.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Results" textFill="#b0b0b0">
+            <Button fx:id="ResultButton" layoutY="66.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Results" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
@@ -108,7 +108,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="30.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="33.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/ResultOut.png" />
                </image>
@@ -116,24 +116,22 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button fx:id="ChangePassword" layoutY="367.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Change Password" textFill="#b0b0b0">
+            <Button fx:id="ChangePassword" layoutY="371.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="266.0" style="-fx-background-color: #202020;" text="Password" textFill="#b0b0b0">
                <font>
                   <Font name="Verdana Bold" size="18.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../Images/BackOut.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </graphic>
             </Button>
+            <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="33.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/ChangePassword.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </AnchorPane>
       <Button layoutX="1062.0" layoutY="252.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="49.0" style="-fx-background-radius: 45; -fx-background-color: transparent;" />

@@ -52,6 +52,11 @@ public class SHomeController {
         StudentProfile.setOnAction(StudentProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
         ChangePassword.setOnAction(ChangePasswordButtonClicked());
+        applyHoverEffect(LogOutButton);
+        applyHoverEffect(BackButton);
+        applyHoverEffect(ExamsButton);
+        applyHoverEffect(ResultButton);
+        applyHoverEffect(ChangePassword);
 
     }
 
@@ -159,7 +164,7 @@ public class SHomeController {
             }
             SBeforeController sBeforeController = fxmlLoader.getController();
             sBeforeController.setStudent(student);
-            sBeforeController.setStudentLoginController(this);
+            sBeforeController.setStudentBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -204,5 +209,10 @@ public class SHomeController {
     public void setStudent(Student student) {
         this.student = student;
         StudentWelcome.setText("Welcome "+student.getSname());
+    }
+
+    private void applyHoverEffect(Button button) {
+        button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
+        button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
     }
 }

@@ -133,10 +133,6 @@ public class SBeforeController {
     public void setStudentLoginController(StudentLoginController studentLoginController) {
         this.studentLoginController = studentLoginController;
     }
-    private SHomeController sHomeController;
-    public void setStudentLoginController(SHomeController sHomeController) {
-        this.sHomeController = sHomeController;
-    }
 
     private SExamsController sExamsController;
     public void setStudentLoginController(SExamsController sExamsController) {
@@ -151,5 +147,10 @@ public class SBeforeController {
     public void setStudent(Student student) {
         this.student = student;
         StudentWelcome.setText("Welcome "+student.getSname());
+    }
+
+    private DHomeController dHomeController;
+    public void setStudentBeforeController(SHomeController sHomeController) {
+        this.dHomeController = dHomeController;
     }
 }
