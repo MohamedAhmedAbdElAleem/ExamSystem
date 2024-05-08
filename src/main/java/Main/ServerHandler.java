@@ -173,6 +173,7 @@ public class ServerHandler implements Runnable {
                     writer.println("true");
                     String newPassword = generatePassword(6);
                     statement.executeUpdate("UPDATE students SET Spassword = '"+newPassword+"' WHERE Sid = '"+ID+"' AND Sssn = '"+SSN+"'");
+                    System.out.printf("Password : "+newPassword);
                     writer.println(newPassword);
                 } else {
                     writer.println("false");

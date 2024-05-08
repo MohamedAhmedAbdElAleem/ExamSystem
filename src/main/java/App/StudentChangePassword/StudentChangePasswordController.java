@@ -46,7 +46,7 @@ public class StudentChangePasswordController {
             }
             client.sendMessage("changePassword");
             client.sendMessage(student.getSid());
-            client.sendMessage(oldPass);
+            client.sendMessage(student.getSssn());
             client.sendMessage(newPass);
             String response = client.receiveMessage();
             if (response.equalsIgnoreCase("true")) {
