@@ -9,6 +9,7 @@ import App.DoctorLogin.DoctorLoginController;
 import App.DoctorProfile.DoctorProfileController;
 import App.EditQuestion.EditQuestionController;
 import App.Notification.NotificationController;
+import App.QID.QIDController;
 import App.QuestionID.QuestionIDController;
 import Main.Client;
 import Main.Question;
@@ -249,14 +250,15 @@ public class DQABankController {
 
     private EventHandler<ActionEvent> DeleteQuestionButtonClicked() {
         return e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/QuestionID/QuestionID.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/QID/QID.fxml"));
             Scene scene = null;
             try {
                 scene = new Scene(fxmlLoader.load());
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-            QuestionIDController loginController = fxmlLoader.getController();
+            QIDController loginController = fxmlLoader.getController();
+            loginController.setCourseId(courseId);
             loginController.setDQABankController(this);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal

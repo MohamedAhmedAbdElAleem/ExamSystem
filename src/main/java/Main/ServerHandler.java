@@ -127,6 +127,12 @@ public class ServerHandler implements Runnable {
                     changePassword();
                 }else if (input.equalsIgnoreCase("editTrueFalse")) {
                     EditTrueFalse();
+                }else if (input.equalsIgnoreCase("DeleteQuestion")) {
+                    DeleteQuestion();
+                }else if(input.equalsIgnoreCase("checkQuestionIDBeforeDelete")){
+                    CheckQuestionIDBeforeDelete();
+                }else if (input.equalsIgnoreCase("deleteQuestion")) {
+                    DeleteQuestion();
                 }
                 else{
                     String output = processInput(input);
@@ -144,6 +150,54 @@ public class ServerHandler implements Runnable {
             }
         }
     }
+
+    private void CheckQuestionIDBeforeDelete() {
+        try {
+            String questionID = reader.readLine();
+            String courseID = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM question_bank_"+courseID+" WHERE id = '"+questionID+"'");
+            if (resultSet.next())
+            {
+                writer.println("true");
+            }else{
+                writer.println("false");
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in checkQuestionIDBeforeDelete : "+e.getMessage());
+        }
+    }
+
+    private void DeleteQuestion() {
+        try {
+            String questionID = reader.readLine();
+            String courseId = reader.readLine();
+
+            // Delete the corresponding options from the MCQ table
+            PreparedStatement deleteMCQStatement = connection.prepareStatement(
+                    "DELETE FROM mcq_" + courseId + " WHERE question_id = ?");
+            deleteMCQStatement.setString(1, questionID);
+            int mcqDeleted = deleteMCQStatement.executeUpdate();
+
+            // Delete the question from the question bank table
+            PreparedStatement deleteQuestionBankStatement = connection.prepareStatement(
+                    "DELETE FROM question_bank_" + courseId + " WHERE id = ?");
+            deleteQuestionBankStatement.setString(1, questionID);
+            int questionDeleted = deleteQuestionBankStatement.executeUpdate();
+
+            // Delete the question from the true/false table
+            if (questionDeleted > 0 || mcqDeleted > 0 ) {
+                writer.println("true");
+            } else {
+                writer.println("false"); // If no question or options were deleted
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in deleteQuestion : " + e.getMessage());
+            writer.println("false");
+        }
+    }
+
+
 
     private void changePassword() {
         try {
