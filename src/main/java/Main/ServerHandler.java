@@ -133,6 +133,8 @@ public class ServerHandler implements Runnable {
                     CheckQuestionIDBeforeDelete();
                 }else if (input.equalsIgnoreCase("deleteQuestion")) {
                     DeleteQuestion();
+                }else if (input.equalsIgnoreCase("ViewCoursesOfStudent")) {
+                    ViewCoursesOfStudent();
                 }
                 else{
                     String output = processInput(input);
@@ -149,6 +151,27 @@ public class ServerHandler implements Runnable {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
         }
+    }
+
+    private void ViewCoursesOfStudent() {
+        try {
+            String id = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM courses WHERE Cid IN (SELECT CoursesID FROM enroll WHERE StudentstID = '"+id+"')");
+            while (resultSet.next())
+            {
+                course = new Course();
+                course.setCid(resultSet.getString("Cid"));
+                course.setCname(resultSet.getString("Cname"));
+                course.setCcreditHours(resultSet.getString("CcreditHours"));
+                course.setDocID(resultSet.getString("DocID"));
+                objectOutputStream.writeObject(course);
+            }
+            writer.println("end");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in viewCoursesOfStudent : "+e.getMessage());
+        }
+
     }
 
     private void CheckQuestionIDBeforeDelete() {

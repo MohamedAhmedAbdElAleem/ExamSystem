@@ -7,8 +7,11 @@ import App.SHome.SHomeController;
 import App.SResults.SResultsController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
+import Main.Client;
+import Main.Course;
 import Main.Student;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -75,16 +78,31 @@ public class SBeforeController {
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
-
+            ViewCourses();
         };
     }
             @FXML
     public void initialize() {
-        choice1.setItems(FXCollections.observableArrayList("Advanced Programming Application", "Data Structure"));
+//        choice1.setItems(FXCollections.observableArrayList("Advanced Programming Application", "Data Structure"));
         LogOutButton.setOnAction(LogOutButtonClicked());
         ContinueButton.setOnAction(ContinueButtonClicked());
         StudentProfile.setOnAction(StudentProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+    }
+
+    private void ViewCourses() {
+        Client client = new Client();
+        ObservableList<Course> courses = FXCollections.observableArrayList();
+        try {
+            courses = client.ViewCoursesOfStudent(student.getSid());
+        } catch (IOException e) {
+            System.out.println("Error in getting courses : "+e.getMessage());
+        }
+        ObservableList<String> courseNames = FXCollections.observableArrayList();
+        for(Course course : courses){
+            courseNames.add(course.getCname());
+        }
+        choice1.setItems(courseNames);
     }
 
     private EventHandler<ActionEvent> NotificationButtonClicked() {
@@ -146,6 +164,7 @@ public class SBeforeController {
     private Student student;
     public void setStudent(Student student) {
         this.student = student;
+        ViewCourses();
         StudentWelcome.setText("Welcome "+student.getSname());
     }
 

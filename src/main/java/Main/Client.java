@@ -440,4 +440,32 @@ private SocketAddress socketAddress() {
         String result = receiveMessage();
         return result;
     }
+
+    public ObservableList<Course> ViewCoursesOfStudent(String sid) throws IOException {
+        sendMessage("ViewCoursesOfStudent");
+        sendMessage(sid);
+        ObservableList<Course> courses = FXCollections.observableArrayList();
+        Course line = null;
+        try {
+            line = (Course) objectInputStream.readObject();
+        } catch (IOException e) {
+            System.out.println("Error in getting Courses : " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error in getting Courses : " + e.getMessage());
+        }
+        while (line != null) {
+            courses.add(line);
+            try {
+                line = (Course) objectInputStream.readObject();
+            } catch (IOException e) {
+                System.out.println("Error in getting Courses : " + e.getMessage());
+                break;
+            } catch (ClassNotFoundException e) {
+                System.out.println("Error in getting Courses : " + e.getMessage());
+                break;
+            }
+        }
+
+        return courses;
+    }
 }

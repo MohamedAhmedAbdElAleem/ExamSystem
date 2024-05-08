@@ -46,6 +46,7 @@ public class SExamsController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             SBeforeController sBeforeController = fxmlLoader.getController();
+            sBeforeController.setStudent(student);
             sBeforeController.setStudentLoginController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
