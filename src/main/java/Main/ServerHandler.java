@@ -1,10 +1,7 @@
 package Main;
 import java.io.*;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Objects;
 
 public class ServerHandler implements Runnable {
@@ -310,23 +307,63 @@ public class ServerHandler implements Runnable {
         String Cname = reader.readLine();
         String CcreditHours = reader.readLine();
         String DocID = reader.readLine();
+
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors WHERE Did = '" + DocID + "'");
-            if (resultSet.next()) {
-                try {
-                    statement = connection.createStatement();
-                    statement.executeUpdate("INSERT INTO courses (Cname,CcreditHours,DocID) VALUES ('"+Cname+"','"+CcreditHours+"','"+DocID+"')");
+            // Check if the doctor with the provided ID exists
+            PreparedStatement checkDoctorStatement = connection.prepareStatement("SELECT * FROM doctors WHERE Did = ?");
+            checkDoctorStatement.setString(1, DocID);
+            ResultSet doctorResult = checkDoctorStatement.executeQuery();
+
+            if (doctorResult.next()) {
+                // If the doctor exists, insert the new course
+                PreparedStatement insertCourseStatement = connection.prepareStatement("INSERT INTO courses (Cname, CcreditHours, DocID) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                insertCourseStatement.setString(1, Cname);
+                insertCourseStatement.setString(2, CcreditHours);
+                insertCourseStatement.setString(3, DocID);
+                int rowsAffected = insertCourseStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    // Signal successful course insertion to the client
                     writer.println("true");
-                } catch (SQLException e) {
-                    System.out.println("Error in addCourse : "+e.getMessage());
-                    writer.println("false");
+
+                    // Retrieve the generated course ID
+                    ResultSet generatedKeys = insertCourseStatement.getGeneratedKeys();
+                    int courseId = -1; // Default value if course ID retrieval fails
+                    if (generatedKeys.next()) {
+                        courseId = generatedKeys.getInt(1);
+                    }
+
+                    // Create a new table for the question bank associated with the course
+                    String createQuestionBankTableSQL = "CREATE TABLE question_bank_" + courseId + " ("
+                            + "id INT AUTO_INCREMENT PRIMARY KEY,"
+                            + "question VARCHAR(255) NOT NULL,"
+                            + "lecture VARCHAR(255) NOT NULL,"
+                            + "Qtype VARCHAR(255) NOT NULL,"
+                            + "answer VARCHAR(255) NOT NULL,"
+                            + "used BOOLEAN NOT NULL DEFAULT FALSE,"
+                            + "difficulty_level VARCHAR(255) NOT NULL"
+                            + ")";
+                    Statement createTableStatement = connection.createStatement();
+                    createTableStatement.executeUpdate(createQuestionBankTableSQL);
+
+                    // Create a new table for the MCQs associated with the question bank
+                    String createMCQTableSQL = "CREATE TABLE mcq_" + courseId + " ("
+                            + "id INT AUTO_INCREMENT PRIMARY KEY,"
+                            + "question_id INT NOT NULL,"
+                            + "choice VARCHAR(255) NOT NULL,"
+                            + "FOREIGN KEY (question_id) REFERENCES question_bank_" + courseId + "(id)"
+                            + ")";
+                    createTableStatement.executeUpdate(createMCQTableSQL);
+
+                } else {
+                    writer.println("false"); // Signal failure to insert course to the client
                 }
             } else {
-                writer.println("false");
+                writer.println("false"); // Signal that doctor with provided ID does not exist
             }
         } catch (SQLException e) {
-            System.out.println("Error in checkDoctorId : " + e.getMessage());
+            System.out.println("Error in addCourse : " + e.getMessage());
+            writer.println("false"); // Signal failure to the client
         }
 
     }
