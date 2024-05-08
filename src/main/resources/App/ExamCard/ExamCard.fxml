@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" minHeight="290.0" minWidth="290.0" prefHeight="290.0" prefWidth="290.0" spacing="20.0" style="-fx-background-color: #000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ExamCard.ExamCardController">
+   <children>
+      <Label fx:id="ExamCardLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="284.0" text="Add Exam" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="144.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/ExamIcon2.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <Button fx:id="ExamCardButton" mnemonicParsing="false" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #f3eae0;" text="Add" textFill="#080303">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</VBox>

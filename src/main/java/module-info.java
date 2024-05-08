@@ -139,4 +139,10 @@ module App {
 
     opens App.AssignStudent to javafx.fxml;
     exports App.AssignStudent;
+
+    opens App.ExamCard to javafx.fxml;
+    exports App.ExamCard;
+
+    opens App.ExamView to javafx.fxml;
+    exports App.ExamView;
 }
