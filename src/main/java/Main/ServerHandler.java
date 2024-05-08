@@ -150,12 +150,12 @@ public class ServerHandler implements Runnable {
             if (resultSet.next())
             {
                 String currentPassword = resultSet.getString("Spassword");
-
-                // Assuming "defaultPassword" is your default password
-                if (currentPassword.equals("defaultPassword")) {
+                if (currentPassword.equalsIgnoreCase("1234")) {
                     writer.println("true");
                     String newPassword = generatePassword(6);
                     statement.executeUpdate("UPDATE students SET Spassword = '"+newPassword+"' WHERE Sid = '"+ID+"' AND Sssn = '"+SSN+"'");
+
+                    // Send the new password to the client
                     writer.println(newPassword);
                 } else {
                     writer.println("false");
