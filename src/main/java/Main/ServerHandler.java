@@ -150,12 +150,10 @@ public class ServerHandler implements Runnable {
             if (resultSet.next())
             {
                 String currentPassword = resultSet.getString("Spassword");
-                if (currentPassword.equalsIgnoreCase("1234")) {
+                if (currentPassword.equals("7#Kd4&FpGqXy!3vPmZ@LwTnU2$r%hY8jN*5sE")) {
                     writer.println("true");
                     String newPassword = generatePassword(6);
                     statement.executeUpdate("UPDATE students SET Spassword = '"+newPassword+"' WHERE Sid = '"+ID+"' AND Sssn = '"+SSN+"'");
-
-                    // Send the new password to the client
                     writer.println(newPassword);
                 } else {
                     writer.println("false");
@@ -740,9 +738,6 @@ public class ServerHandler implements Runnable {
             boolean output = DoctorLogin(id, password);
             writer.println(output);
             if (output) {
-//                System.out.println("Doctor : "+doctor.getDname());
-//                System.out.println("Doctor : "+doctor.getDssn());
-
                 writer.println(doctor.getDname());
                 writer.println(doctor.getDssn());
             }
@@ -752,10 +747,7 @@ public class ServerHandler implements Runnable {
             writer.println(output);
             if (output)
             {
-//                System.out.println("Student : "+student.getSname());
-//                System.out.println("Student : "+student.getSssn());
-//                System.out.println("Student : "+student.getSemail());
-//                System.out.println("Student : "+student.getSregistrationNumber());
+
                 objectOutputStream.writeObject(student);
             }
         }
