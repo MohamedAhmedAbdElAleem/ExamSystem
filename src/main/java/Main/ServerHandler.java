@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.*;
 import java.util.Objects;
+import java.util.Random;
 
 public class ServerHandler implements Runnable {
     private Socket clientSocket;
@@ -145,16 +146,37 @@ public class ServerHandler implements Runnable {
             String SSN = reader.readLine();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid = '"+ID+"' AND Sssn = '"+SSN+"'");
+
             if (resultSet.next())
             {
-                writer.println("true");
-                writer.println(resultSet.getString("Spassword"));
-            }else{
+                String currentPassword = resultSet.getString("Spassword");
+
+                // Assuming "defaultPassword" is your default password
+                if (currentPassword.equals("defaultPassword")) {
+                    writer.println("true");
+                    String newPassword = generatePassword(6);
+                    statement.executeUpdate("UPDATE students SET Spassword = '"+newPassword+"' WHERE Sid = '"+ID+"' AND Sssn = '"+SSN+"'");
+                    writer.println(newPassword);
+                } else {
+                    writer.println("false");
+                }
+            } else {
                 writer.println("false");
             }
         } catch (IOException | SQLException e) {
             System.out.println("Error in getPassword : "+e.getMessage());
         }
+    }
+
+    private String generatePassword(int length) {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder password = new StringBuilder();
+        Random rnd = new Random();
+        while (password.length() < length) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * chars.length());
+            password.append(chars.charAt(index));
+        }
+        return password.toString();
     }
 
     private void EditMCQ() {

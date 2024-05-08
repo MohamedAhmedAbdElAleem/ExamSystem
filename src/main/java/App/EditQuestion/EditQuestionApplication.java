@@ -16,7 +16,9 @@ public class EditQuestionApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        //todo ygygugugy
+        /*todo dadaadad
+        *  adadadadacad
+        * */
 
     }
     public static void main(String[] args) {
