@@ -37,45 +37,47 @@ public class SIDController {
     }
 
     private EventHandler<ActionEvent> ProceedButtonClicked() {
-        return e -> {
-            String sid = SID.getText();
+    return e -> {
+        String sid = SID.getText();
 
-            if(sid.isEmpty()){
-                validation.showErrorPopUp("Student Not Found");
-                return;
-            }
-            if (process.equals("UnAssiqn")) {
-                Client client = new Client();
-                String responce = client.UnAssignStudent(sid,courseid);
-                if (responce.equals("true")) {
-                    validation.showSuccessPopUp("Student UnAssigned Successfully");
-                }else
-                {
-                    validation.showErrorPopUp("Student Not Found");
-                }
-            }
-
+        if(sid.isEmpty()){
+            validation.showErrorPopUp("Student Not Found");
+            return;
+        }
+        if (process.equals("UnAssiqn")) {
             Client client = new Client();
-            Student result = client.process("getStudentDetails",sid);
-            if(result == null){
-                return;
+            String responce = client.UnAssignStudent(sid,courseid);
+            if (responce.equals("true")) {
+                validation.showSuccessPopUp("Student UnAssigned Successfully");
+            }else
+            {
+                validation.showErrorPopUp("Student Not Found");
             }
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EditStudent/EditStudent.fxml"));
-            Scene scene = null;
-            try {
-                scene = new Scene(fxmlLoader.load());
-            } catch (IOException ex) {
-                System.out.println("Error in loading scene : "+ex.getMessage());
-            }
-            EditStudentController dStudentController = fxmlLoader.getController();
-            dStudentController.setSIDController(this);
-            dStudentController.setStudent(result);
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.show();
+            return;
+        }
 
-        };
-    }
+        Client client = new Client();
+        Student result = client.process("getStudentDetails",sid);
+        if(result == null){
+            return;
+        }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EditStudent/EditStudent.fxml"));
+        Scene scene = null;
+        try {
+            scene = new Scene(fxmlLoader.load());
+        } catch (IOException ex) {
+            System.out.println("Error in loading scene : "+ex.getMessage());
+        }
+        EditStudentController dStudentController = fxmlLoader.getController();
+        dStudentController.setSIDController(this);
+        dStudentController.setStudent(result);
+
+        // Get the current stage from the ActionEvent
+        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    };
+}
 
     public void setUsername(String username1) {
         this.username = username1;

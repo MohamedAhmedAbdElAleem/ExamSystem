@@ -41,7 +41,7 @@ public class AssignStudentController {
                 validation.showSuccessPopUp("Student Assigned Successfully");
             }else
             {
-                validation.showErrorPopUp("Student Not Found");
+                validation.showErrorPopUp("Student Not Found or Already Assigned");
             }
         };
     }

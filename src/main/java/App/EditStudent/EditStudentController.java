@@ -34,6 +34,9 @@ public class EditStudentController {
                 return;
             }
             Client client = new Client();
+            result.setSname(name);
+            result.setSregistrationNumber(registrationNumber);
+            result.setSssn(ssn);
             String response =  client.process("updateStudent",result);
             if(response.equals("true"))
             {
