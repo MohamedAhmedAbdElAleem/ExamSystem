@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="550.0" minWidth="450.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.EditTrueFalse.EditTrueFalseController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="550.0" minWidth="450.0" prefHeight="600.0" prefWidth="450.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.EditTrueFalse.EditTrueFalseController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="58.0" layoutY="27.0" prefHeight="58.0" prefWidth="338.0" text="Edit True / False Question" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="27.0" />
          </font>
       </Label>
-      <Button layoutX="92.0" layoutY="457.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="256.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
+      <Button layoutX="92.0" layoutY="500.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="256.0" style="-fx-background-color: #c96f71;" text="Proceed" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -42,9 +42,27 @@
             <ToggleGroup fx:id="TFAns" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="87.0" layoutY="351.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" text="True" textFill="WHITE" toggleGroup="$TFAns">
+      <RadioButton layoutX="94.0" layoutY="351.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" text="True" textFill="WHITE" toggleGroup="$TFAns">
          <font>
             <Font name="System Bold" size="24.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="FalseRadio" layoutX="157.0" layoutY="425.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="135.0" text="Medium" textFill="#ffaa00">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="LevelGroup3" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="TrueRadio" layoutX="56.0" layoutY="425.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="93.0" text="Easy" textFill="#00ff1e" toggleGroup="$LevelGroup3">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="FalseRadio1" layoutX="293.0" layoutY="425.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" text="Hard" textFill="RED" toggleGroup="$LevelGroup3">
+         <font>
+            <Font name="System Bold" size="22.0" />
          </font>
       </RadioButton>
    </children>

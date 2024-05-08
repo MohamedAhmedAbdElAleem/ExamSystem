@@ -96,7 +96,7 @@
             </Button>
             <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="39.0" layoutY="458.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/BackOut.png" />
+                  <Image url="@../Images/Back.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
