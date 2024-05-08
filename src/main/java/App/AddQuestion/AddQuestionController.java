@@ -3,6 +3,7 @@ package App.AddQuestion;
 import App.DQABank.DQABankController;
 import App.MCQ.MCQController;
 import App.TF.TFController;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,6 +25,8 @@ public class AddQuestionController {
     @FXML
     private RadioButton Hard;
     private String difficultyLevel;
+
+    Validation validation = new Validation();
 
     private DQABankController dqaBankController;
     public void setDQABankController(DQABankController dqaBankController) {
@@ -51,7 +54,8 @@ public class AddQuestionController {
             } else if (Hard.isSelected()) {
                 difficultyLevel = "Hard";
             }else{
-
+                validation.showErrorPopUp("Please Choose Difficulty Level");
+                return;
             }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/TF/TF.fxml"));
             Scene scene = null;
@@ -81,7 +85,8 @@ public class AddQuestionController {
             } else if (Hard.isSelected()) {
                 difficultyLevel = "Hard";
             }else{
-
+                validation.showErrorPopUp("Please Choose Difficulty Level");
+                return;
             }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/MCQ/MCQ.fxml"));
             Scene scene = null;

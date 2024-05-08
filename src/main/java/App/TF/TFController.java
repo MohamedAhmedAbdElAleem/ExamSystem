@@ -3,6 +3,7 @@ package App.TF;
 import App.AddQuestion.AddQuestionController;
 import App.EditQuestion.EditQuestionController;
 import Main.Client;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,6 +25,7 @@ public class TFController {
     @FXML
     private Button ProceedButton;
 
+    Validation validation = new Validation();
     private final ToggleGroup group = new ToggleGroup();
 
     private AddQuestionController addQuestionController;
@@ -52,14 +54,19 @@ public class TFController {
             } else if (FalseRadio.isSelected()) {
                 answer = "False";
             }
+            if (question.isEmpty() || lecture.isEmpty() || answer.isEmpty()) {
+                validation.showErrorPopUp("Please fill all the fields");
+                return;
+            }
             Client client = new Client();
             String response = client.addTFQuestion(question, difficultyLevel, lecture, answer, courseId);
             if (response.equalsIgnoreCase("true")) {
+                validation.showSuccessPopUp("Question Added Successfully");
                 Question.clear();
                 LectureNumber.clear();
                 group.selectToggle(null);
             }else {
-//                System.out.println("Error in adding question");
+                validation.showErrorPopUp("Error At The Inputs");
             }
         };
     }

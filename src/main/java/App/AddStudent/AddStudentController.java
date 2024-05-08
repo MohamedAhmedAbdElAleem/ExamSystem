@@ -25,7 +25,10 @@ public class AddStudentController {
         String registrationNumber = StudentRegistartionNumber.getText();
         String ssn = StudentSSN.getText();
         String email = StudentEmail.getText();
-//        System.out.println(name + " " + registrationNumber + " " + ssn + " " + email);
+        if(name.isEmpty() || registrationNumber.isEmpty() || ssn.isEmpty() || email.isEmpty()) {
+            validation.showErrorPopUp("Please Fill All The Fields");
+            return;
+        }
         Student student = new Student(name, registrationNumber, ssn, email);
         Client client = new Client();
         client.sendMessage("addStudent");

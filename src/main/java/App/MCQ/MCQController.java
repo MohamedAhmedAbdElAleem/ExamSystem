@@ -3,6 +3,7 @@ package App.MCQ;
 import App.AddQuestion.AddQuestionController;
 import App.EditQuestion.EditQuestionController;
 import Main.Client;
+import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,6 +26,8 @@ public class MCQController {
     @FXML
     private Button ProceedButton;
 
+    Validation validation = new Validation();
+
     public void initialize() {
         ProceedButton.setOnAction(ProceedButtonClicked());
     }
@@ -37,9 +40,14 @@ public class MCQController {
             String option2 = Opt2.getText();
             String option3 = Opt3.getText();
             String option4 = Opt4.getText();
+            if (question.isEmpty() || lecture.isEmpty() || answer.isEmpty() || option2.isEmpty() || option3.isEmpty() || option4.isEmpty()) {
+                validation.showErrorPopUp("Please fill all the fields");
+                return;
+            }
             Client client = new Client();
             String response = client.addMCQQuestion(question, difficultyLevel, lecture, answer, option2, option3, option4, courseId);
             if (response.equalsIgnoreCase("true")) {
+                validation.showSuccessPopUp("Question Added Successfully");
                 Question.clear();
                 LectureNumber.clear();
                 Ans.clear();
@@ -48,7 +56,7 @@ public class MCQController {
                 Opt4.clear();
             }
             else{
-                System.out.println("Error");
+                validation.showErrorPopUp("Error At The Inputs");
             }
         };
     }

@@ -167,6 +167,7 @@ public class DStudentController {
 
     private EventHandler<ActionEvent> AddStudentButtonClicked() {
         return e -> {
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AddStudent/AddStudent.fxml"));
             Scene scene = null;
             try {
