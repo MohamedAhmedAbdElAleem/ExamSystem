@@ -152,5 +152,8 @@ module App {
     opens App.AreYouSure to javafx.fxml;
     exports App.AreYouSure;
 
+    opens App.EligableStudent to javafx.fxml;
+    exports App.EligableStudent;
+
 
 }

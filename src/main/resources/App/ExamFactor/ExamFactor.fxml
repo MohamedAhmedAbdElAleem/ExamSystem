@@ -173,7 +173,7 @@
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </TextField>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="448.0" layoutY="392.0" prefHeight="35.0" prefWidth="50.0" text="MCQ" textAlignment="CENTER" textFill="#f3eae0">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="469.0" layoutY="530.0" prefHeight="35.0" prefWidth="124.0" text="Total Degrees :  " textAlignment="CENTER" textFill="#f3eae0">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -213,7 +213,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Button fx:id="MakeButton" layoutX="567.0" layoutY="559.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #f3eae0;" text="Make" textFill="#080303">
+      <Button fx:id="MakeButton" layoutX="567.0" layoutY="582.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #f3eae0;" text="Done" textFill="#080303">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -221,5 +221,26 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="659.0" layoutY="535.0" prefHeight="26.0" prefWidth="139.0" text="Total Questions :  " textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Separator layoutX="640.0" layoutY="530.0" orientation="VERTICAL" prefHeight="35.0" prefWidth="6.0" />
+      <Label fx:id="TotalDegrees" alignment="CENTER" contentDisplay="CENTER" layoutX="580.0" layoutY="538.0" prefHeight="20.0" prefWidth="50.0" text="N/A" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="TotalQuestions" alignment="CENTER" contentDisplay="CENTER" layoutX="791.0" layoutY="537.0" prefHeight="20.0" prefWidth="36.0" text="N/A" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="393.0" prefHeight="35.0" prefWidth="50.0" text="MCQ" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

@@ -2,10 +2,7 @@ package App.ExamFactor;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class ExamFactorController {
     @FXML
@@ -46,6 +43,10 @@ public class ExamFactorController {
     private TextField HardTFQ;
     @FXML
     private Button MakeButton;
+    @FXML
+    private Label TotalDegrees;
+    @FXML
+    private Label TotalQuestions;
 
 
 
