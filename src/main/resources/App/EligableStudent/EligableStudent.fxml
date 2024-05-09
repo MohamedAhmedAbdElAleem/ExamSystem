@@ -8,8 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane minHeight="650.0" minWidth="870.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.EligableStudent.EligableStudent">
+<AnchorPane minHeight="650.0" minWidth="870.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.EligableStudent.EligableStudentController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="279.0" layoutY="24.0" prefHeight="26.0" prefWidth="338.0" text="Eligible Students" textAlignment="CENTER" textFill="WHITE">
          <font>
