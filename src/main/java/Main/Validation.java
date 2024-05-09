@@ -49,22 +49,22 @@ public class Validation {
         stage.showAndWait();
     }
 
-    public void AreYouSurePopUp() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AreYouSure/AreYouSure.fxml"));
-        Parent parent = null;
-        try {
-            parent = fxmlLoader.load();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        AreYouSureController areYouSureController = fxmlLoader.getController();
-
-        Scene scene = new Scene(parent);
-        Stage stage = new Stage();
-        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.showAndWait();
+    public void AreYouSurePopUp(Runnable onYes) {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AreYouSure/AreYouSure.fxml"));
+    Parent parent = null;
+    try {
+        parent = fxmlLoader.load();
+    } catch (IOException ex) {
+        throw new RuntimeException(ex);
     }
+
+    AreYouSureController areYouSureController = fxmlLoader.getController();
+    areYouSureController.setOnYes(onYes);
+    Scene scene = new Scene(parent);
+    Stage stage = new Stage();
+    stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+    stage.setScene(scene);
+    stage.showAndWait();
+}
 
     }
