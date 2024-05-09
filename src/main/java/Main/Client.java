@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class Client {
@@ -467,5 +468,23 @@ private SocketAddress socketAddress() {
         }
 
         return courses;
+    }
+
+    public List<Exam> getExams() {
+        try {
+            List<Exam> exams = null;
+            Exam exam = null;
+            while (true) {
+                exam = (Exam) objectInputStream.readObject();
+                if (exam == null) {
+                    break;
+                }
+                exams.add(exam);
+            }
+            return exams;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error in getting Exams: " + e.getMessage());
+        }
+            return null;
     }
 }

@@ -135,6 +135,8 @@ public class ServerHandler implements Runnable {
                     DeleteQuestion();
                 }else if (input.equalsIgnoreCase("ViewCoursesOfStudent")) {
                     ViewCoursesOfStudent();
+                }else if (input.equalsIgnoreCase("getExamsOfCourse")) {
+                    getExamsOfCourse();
                 }
                 else{
                     String output = processInput(input);
@@ -150,6 +152,41 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void getExamsOfCourse() {
+        try {
+            String courseId = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM exams WHERE CourseId = '"+courseId+"'");
+            while (resultSet.next())
+            {
+                Exam exam = new Exam();
+                exam.setExamId(resultSet.getInt("ExamId"));
+                exam.setName(resultSet.getString("Name"));
+                exam.setStartDate(resultSet.getTimestamp("StartDate").toLocalDateTime());
+                exam.setDuration(resultSet.getInt("Duration"));
+                exam.setTotalMarks(resultSet.getInt("TotalMarks"));
+                exam.setLectureStart(resultSet.getInt("LectureStart"));
+                exam.setLectureEnd(resultSet.getInt("LectureEnd"));
+                exam.setDoctorId(resultSet.getInt("DoctorId"));
+                exam.setMCQE(resultSet.getInt("MCQE"));
+                exam.setMCQM(resultSet.getInt("MCQM"));
+                exam.setMCQH(resultSet.getInt("MCQH"));
+                exam.setTFE(resultSet.getInt("TFE"));
+                exam.setTFM(resultSet.getInt("TFM"));
+                exam.setTFH(resultSet.getInt("TFH"));
+                exam.setQbId(resultSet.getInt("QbId"));
+                exam.setEasyMarks(resultSet.getInt("EasyMarks"));
+                exam.setMediumMarks(resultSet.getInt("MediumMarks"));
+                exam.setHardMarks(resultSet.getInt("HardMarks"));
+                exam.setQuestionsIds(resultSet.getString("QuestionsIds"));
+                objectOutputStream.writeObject(exam);
+            }
+            writer.println("end");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getExamsOfCourse : "+e.getMessage());
         }
     }
 

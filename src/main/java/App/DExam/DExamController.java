@@ -6,6 +6,8 @@ import App.DStudent.DStudentController;
 import App.DoctorLogin.DoctorLoginController;
 import App.DoctorProfile.DoctorProfileController;
 import App.Notification.NotificationController;
+import Main.Client;
+import Main.Exam;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,12 +17,25 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class DExamController {
+    @FXML
+    private HBox PendingExamsPane;
+    @FXML
+    private HBox CompletedExamsPane;
+//    @FXML
+//    private VBox newQuizPane;
+//    @FXML
+//    private Button ExamCardButton;
     @FXML
     private Button DoctorProfile;
     @FXML
@@ -189,6 +204,40 @@ public class DExamController {
         applyHoverEffect(StudentsButton);
         applyHoverEffect(BackButton);
         applyHoverEffect(LogOutButton);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/ExamCard/ExamCard.fxml"));
+            VBox newQuizPane = loader.load();
+            PendingExamsPane.getChildren().add(newQuizPane);
+        } catch (IOException e) {
+            System.out.println("Error in loading scene : "+e.getMessage());
+        }
+
+
+//        Client client = new Client();
+//        client.sendMessage("getExamsOfCourse");
+//        client.sendMessage(courseId);
+//        List<Exam> quizzes = client.getExams();
+//        for (Exam quiz : quizzes) {
+//            addQuizPane(quiz);
+//        }
+//        addNewQuiz.setOnMouseClicked(addNewQuiz());
+
+    }
+
+    private EventHandler<MouseEvent> addNewQuiz() {
+        return e -> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ExamFactor/ExamFactor.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+
+        };
     }
 
     private DHomeController dHomeController;

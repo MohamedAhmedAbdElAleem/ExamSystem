@@ -122,6 +122,7 @@ public class DHomeController {
                 scene = new Scene(fxmlLoader.load());
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
+                ex.printStackTrace();
             }
             DExamController loginController = fxmlLoader.getController();
             loginController.setUsername(Username);
