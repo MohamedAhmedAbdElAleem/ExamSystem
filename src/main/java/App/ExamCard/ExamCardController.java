@@ -1,5 +1,7 @@
 package App.ExamCard;
 
+import App.DExam.DExamController;
+import Main.Exam;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,5 +42,13 @@ public class ExamCardController {
 
         };
     }
-
+    private Exam quiz;
+    public void setExam(Exam quiz) {
+        ExamCardLabel.setText(quiz.getName());
+        this.quiz = quiz;
+    }
+    private DExamController dExamController;
+    public void setDExamController(DExamController dExamController) {
+        this.dExamController = dExamController;
+    }
 }

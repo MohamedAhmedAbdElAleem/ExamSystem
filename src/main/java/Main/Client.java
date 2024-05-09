@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.*;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -471,20 +472,51 @@ private SocketAddress socketAddress() {
     }
 
     public List<Exam> getExams() {
-        try {
-            List<Exam> exams = null;
-            Exam exam = null;
-            while (true) {
-                exam = (Exam) objectInputStream.readObject();
-                if (exam == null) {
-                    break;
-                }
-                exams.add(exam);
-            }
-            return exams;
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error in getting Exams: " + e.getMessage());
+        List<Exam> exams = new java.util.ArrayList<>();
+        String message = receiveMessage();
+        while (message.equalsIgnoreCase("true")) {
+            String ExamId = receiveMessage();
+            String name = receiveMessage();
+            String startDate = receiveMessage();
+            String duration = receiveMessage();
+            String TotalMarks = receiveMessage();
+            String lectureStart = receiveMessage();
+            String lectureEnd = receiveMessage();
+            String doctorId = receiveMessage();
+            String MCQE = receiveMessage();
+            String MCQM = receiveMessage();
+            String MCQH = receiveMessage();
+            String TFE = receiveMessage();
+            String TFM = receiveMessage();
+            String TFH = receiveMessage();
+            String QbId = receiveMessage();
+            String EasyMarks = receiveMessage();
+            String MediumMarks = receiveMessage();
+            String HardMarks = receiveMessage();
+            String QuestionsIds = receiveMessage();
+            Exam exam = new Exam();
+            exam.setExamId(Integer.parseInt(ExamId));
+            exam.setName(name);
+            exam.setStartDate(LocalDateTime.parse(startDate));
+            exam.setDuration(Integer.parseInt(duration));
+            exam.setTotalMarks(Integer.parseInt(TotalMarks));
+            exam.setLectureStart(Integer.parseInt(lectureStart));
+            exam.setLectureEnd(Integer.parseInt(lectureEnd));
+            exam.setDoctorId(Integer.parseInt(doctorId));
+            exam.setMCQE(Integer.parseInt(MCQE));
+            exam.setMCQM(Integer.parseInt(MCQM));
+            exam.setMCQH(Integer.parseInt(MCQH));
+            exam.setTFE(Integer.parseInt(TFE));
+            exam.setTFM(Integer.parseInt(TFM));
+            exam.setTFH(Integer.parseInt(TFH));
+            exam.setQbId(Integer.parseInt(QbId));
+            exam.setEasyMarks(Integer.parseInt(EasyMarks));
+            exam.setMediumMarks(Integer.parseInt(MediumMarks));
+            exam.setHardMarks(Integer.parseInt(HardMarks));
+            exam.setQuestionsIds(QuestionsIds);
+            exams.add(exam);
+            message = receiveMessage();
         }
-            return null;
+        return exams;
     }
 }

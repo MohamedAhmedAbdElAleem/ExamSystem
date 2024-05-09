@@ -159,30 +159,30 @@ public class ServerHandler implements Runnable {
         try {
             String courseId = reader.readLine();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM exams WHERE CourseId = '"+courseId+"'");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM exams WHERE QBID = '"+courseId+"'");
             while (resultSet.next())
             {
-                Exam exam = new Exam();
-                exam.setExamId(resultSet.getInt("ExamId"));
-                exam.setName(resultSet.getString("Name"));
-                exam.setStartDate(resultSet.getTimestamp("StartDate").toLocalDateTime());
-                exam.setDuration(resultSet.getInt("Duration"));
-                exam.setTotalMarks(resultSet.getInt("TotalMarks"));
-                exam.setLectureStart(resultSet.getInt("LectureStart"));
-                exam.setLectureEnd(resultSet.getInt("LectureEnd"));
-                exam.setDoctorId(resultSet.getInt("DoctorId"));
-                exam.setMCQE(resultSet.getInt("MCQE"));
-                exam.setMCQM(resultSet.getInt("MCQM"));
-                exam.setMCQH(resultSet.getInt("MCQH"));
-                exam.setTFE(resultSet.getInt("TFE"));
-                exam.setTFM(resultSet.getInt("TFM"));
-                exam.setTFH(resultSet.getInt("TFH"));
-                exam.setQbId(resultSet.getInt("QbId"));
-                exam.setEasyMarks(resultSet.getInt("EasyMarks"));
-                exam.setMediumMarks(resultSet.getInt("MediumMarks"));
-                exam.setHardMarks(resultSet.getInt("HardMarks"));
-                exam.setQuestionsIds(resultSet.getString("QuestionsIds"));
-                objectOutputStream.writeObject(exam);
+                writer.println("true");
+                writer.println(resultSet.getInt("EId"));
+                writer.println(resultSet.getString("Ename"));
+                writer.println(resultSet.getTimestamp("Edate").toLocalDateTime());
+                writer.println(resultSet.getInt("Eduration"));
+                writer.println(resultSet.getInt("EtotalMarks"));
+                writer.println(resultSet.getInt("lectureStart"));
+                writer.println(resultSet.getInt("lectureEnd"));
+                writer.println(resultSet.getInt("DoctorID"));
+                writer.println(resultSet.getInt("MCQE"));
+                writer.println(resultSet.getInt("MCQM"));
+                writer.println(resultSet.getInt("MCQH"));
+                writer.println(resultSet.getInt("TFE"));
+                writer.println(resultSet.getInt("TFM"));
+                writer.println(resultSet.getInt("TFH"));
+                writer.println(resultSet.getInt("QBID"));
+                writer.println(resultSet.getInt("EasyMark"));
+                writer.println(resultSet.getInt("MediumMark"));
+                writer.println(resultSet.getInt("HardMark"));
+                writer.println(resultSet.getString("QuestionsID"));
+
             }
             writer.println("end");
         } catch (IOException | SQLException e) {

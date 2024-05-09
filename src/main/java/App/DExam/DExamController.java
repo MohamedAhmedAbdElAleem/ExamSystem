@@ -5,6 +5,8 @@ import App.DQABank.DQABankController;
 import App.DStudent.DStudentController;
 import App.DoctorLogin.DoctorLoginController;
 import App.DoctorProfile.DoctorProfileController;
+import App.ExamCard.ExamCardController;
+import App.ExamView.ExamViewController;
 import App.Notification.NotificationController;
 import Main.Client;
 import Main.Exam;
@@ -213,15 +215,54 @@ public class DExamController {
         }
 
 
-//        Client client = new Client();
-//        client.sendMessage("getExamsOfCourse");
-//        client.sendMessage(courseId);
-//        List<Exam> quizzes = client.getExams();
-//        for (Exam quiz : quizzes) {
-//            addQuizPane(quiz);
-//        }
 
+    }
+    private void ViewExams() {
+        Client client = new Client();
+        client.sendMessage("getExamsOfCourse");
+        client.sendMessage(courseId);
+        List<Exam> quizzes = client.getExams();
+        if (quizzes == null) {
+            System.out.println("No Exams Found");
+            return;
+        }
 
+            System.out.println("Upcoming Exam");
+        for (Exam quiz : quizzes) {
+
+            if (quiz.getStartDate().isAfter(java.time.LocalDateTime.now()))
+            {
+                addExamUpcoming(quiz);
+            }
+            else {
+                addExamCompleted(quiz);
+            }
+        }
+    }
+    private void addExamCompleted(Exam quiz) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/ExamView/ExamView.fxml"));
+            VBox newQuizPane = loader.load();
+            ExamViewController examCardController = loader.getController();
+            examCardController.setExam(quiz);
+            examCardController.setDExamController(this);
+            CompletedExamsPane.getChildren().add(newQuizPane);
+        } catch (IOException e) {
+            System.out.println("Error in loading scene : "+e.getMessage());
+        }
+    }
+
+    private void addExamUpcoming(Exam quiz) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/ExamView/ExamView.fxml"));
+            VBox newQuizPane = loader.load();
+            ExamViewController examCardController = loader.getController();
+            examCardController.setExam(quiz);
+            examCardController.setDExamController(this);
+            PendingExamsPane.getChildren().add(newQuizPane);
+        } catch (IOException e) {
+            System.out.println("Error in loading scene : "+e.getMessage());
+        }
     }
 
 
@@ -254,6 +295,7 @@ public class DExamController {
     private String courseId;
     public void setCourseId(String courseId) {
         this.courseId = courseId;
+        ViewExams();
     }
 
     private String ssn;
