@@ -28,4 +28,107 @@
     -fx-font-size: 14px;
 }
 
+.ComboBox {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.ComboBox:hover {
+    -fx-background-color: grey;
+}
+
+.ComboBox .list-cell {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.ComboBox .list-cell:hover {
+    -fx-background-color: grey;
+}
+
+.ComboBox .list-cell:selected {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.ComboBox .cell:hover {
+    -fx-background-color: grey;
+}
+
+.ComboBox .arrow-button .arrow {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.DatePicker {
+    -fx-control-inner-background: black;
+    -fx-text-fill: white;
+}
+
+.DatePicker .text-field {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.DatePicker .text-field:hover {
+    -fx-background-color: grey;
+}
+
+.DatePicker .arrow-button {
+    -fx-background-color: black;
+}
+
+.DatePicker .arrow-button:hover {
+    -fx-background-color: grey;
+}
+
+.DatePicker .arrow-button .arrow {
+    -fx-background-color: white;
+}
+
+.DatePicker .day-cell {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.DatePicker .day-cell:hover {
+    -fx-background-color: grey;
+}
+
+.DatePicker .day-cell:selected {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.ComboBox2 {
+    -fx-background-color:  #1e1e1e;
+    -fx-text-fill: white;
+}
+
+.ComboBox2:hover {
+    -fx-background-color: grey;
+}
+
+.ComboBox2 .list-cell {
+    -fx-background-color:  #1e1e1e;
+    -fx-text-fill: white;
+}
+
+.ComboBox2 .list-cell:hover {
+    -fx-background-color: grey;
+}
+
+.ComboBox2 .list-cell:selected {
+    -fx-background-color:  #1e1e1e;
+    -fx-text-fill: white;
+}
+
+.ComboBox2 .cell:hover {
+    -fx-background-color: grey;
+}
+
+.ComboBox2 .arrow-button .arrow {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
 

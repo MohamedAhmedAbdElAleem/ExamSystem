@@ -14,7 +14,7 @@
    <children>
       <AnchorPane layoutX="-1.0" layoutY="-1.0" prefHeight="140.0" prefWidth="1302.0" style="-fx-background-color: #202020;">
          <children>
-            <Label fx:id="StudentWelcome" alignment="CENTER" contentDisplay="CENTER" layoutX="271.0" layoutY="45.0" prefHeight="58.0" prefWidth="844.0" text="Welcome User" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="StudentWelcome" alignment="CENTER" contentDisplay="CENTER" layoutX="293.0" layoutY="45.0" prefHeight="58.0" prefWidth="725.0" text="Welcome User" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
@@ -37,13 +37,13 @@
       </AnchorPane>
       <Button layoutX="1062.0" layoutY="252.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="49.0" style="-fx-background-radius: 45; -fx-background-color: transparent;" />
       <Button layoutX="879.0" layoutY="301.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="49.0" style="-fx-background-radius: 45; -fx-background-color: transparent;" />
-      <ComboBox fx:id="choice1" layoutX="532.0" layoutY="303.0" prefHeight="38.0" prefWidth="299.0" promptText="Choose Your Course" style="-fx-background-color: #1e1e1e; -fx-background: #1e1e1e; -fx-text-fill: white; -fx-control-inner-background: #1e1e1e; -fx-control-inner-background-alt: #1e1e1e;" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="475.0" layoutY="226.0" prefHeight="58.0" prefWidth="426.0" text="Choose Your Course" textAlignment="CENTER" textFill="#3d6b8c">
+      <ComboBox fx:id="choice1" layoutX="509.0" layoutY="296.0" prefHeight="38.0" prefWidth="299.0" promptText="Choose Your Course" styleClass="ComboBox2" stylesheets="@../style.css" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="452.0" layoutY="219.0" prefHeight="58.0" prefWidth="426.0" text="Choose Your Course" textAlignment="CENTER" textFill="#3d6b8c">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Button fx:id="ContinueButton" layoutX="513.0" layoutY="587.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" style="-fx-background-color: #3d6b8c;" text="Continue" textFill="WHITE">
+      <Button fx:id="ContinueButton" layoutX="490.0" layoutY="580.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" style="-fx-background-color: #3d6b8c;" text="Continue" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
@@ -51,7 +51,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button fx:id="LogOutButton" layoutX="709.0" layoutY="586.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" style="-fx-background-color: #3d6b8c;" text="Logout" textFill="WHITE">
+      <Button fx:id="LogOutButton" layoutX="686.0" layoutY="579.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="152.0" style="-fx-background-color: #3d6b8c;" text="Logout" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>

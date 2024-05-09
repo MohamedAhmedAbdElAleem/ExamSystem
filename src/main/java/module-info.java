@@ -145,4 +145,12 @@ module App {
 
     opens App.ExamView to javafx.fxml;
     exports App.ExamView;
+
+    opens App.ExamFactor to javafx.fxml;
+    exports App.ExamFactor;
+
+    opens App.AreYouSure to javafx.fxml;
+    exports App.AreYouSure;
+
+
 }

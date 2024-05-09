@@ -1,5 +1,6 @@
 package Main;
 
+import App.AreYouSure.AreYouSureController;
 import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +41,24 @@ public class Validation {
 
         ErrorPopUpController errorPopUpController = fxmlLoader.getController();
         errorPopUpController.setErrorMessage(message);
+
+        Scene scene = new Scene(parent);
+        Stage stage = new Stage();
+        stage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    public void AreYouSurePopUp() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AreYouSure/AreYouSure.fxml"));
+        Parent parent = null;
+        try {
+            parent = fxmlLoader.load();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        AreYouSureController areYouSureController = fxmlLoader.getController();
 
         Scene scene = new Scene(parent);
         Stage stage = new Stage();

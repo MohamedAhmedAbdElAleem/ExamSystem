@@ -15,7 +15,7 @@
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
-      <ImageView fitHeight="144.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="140.0" fitWidth="148.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Images/ExamIcon2.png" />
          </image>

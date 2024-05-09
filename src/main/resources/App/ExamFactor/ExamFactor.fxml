@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane minHeight="650.0" minWidth="870.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202020;" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ExamFactor.ExamFactorController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="20.0" prefHeight="26.0" prefWidth="338.0" text="Exam Maker" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="87.0" prefHeight="35.0" prefWidth="231.0" text="Exam Name" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Separator layoutX="436.0" layoutY="79.0" orientation="VERTICAL" prefHeight="568.0" prefWidth="2.0" />
+      <TextField fx:id="ExamName" layoutX="128.0" layoutY="131.0" prefHeight="35.0" prefWidth="231.0" promptText="Exam Name" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="176.0" prefHeight="35.0" prefWidth="231.0" text="Start Date" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <DatePicker id="DatePicker" fx:id="StartDate" layoutX="128.0" layoutY="222.0" prefHeight="26.0" prefWidth="231.0" promptText="Start Date" styleClass="DatePicker" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="127.0" layoutY="269.0" prefHeight="35.0" prefWidth="231.0" text="Start Time" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="StartHour" layoutX="159.0" layoutY="347.0" prefHeight="26.0" prefWidth="62.0" promptText="HH" styleClass="ComboBox" stylesheets="@../style.css" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="159.0" layoutY="311.0" prefHeight="35.0" prefWidth="50.0" text="Hours" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox id="ComboBox" fx:id="StartMinute" layoutX="260.0" layoutY="347.0" prefHeight="26.0" prefWidth="70.0" promptText="MM" styleClass="ComboBox" stylesheets="@../style.css" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="261.0" layoutY="311.0" prefHeight="35.0" prefWidth="62.0" text="Minutes" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="128.0" layoutY="384.0" prefHeight="35.0" prefWidth="231.0" text="Exam Time" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="TimeHour" layoutX="158.0" layoutY="460.0" prefHeight="26.0" prefWidth="62.0" promptText="HH" styleClass="ComboBox" stylesheets="@../style.css" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="424.0" prefHeight="35.0" prefWidth="50.0" text="Hours" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <ComboBox id="ComboBox" fx:id="TimeMinute" layoutX="259.0" layoutY="460.0" prefHeight="26.0" prefWidth="70.0" promptText="MM" styleClass="ComboBox" stylesheets="@../style.css" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="260.0" layoutY="424.0" prefHeight="35.0" prefWidth="62.0" text="Minutes" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="127.0" layoutY="506.0" prefHeight="35.0" prefWidth="231.0" text="Lectures Range" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="157.0" layoutY="546.0" prefHeight="35.0" prefWidth="50.0" text="Start" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="259.0" layoutY="546.0" prefHeight="35.0" prefWidth="62.0" text="End" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="LecStart" layoutX="158.0" layoutY="586.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="LecEnd" layoutX="265.0" layoutY="586.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="517.0" layoutY="87.0" prefHeight="35.0" prefWidth="231.0" text="Total Marks" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TotalMarks" layoutX="605.0" layoutY="130.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="518.0" layoutY="180.0" prefHeight="35.0" prefWidth="231.0" text="Question Marks" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="509.0" layoutY="222.0" prefHeight="35.0" prefWidth="50.0" text="Easy" textAlignment="CENTER" textFill="#00ff1e">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="611.0" layoutY="222.0" prefHeight="35.0" prefWidth="62.0" text="Med" textAlignment="CENTER" textFill="#ffaa00">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="EasyMarks" layoutX="510.0" layoutY="262.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="MediumMarks" layoutX="617.0" layoutY="262.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="716.0" layoutY="224.0" prefHeight="35.0" prefWidth="62.0" text="Hard" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="HardMarks" layoutX="722.0" layoutY="264.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="522.0" layoutY="311.0" prefHeight="35.0" prefWidth="231.0" text="Question Quantitie" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="510.0" layoutY="353.0" prefHeight="35.0" prefWidth="50.0" text="Easy" textAlignment="CENTER" textFill="#00ff1e">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="612.0" layoutY="353.0" prefHeight="35.0" prefWidth="62.0" text="Med" textAlignment="CENTER" textFill="#ffaa00">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="EasyMCQQ" layoutX="511.0" layoutY="393.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="MediumMCQQ" layoutX="618.0" layoutY="393.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="717.0" layoutY="355.0" prefHeight="35.0" prefWidth="62.0" text="Hard" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="HardMCQQ" layoutX="723.0" layoutY="395.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="448.0" layoutY="392.0" prefHeight="35.0" prefWidth="50.0" text="MCQ" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="511.0" layoutY="438.0" prefHeight="35.0" prefWidth="50.0" text="Easy" textAlignment="CENTER" textFill="#00ff1e">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="613.0" layoutY="438.0" prefHeight="35.0" prefWidth="62.0" text="Med" textAlignment="CENTER" textFill="#ffaa00">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="EasyTFQ" layoutX="512.0" layoutY="478.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="MediumTFQ" layoutX="619.0" layoutY="478.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="718.0" layoutY="440.0" prefHeight="35.0" prefWidth="62.0" text="Hard" textAlignment="CENTER" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="HardTFQ" layoutX="724.0" layoutY="480.0" prefHeight="35.0" prefWidth="50.0" promptText="Num" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="449.0" layoutY="477.0" prefHeight="35.0" prefWidth="50.0" text="TF" textAlignment="CENTER" textFill="#f3eae0">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </Label>
+      <Button fx:id="MakeButton" layoutX="567.0" layoutY="559.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="148.0" style="-fx-background-color: #f3eae0;" text="Make" textFill="#080303">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
+</AnchorPane>
