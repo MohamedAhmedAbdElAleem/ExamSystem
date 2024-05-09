@@ -155,5 +155,14 @@ module App {
     opens App.EligableStudent to javafx.fxml;
     exports App.EligableStudent;
 
+    opens App.ViewExamDoctor to javafx.fxml;
+    exports App.ViewExamDoctor;
+
+    opens App.ViewExamStudent to javafx.fxml;
+    exports App.ViewExamStudent;
+
+    opens App.ExamSession to javafx.fxml;
+    exports App.ExamSession;
+
 
 }

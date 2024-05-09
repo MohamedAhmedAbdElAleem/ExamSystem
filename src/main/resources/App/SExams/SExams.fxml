@@ -168,6 +168,11 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="297.0" layoutY="165.0" prefHeight="554.0" prefWidth="986.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="295.0" layoutY="158.0" prefHeight="46.0" prefWidth="235.0" text="Running Exams" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <HBox fx:id="PendingExamsPane" alignment="CENTER_LEFT" fillHeight="false" layoutX="303.0" layoutY="207.0" prefHeight="498.0" prefWidth="977.0" spacing="5.0" style="-fx-background-color: #202020;" />
    </children>
 </AnchorPane>
