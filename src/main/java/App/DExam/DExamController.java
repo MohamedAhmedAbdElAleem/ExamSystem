@@ -34,8 +34,8 @@ public class DExamController {
     private HBox CompletedExamsPane;
 //    @FXML
 //    private VBox newQuizPane;
-//    @FXML
-//    private Button ExamCardButton;
+    @FXML
+    private Button ExamCardButton;
     @FXML
     private Button DoctorProfile;
     @FXML
@@ -220,25 +220,10 @@ public class DExamController {
 //        for (Exam quiz : quizzes) {
 //            addQuizPane(quiz);
 //        }
-//        addNewQuiz.setOnMouseClicked(addNewQuiz());
+
 
     }
 
-    private EventHandler<MouseEvent> addNewQuiz() {
-        return e -> {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ExamFactor/ExamFactor.fxml"));
-                Scene scene = new Scene(fxmlLoader.load());
-                Stage stage = new Stage();
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setScene(scene);
-                stage.showAndWait();
-            } catch (IOException ex) {
-                System.out.println("Error in loading scene : "+ex.getMessage());
-            }
-
-        };
-    }
 
     private DHomeController dHomeController;
     public void setDHomeController(DHomeController dHomeController) {

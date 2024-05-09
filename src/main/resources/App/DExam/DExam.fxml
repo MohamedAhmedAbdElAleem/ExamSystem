@@ -183,12 +183,12 @@
       </Label>
       <ScrollPane layoutX="306.0" layoutY="195.0" prefHeight="222.0" prefWidth="975.0" style="-fx-background-color: #202020;">
          <content>
-            <HBox fx:id="PendingExamsPane" prefHeight="206.0" prefWidth="975.0" style="-fx-background-color: #202020;" />
+            <HBox fx:id="PendingExamsPane" alignment="CENTER_LEFT" fillHeight="false" prefHeight="206.0" prefWidth="975.0" style="-fx-background-color: #202020;" />
          </content>
       </ScrollPane>
       <ScrollPane layoutX="307.0" layoutY="483.0" prefHeight="222.0" prefWidth="975.0" style="-fx-background-color: #202020;">
          <content>
-            <HBox fx:id="CompletedExamsPane" prefHeight="206.0" prefWidth="975.0" style="-fx-background-color: #202020;" />
+            <HBox fx:id="CompletedExamsPane" alignment="CENTER_LEFT" fillHeight="false" prefHeight="206.0" prefWidth="975.0" style="-fx-background-color: #202020;" />
          </content>
       </ScrollPane>
    </children>
