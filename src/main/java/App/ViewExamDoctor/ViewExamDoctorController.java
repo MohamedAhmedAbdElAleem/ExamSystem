@@ -6,6 +6,7 @@ import App.ExamView.ExamViewController;
 import Main.Client;
 import Main.Exam;
 import Main.Question;
+import Main.Validation;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ViewExamDoctorController {
+    Validation validation = new Validation();
     @FXML
     private Button DoneButton;
     @FXML
@@ -49,7 +51,6 @@ public class ViewExamDoctorController {
         Client client = new Client();
         client.sendMessage("getQuestionsOfExam");
         String courseId = String.valueOf(quiz.getQbId());
-        System.out.println(courseId);
         client.sendMessage(courseId);
         client.sendMessage(quiz.getQuestionsIds());
         ObservableList<Question> questions = client.getQuestionsOfExam();
@@ -73,13 +74,17 @@ public class ViewExamDoctorController {
                 String responce = client.receiveMessage();
                 if(responce.equalsIgnoreCase("true"))
                 {
-                    System.out.println("Exam Updated");
+                    validation.showSuccessPopUp("Exam Updated Successfully");
+                    Stage stage = (Stage) DoneButton.getScene().getWindow();
+                    stage.close();
                 }else
                 {
-                    System.out.println("Error in updating Exam");
+                    validation.showErrorPopUp("Error in Updating Exam");
+                    Stage stage = (Stage) DoneButton.getScene().getWindow();
+                    stage.close();
                 }
             }else{
-                System.out.println("Please select the status of the exam");
+                validation.showErrorPopUp("Please Select the Result Option");
             }
         };
     }

@@ -63,6 +63,10 @@ public class DStudentController {
     private TableColumn<Student,String> RegistrationNumber;
     @FXML
     private Button AssignButton;
+    @FXML
+    private Button ExcelImportStudents;
+    @FXML
+    private Button ExcelExportStudents;
 
     private EventHandler<ActionEvent> DHomeButtonClicked() {
         return e -> {

@@ -11,7 +11,10 @@ public class AreYouSureController {
     private Button NoButton;
 
     public void setOnYes(Runnable onYes) {
-        YesButton.setOnAction(e -> onYes.run());
+        YesButton.setOnAction(e -> {
+            onYes.run();
+            ((Node)(e.getSource())).getScene().getWindow().hide();
+        });
     }
 
     public void initialize() {

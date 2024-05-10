@@ -180,7 +180,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="601.0" layoutY="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: #20744a;" text="Import" textFill="WHITE">
+            <Button fx:id="ExcelImportQuestions" layoutX="601.0" layoutY="10.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="149.0" style="-fx-background-color: #20744a;" text="Import" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
@@ -196,7 +196,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-            <Button layoutX="758.0" layoutY="10.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="150.0" style="-fx-background-color: #20744a;" text="Export" textFill="WHITE">
+            <Button fx:id="ExcelExportQuestions" layoutX="758.0" layoutY="10.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="150.0" style="-fx-background-color: #20744a;" text="Export" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>

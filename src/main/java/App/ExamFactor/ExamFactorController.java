@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -112,20 +113,23 @@ public class ExamFactorController {
                 exam.setTFE(Integer.parseInt(EasyTFQ.getText()));
                 exam.setTFM(Integer.parseInt(MediumTFQ.getText()));
                 exam.setTFH(Integer.parseInt(HardTFQ.getText()));
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EligableStudent/EligableStudent.fxml"));
-                    EligableStudentController eligableStudentController = new EligableStudentController();
-                    eligableStudentController.setExamFactorController(this);
-                    fxmlLoader.setController(eligableStudentController);
-                    eligableStudentController.setExam(exam);
-                    try {
-                        Scene scene = new Scene(fxmlLoader.load());
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (Exception ex) {
-                        System.out.println("Error in loading scene : " + ex.getMessage());
-                    }
-       };
+               FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EligableStudent/EligableStudent.fxml"));
+               EligableStudentController eligableStudentController = new EligableStudentController();
+               eligableStudentController.setExamFactorController(this);
+               fxmlLoader.setController(eligableStudentController);
+               eligableStudentController.setExam(exam);
+               try {
+                   Scene scene = new Scene(fxmlLoader.load());
+                   Stage stage = new Stage();
+                   stage.setScene(scene);
+                   stage.show();
+
+                   // Close the current stage (the ExamFactor page)
+                   ((Node)(e.getSource())).getScene().getWindow().hide();
+               } catch (Exception ex) {
+                   System.out.println("Error in loading scene : " + ex.getMessage());
+               }
+           };
     }
 
     private void AddListener(){

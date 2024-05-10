@@ -66,6 +66,10 @@ public class DQABankController {
     private TableColumn<Question, String> UsedColumn;
     @FXML
     private TableColumn<Question, String> TypeColumn;
+    @FXML
+    private Button ExcelImportQuestions;
+    @FXML
+    private Button ExcelExportQuestions;
 
 
     private EventHandler<ActionEvent> LogOutButtonClicked() {

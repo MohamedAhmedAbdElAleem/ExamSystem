@@ -7,6 +7,7 @@ import App.ExamFactor.ExamFactorController;
 import Main.Client;
 import Main.Exam;
 import Main.Student;
+import Main.Validation;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -46,6 +48,8 @@ public class EligableStudentController {
     @FXML
     private RadioButton No;
 
+    Validation validation = new Validation();
+
     public void initialize() {
         DeleteStudentButton.setOnAction(DeleteStudentButtonClicked());
         MakeExamButton.setOnAction(MakeExamButtonClicked());
@@ -58,6 +62,10 @@ public class EligableStudentController {
 
     private EventHandler<ActionEvent> MakeExamButtonClicked() {
         return e -> {
+            if (!Yes.isSelected() && !No.isSelected()) {
+                validation.showErrorPopUp("Please Select the Result Option");
+            }
+            else{
             FXMLLoader fxmlLoader = new FXMLLoader(App.AreYouSure.AreYouSureApplication.class.getResource("AreYouSure.fxml"));
             Scene scene = null;
             Stage stage = new Stage();
@@ -67,12 +75,12 @@ public class EligableStudentController {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
             AreYouSureController areYouSureController = fxmlLoader.getController();
-            areYouSureController.setOnYes(MakeExam());
+            areYouSureController.setOnYes(MakeExam(e));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+            }
         };
-
     }
     ObservableList<Student> students = FXCollections.observableArrayList();
     private void ViewStudentsOfCourse(){
@@ -81,7 +89,7 @@ public class EligableStudentController {
         students = client.ViewStudentsOfCourse(exam.getQbId());
         StudentsTable.setItems(students);
     }
-    private Runnable MakeExam() {
+    private Runnable MakeExam(ActionEvent e) {
         return new Runnable() {
             @Override
             public void run() {
@@ -100,10 +108,13 @@ public class EligableStudentController {
                 client.sendMessage("end");
                 String responce = client.receiveMessage();
                 if (responce.equals("true")){
-                    System.out.println("Students Added");
+                    validation.showSuccessPopUp("Exam Created Successfully");
+
+                    // Close the current stage (the EligableStudent page)
+                    ((Node)(e.getSource())).getScene().getWindow().hide();
                 }
                 else {
-                    System.out.println("Error in adding Students");
+                    validation.showErrorPopUp("Error in Creating Exam");
                 }
             }
         };
@@ -133,8 +144,13 @@ public class EligableStudentController {
             @Override
             public void run() {
                 Student selected = StudentsTable.getSelectionModel().getSelectedItem();
-                students.remove(selected);
-                StudentsTable.getSelectionModel().clearSelection();
+                if (selected == null) {
+                    validation.showErrorPopUp("Please Choose a student");
+                } else {
+                    students.remove(selected);
+                    StudentsTable.getSelectionModel().clearSelection();
+                    validation.showSuccessPopUp("Student Deleted Successfully");
+                }
             }
         };
     }
