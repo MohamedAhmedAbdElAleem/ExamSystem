@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="650.0" minWidth="870.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="650.0" minWidth="870.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="311.0" layoutY="24.0" prefHeight="46.0" prefWidth="256.0" text="Questions Set" textAlignment="CENTER" textFill="WHITE">
          <font>
@@ -30,7 +25,7 @@
             <Font name="System Bold" size="22.0" />
          </font>
       </Label>
-      <RadioButton layoutX="183.0" layoutY="36.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Yes " textFill="#00ff33">
+      <RadioButton fx:id="True" layoutX="183.0" layoutY="36.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="62.0" text="Yes " textFill="#00ff33">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -38,7 +33,7 @@
             <ToggleGroup fx:id="ViewResult" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="252.0" layoutY="36.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="56.0" text="No" textFill="RED" toggleGroup="$ViewResult">
+      <RadioButton fx:id="False" layoutX="252.0" layoutY="36.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="56.0" text="No" textFill="RED" toggleGroup="$ViewResult">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>

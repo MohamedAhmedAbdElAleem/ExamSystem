@@ -147,6 +147,8 @@ public class ServerHandler implements Runnable {
                     ViewStudentsOfCourse();
                 }else if (input.equalsIgnoreCase("getQuestionsOfExam")) {
                     getQuestionsOfExam();
+                }else if (input.equalsIgnoreCase("updateExam")) {
+                    updateExam();
                 }
                 else{
                     String output = processInput(input);
@@ -162,6 +164,19 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void updateExam() {
+        try {
+            String examID = reader.readLine();
+            String view = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE take SET View = '"+view+"' WHERE ExamID = '"+examID+"'");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in updateExam : "+e.getMessage());
+            writer.println("false");
         }
     }
 

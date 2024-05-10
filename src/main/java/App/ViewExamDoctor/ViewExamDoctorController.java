@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -39,6 +40,10 @@ public class ViewExamDoctorController {
     private TableColumn<Question, String> LectureColumn;
     @FXML
     private TableColumn<Question, String> TypeColumn;
+    @FXML
+    private RadioButton True;
+    @FXML
+    private RadioButton False;
     private void ViewQuestions() {
 //        QuestionView.getItems().clear();
         Client client = new Client();
@@ -55,7 +60,30 @@ public class ViewExamDoctorController {
         DifficultyColumn.setCellValueFactory(new PropertyValueFactory<>("difficultyLevel"));
         LectureColumn.setCellValueFactory(new PropertyValueFactory<>("lecture"));
         TypeColumn.setCellValueFactory(new PropertyValueFactory<>("QuestionType"));
+        DoneButton.setOnAction(DoneButtonClicked());
     }
+
+    private EventHandler<ActionEvent> DoneButtonClicked() {
+        return e -> {
+            if (True.isSelected()||False.isSelected()){
+                Client client = new Client();
+                client.sendMessage("updateExam");
+                client.sendMessage(String .valueOf(quiz.getExamId()));
+                client.sendMessage(True.isSelected()?"true":"false");
+                String responce = client.receiveMessage();
+                if(responce.equalsIgnoreCase("true"))
+                {
+                    System.out.println("Exam Updated");
+                }else
+                {
+                    System.out.println("Error in updating Exam");
+                }
+            }else{
+                System.out.println("Please select the status of the exam");
+            }
+        };
+    }
+
     private DExamController dExamController;
     public void setDExamController(DExamController dExamController) {
         this.dExamController = dExamController;
