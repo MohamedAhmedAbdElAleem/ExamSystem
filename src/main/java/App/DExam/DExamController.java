@@ -206,18 +206,29 @@ public class DExamController {
         applyHoverEffect(StudentsButton);
         applyHoverEffect(BackButton);
         applyHoverEffect(LogOutButton);
+
+
+    }
+    public void ViewExams() {
         try {
+            PendingExamsPane.getChildren().clear();
+            CompletedExamsPane.getChildren().clear();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/ExamCard/ExamCard.fxml"));
             VBox newQuizPane = loader.load();
+            ExamCardController examCardController = loader.getController();
+            Exam quiz = new Exam();
             PendingExamsPane.getChildren().add(newQuizPane);
+            quiz.setDoctorId(Integer.parseInt(id));
+//            System.out.println("Course ID: "+courseId);
+            quiz.setQbId(Integer.parseInt(courseId));
+            examCardController.setDExamController(this);
+            examCardController.setExam(quiz);
+//            System.out.println(quiz.getQbId());
         } catch (IOException e) {
             System.out.println("Error in loading scene : "+e.getMessage());
         }
 
 
-
-    }
-    private void ViewExams() {
         Client client = new Client();
         client.sendMessage("getExamsOfCourse");
         client.sendMessage(courseId);
@@ -227,7 +238,6 @@ public class DExamController {
             return;
         }
 
-            System.out.println("Upcoming Exam");
         for (Exam quiz : quizzes) {
 
             if (quiz.getStartDate().isAfter(java.time.LocalDateTime.now()))
@@ -257,6 +267,8 @@ public class DExamController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/ExamView/ExamView.fxml"));
             VBox newQuizPane = loader.load();
             ExamViewController examCardController = loader.getController();
+            quiz.setDoctorId(Integer.parseInt(id));
+            quiz.setQbId(Integer.parseInt(courseId));
             examCardController.setExam(quiz);
             examCardController.setDExamController(this);
             PendingExamsPane.getChildren().add(newQuizPane);
@@ -297,7 +309,6 @@ public class DExamController {
         this.courseId = courseId;
         ViewExams();
     }
-
     private String ssn;
     public void setSsn(String ssn) {
         this.ssn = ssn;

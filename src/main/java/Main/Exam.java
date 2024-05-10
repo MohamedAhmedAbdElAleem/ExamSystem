@@ -1,6 +1,7 @@
 package Main;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -8,7 +9,7 @@ public class Exam  implements Serializable {
     private int examId;
     private String name;
     private LocalDateTime startDate;
-    private int duration;
+    private double duration;
     private int TotalMarks;
     private int lectureStart;
     private int lectureEnd;
@@ -49,11 +50,11 @@ public class Exam  implements Serializable {
         this.startDate = startDate;
     }
 
-    public int getDuration() {
+    public double getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(double duration) {
         this.duration = duration;
     }
 
@@ -175,5 +176,11 @@ public class Exam  implements Serializable {
 
     public void setQuestionsIds(String questionsIds) {
         QuestionsIds = questionsIds;
+    }
+    public void setStartDate(LocalDate date, int hour, int minute){
+        int year = date.getYear();
+        int month = date.getMonthValue();
+        int day = date.getDayOfMonth();
+        this.startDate = LocalDateTime.of(year,month,day, hour, minute);
     }
 }

@@ -519,4 +519,26 @@ private SocketAddress socketAddress() {
         }
         return exams;
     }
+
+    public String sendExam(Exam exam) {
+        sendMessage(exam.getName());
+        sendMessage(exam.getStartDate().toString());
+        sendMessage(String.valueOf(exam.getDuration()));
+        sendMessage(String.valueOf(exam.getTotalMarks()));
+        sendMessage(String.valueOf(exam.getLectureStart()));
+        sendMessage(String.valueOf(exam.getLectureEnd()));
+        sendMessage(String.valueOf(exam.getDoctorId()));
+        sendMessage(String.valueOf(exam.getMCQE()));
+        sendMessage(String.valueOf(exam.getMCQM()));
+        sendMessage(String.valueOf(exam.getMCQH()));
+        sendMessage(String.valueOf(exam.getTFE()));
+        sendMessage(String.valueOf(exam.getTFM()));
+        sendMessage(String.valueOf(exam.getTFH()));
+        sendMessage(String.valueOf(exam.getQbId()));
+        sendMessage(String.valueOf(exam.getEasyMarks()));
+        sendMessage(String.valueOf(exam.getMediumMarks()));
+        sendMessage(String.valueOf(exam.getHardMarks()));
+        String message = receiveMessage();
+        return message;
+    }
 }

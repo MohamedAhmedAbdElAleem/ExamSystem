@@ -2,6 +2,7 @@ package Main;
 import java.io.*;
 import java.net.Socket;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Random;
 
@@ -137,6 +138,8 @@ public class ServerHandler implements Runnable {
                     ViewCoursesOfStudent();
                 }else if (input.equalsIgnoreCase("getExamsOfCourse")) {
                     getExamsOfCourse();
+                }else if (input.equalsIgnoreCase("AddExam")) {
+                    AddExam();
                 }
                 else{
                     String output = processInput(input);
@@ -152,6 +155,84 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+    private String getQuestionIDs(String courseId, int numMCQEasy, int numMCQMedium, int numMCQHard, int numTFEasy, int numTFMedium, int numTFHard) throws SQLException {
+        StringBuilder questionIDsBuilder = new StringBuilder();
+
+        // Select random MCQ questions of each difficulty level
+        appendRandomQuestionIDs(questionIDsBuilder, courseId, "MCQ", "Easy", numMCQEasy);
+        appendRandomQuestionIDs(questionIDsBuilder, courseId, "MCQ", "Medium", numMCQMedium);
+        appendRandomQuestionIDs(questionIDsBuilder, courseId, "MCQ", "Hard", numMCQHard);
+
+        // Select random True/False questions of each difficulty level
+        appendRandomQuestionIDs(questionIDsBuilder, courseId, "TF", "Easy", numTFEasy);
+        appendRandomQuestionIDs(questionIDsBuilder, courseId, "TF", "Medium", numTFMedium);
+        appendRandomQuestionIDs(questionIDsBuilder, courseId, "TF", "Hard", numTFHard);
+
+        return questionIDsBuilder.toString();
+    }
+
+    private void appendRandomQuestionIDs(StringBuilder builder, String courseId, String questionType, String difficultyLevel, int numQuestions) throws SQLException {
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT id FROM question_bank_" + courseId + " WHERE Qtype = '" + questionType + "' AND difficulty_level = '" + difficultyLevel + "' ORDER BY RAND() LIMIT " + numQuestions);
+        while (resultSet.next()) {
+            if (builder.length() > 0) {
+                builder.append(",");
+            }
+            builder.append(resultSet.getInt("id"));
+        }
+    }
+
+    private void AddExam() {
+        try{
+                String examName = reader.readLine();
+                LocalDateTime startDate = LocalDateTime.parse(reader.readLine());
+                double duration = Double.parseDouble(reader.readLine());
+                int totalMarks = Integer.parseInt(reader.readLine());
+                int lectureStart = Integer.parseInt(reader.readLine());
+                int lectureEnd = Integer.parseInt(reader.readLine());
+                int doctorID = Integer.parseInt(reader.readLine());
+                int MCQE = Integer.parseInt(reader.readLine());
+                int MCQM = Integer.parseInt(reader.readLine());
+                int MCQH = Integer.parseInt(reader.readLine());
+                int TFE = Integer.parseInt(reader.readLine());
+                int TFM = Integer.parseInt(reader.readLine());
+                int TFH = Integer.parseInt(reader.readLine());
+                int QBID = Integer.parseInt(reader.readLine());
+                int EasyMark = Integer.parseInt(reader.readLine());
+                int MediumMark = Integer.parseInt(reader.readLine());
+                int HardMark = Integer.parseInt(reader.readLine());
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO exams (Ename, Edate, Eduration, EtotalMarks, lectureStart, lectureEnd, DoctorID, MCQE, MCQM, MCQH, TFE, TFM, TFH, QBID, EasyMark, MediumMark, HardMark,QuestionsID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                statement.setString(1, examName);
+                statement.setTimestamp(2, Timestamp.valueOf(startDate));
+                statement.setDouble(3, duration);
+                statement.setInt(4, totalMarks);
+                statement.setInt(5, lectureStart);
+                statement.setInt(6, lectureEnd);
+                statement.setInt(7, doctorID);
+                statement.setInt(8, MCQE);
+                statement.setInt(9, MCQM);
+                statement.setInt(10, MCQH);
+                statement.setInt(11, TFE);
+                statement.setInt(12, TFM);
+                statement.setInt(13, TFH);
+                statement.setInt(14, QBID);
+                statement.setInt(15, EasyMark);
+                statement.setInt(16, MediumMark);
+                statement.setInt(17, HardMark);
+//                System.out.println(QBID);
+                String questionIDs = getQuestionIDs(String.valueOf(QBID), MCQE, MCQM, MCQH, TFE, TFM, TFH);
+//                System.out.println(questionIDs);
+                statement.setString(18, questionIDs);
+                //get the questions ids from the database and store them in a string and then insert them in the database for each difficulty level and type
+                statement.executeUpdate();
+                writer.println("true");
+
+
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in addExam : "+e.getMessage());
+            writer.println("false");
         }
     }
 
