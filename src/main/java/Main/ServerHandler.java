@@ -145,6 +145,8 @@ public class ServerHandler implements Runnable {
                     AddExam();
                 }else if(input.equalsIgnoreCase("ViewStudentsOfCourse")) {
                     ViewStudentsOfCourse();
+                }else if (input.equalsIgnoreCase("getQuestionsOfExam")) {
+                    getQuestionsOfExam();
                 }
                 else{
                     String output = processInput(input);
@@ -160,6 +162,32 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void getQuestionsOfExam() {
+        try {
+            String courseId = reader.readLine();
+            String questionsIds = reader.readLine();
+            String[] questionsIdsArray = questionsIds.split(",");
+            for (String questionId : questionsIdsArray) {
+                Statement statement = connection.createStatement();
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM question_bank_" + courseId + " WHERE id = '" + questionId + "'");
+                if (resultSet.next()) {
+                    Question question = new Question();
+                    question.setQuestionId(resultSet.getInt("id"));
+                    question.setQuestion(resultSet.getString("question"));
+                    question.setLecture(resultSet.getString("lecture"));
+                    question.setQuestionType(resultSet.getString("Qtype"));
+                    question.setAnswer(resultSet.getString("answer"));
+                    question.setUsedBefore(resultSet.getBoolean("used"));
+                    question.setDifficultyLevel(resultSet.getString("difficulty_level"));
+                    objectOutputStream.writeObject(question);
+                }
+            }
+            writer.println("end");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getQuestionsOfExam : " + e.getMessage());
         }
     }
 

@@ -81,7 +81,7 @@ public class ExamFactorController {
         HardMCQQ.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
         EasyTFQ.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
         MediumTFQ.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
-        HardTFQ.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
+        TotalMarks.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
         MakeButton.setDisable(true);
         MakeButton.setOnAction(MakeButtonClicked());
     }

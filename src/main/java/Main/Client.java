@@ -42,7 +42,7 @@ public class Client {
 }
 
 private SocketAddress socketAddress() {
-    return new InetSocketAddress("192.168.1.9", 8080);
+    return new InetSocketAddress("localhost", 8080);
 }
 
     public void sendMessage(String message) {
@@ -554,5 +554,19 @@ private SocketAddress socketAddress() {
             System.out.println("Error in getting Students : " + e.getMessage());
         }
         return students;
+    }
+
+    public ObservableList<Question> getQuestionsOfExam() {
+        ObservableList<Question> questions = FXCollections.observableArrayList();
+        Question line = null;
+        try {
+            while (true) {
+                line = (Question) objectInputStream.readObject();
+                questions.add(line);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error in getting Questions : " + e.getMessage());
+        }
+        return questions;
     }
 }
