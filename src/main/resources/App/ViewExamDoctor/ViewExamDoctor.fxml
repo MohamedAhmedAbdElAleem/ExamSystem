@@ -17,14 +17,6 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TableView fx:id="StudentsView" layoutX="22.0" layoutY="87.0" prefHeight="522.0" prefWidth="822.0" styleClass="Tables" stylesheets="@../style.css">
-         <columns>
-            <TableColumn fx:id="ID" editable="false" prefWidth="89.60000228881836" text="ID" />
-            <TableColumn fx:id="Name" editable="false" minWidth="0.0" prefWidth="324.00001525878906" text="Name" />
-            <TableColumn fx:id="Email" editable="false" minWidth="4.800048828125" prefWidth="243.2000732421875" text="Email" />
-            <TableColumn fx:id="RegistrationNumber" editable="false" prefWidth="166.39996337890625" text="Registration Number" />
-         </columns>
-      </TableView>
       <Button fx:id="DoneButton" layoutX="638.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #c96f71;" text="Done" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
@@ -51,5 +43,15 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </RadioButton>
+      <TableView fx:id="QuestionView" layoutX="23.0" layoutY="92.0" prefHeight="514.0" prefWidth="816.0" styleClass="Tables" stylesheets="@../style.css">
+         <columns>
+            <TableColumn fx:id="IDColumn" prefWidth="75.0" text="ID" />
+            <TableColumn fx:id="QuestionColumn" prefWidth="264.00001525878906" text="Question" />
+            <TableColumn fx:id="AnswerColumn" prefWidth="228.0" text="Answer" />
+            <TableColumn fx:id="LectureColumn" minWidth="4.0" prefWidth="74.39990234375" text="Lecture" />
+            <TableColumn fx:id="TypeColumn" minWidth="0.0" prefWidth="86.39996337890625" text="Type" />
+            <TableColumn fx:id="DifficultyColumn" prefWidth="85.5999755859375" text="Difficulty" />
+         </columns>
+      </TableView>
    </children>
 </AnchorPane>
