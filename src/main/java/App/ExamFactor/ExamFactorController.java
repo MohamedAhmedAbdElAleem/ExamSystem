@@ -9,7 +9,10 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class ExamFactorController {
     @FXML
@@ -109,22 +112,19 @@ public class ExamFactorController {
                 exam.setTFE(Integer.parseInt(EasyTFQ.getText()));
                 exam.setTFM(Integer.parseInt(MediumTFQ.getText()));
                 exam.setTFH(Integer.parseInt(HardTFQ.getText()));
-                Client client = new Client();
-                client.sendMessage("AddExam");
-                String responce = client.sendExam(exam);
-                if(responce.equals("true")) {
-//                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-//                    alert.setTitle("Exam Added Successfully");
-//                    alert.setHeaderText("Exam Added Successfully");
-//                    alert.setContentText("Exam Added Successfully");
-//                    alert.showAndWait();
-                }else {
-//                    Alert alert = new Alert(Alert.AlertType.ERROR);
-//                    alert.setTitle("Error in Adding Exam");
-//                    alert.setHeaderText("Error in Adding Exam");
-//                    alert.setContentText("Error in Adding Exam");
-//                    alert.showAndWait();
-                }
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EligableStudent/EligableStudent.fxml"));
+                    EligableStudentController eligableStudentController = new EligableStudentController();
+                    eligableStudentController.setExamFactorController(this);
+                    fxmlLoader.setController(eligableStudentController);
+                    eligableStudentController.setExam(exam);
+                    try {
+                        Scene scene = new Scene(fxmlLoader.load());
+                        Stage stage = new Stage();
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (Exception ex) {
+                        System.out.println("Error in loading scene : " + ex.getMessage());
+                    }
        };
     }
 

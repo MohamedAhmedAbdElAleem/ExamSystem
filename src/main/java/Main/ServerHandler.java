@@ -1,4 +1,7 @@
 package Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.net.Socket;
 import java.sql.*;
@@ -140,6 +143,8 @@ public class ServerHandler implements Runnable {
                     getExamsOfCourse();
                 }else if (input.equalsIgnoreCase("AddExam")) {
                     AddExam();
+                }else if(input.equalsIgnoreCase("ViewStudentsOfCourse")) {
+                    ViewStudentsOfCourse();
                 }
                 else{
                     String output = processInput(input);
@@ -157,6 +162,29 @@ public class ServerHandler implements Runnable {
             }
         }
     }
+
+
+    private void ViewStudentsOfCourse() {
+        try {
+            String courseId = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid IN (SELECT StudentstID FROM enroll WHERE CoursesID = '"+courseId+"')");
+            while (resultSet.next())
+            {
+                student = new Student();
+                student.setSid(resultSet.getString("Sid"));
+                student.setSname(resultSet.getString("Sname"));
+                student.setSssn(resultSet.getString("Sssn"));
+                student.setSemail(resultSet.getString("Semail"));
+                student.setSregistrationNumber(resultSet.getString("SregistrationNumber"));
+                objectOutputStream.writeObject(student);
+            }
+            writer.println("end");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in viewStudentsOfCourse : "+e.getMessage());
+        }
+    }
+
     private String getQuestionIDs(String courseId, int numMCQEasy, int numMCQMedium, int numMCQHard, int numTFEasy, int numTFMedium, int numTFHard) throws SQLException {
         StringBuilder questionIDsBuilder = new StringBuilder();
 
@@ -203,7 +231,7 @@ public class ServerHandler implements Runnable {
                 int EasyMark = Integer.parseInt(reader.readLine());
                 int MediumMark = Integer.parseInt(reader.readLine());
                 int HardMark = Integer.parseInt(reader.readLine());
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO exams (Ename, Edate, Eduration, EtotalMarks, lectureStart, lectureEnd, DoctorID, MCQE, MCQM, MCQH, TFE, TFM, TFH, QBID, EasyMark, MediumMark, HardMark,QuestionsID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO exams (Ename, Edate, Eduration, EtotalMarks, lectureStart, lectureEnd, DoctorID, MCQE, MCQM, MCQH, TFE, TFM, TFH, QBID, EasyMark, MediumMark, HardMark,QuestionsID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, examName);
                 statement.setTimestamp(2, Timestamp.valueOf(startDate));
                 statement.setDouble(3, duration);
@@ -227,8 +255,31 @@ public class ServerHandler implements Runnable {
                 statement.setString(18, questionIDs);
                 //get the questions ids from the database and store them in a string and then insert them in the database for each difficulty level and type
                 statement.executeUpdate();
-                writer.println("true");
+                // add the student to the enroll table
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            int examID = -1;
+            if (generatedKeys.next()) {
+                examID = generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Failed to retrieve generated exam ID.");
+            }
 
+            // Add students to the take table
+            PreparedStatement enrollStatement = connection.prepareStatement("INSERT INTO take (ExamID, StudentID,View) VALUES (?, ?,?)");
+            String Viewresults = reader.readLine();
+            while (true) {
+                String studentID = reader.readLine();
+                if (Objects.equals(studentID, "end")) {
+                    break;
+                }
+                enrollStatement.setInt(1, examID);
+                enrollStatement.setInt(2, Integer.parseInt(studentID));
+                enrollStatement.setString(3, Viewresults);
+
+                enrollStatement.executeUpdate();
+            }
+
+            writer.println("true");
 
         } catch (IOException | SQLException e) {
             System.out.println("Error in addExam : "+e.getMessage());

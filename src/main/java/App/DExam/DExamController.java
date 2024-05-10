@@ -5,6 +5,7 @@ import App.DQABank.DQABankController;
 import App.DStudent.DStudentController;
 import App.DoctorLogin.DoctorLoginController;
 import App.DoctorProfile.DoctorProfileController;
+import App.EligableStudent.EligableStudentController;
 import App.ExamCard.ExamCardController;
 import App.ExamView.ExamViewController;
 import App.Notification.NotificationController;
@@ -317,5 +318,9 @@ public class DExamController {
     private void applyHoverEffect(Button button) {
         button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
         button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
+    }
+    private EligableStudentController eligableStudentController;
+    public void setEligableStudentController(EligableStudentController eligableStudentController) {
+        this.eligableStudentController = eligableStudentController;
     }
 }

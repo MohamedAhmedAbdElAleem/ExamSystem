@@ -520,7 +520,7 @@ private SocketAddress socketAddress() {
         return exams;
     }
 
-    public String sendExam(Exam exam) {
+    public void sendExam(Exam exam) {
         sendMessage(exam.getName());
         sendMessage(exam.getStartDate().toString());
         sendMessage(String.valueOf(exam.getDuration()));
@@ -538,7 +538,21 @@ private SocketAddress socketAddress() {
         sendMessage(String.valueOf(exam.getEasyMarks()));
         sendMessage(String.valueOf(exam.getMediumMarks()));
         sendMessage(String.valueOf(exam.getHardMarks()));
-        String message = receiveMessage();
-        return message;
+    }
+
+    public ObservableList<Student> ViewStudentsOfCourse(int qbId) {
+        sendMessage("ViewStudentsOfCourse");
+        sendMessage(String.valueOf(qbId));
+        ObservableList<Student> students = FXCollections.observableArrayList();
+        Student line = null;
+        try {
+            while (true) {
+                line = (Student) objectInputStream.readObject();
+                students.add(line);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error in getting Students : " + e.getMessage());
+        }
+        return students;
     }
 }
