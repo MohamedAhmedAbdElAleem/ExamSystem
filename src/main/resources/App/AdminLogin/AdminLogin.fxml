@@ -73,7 +73,7 @@
             <Image url="@../Images/AdminIcon.png" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="173.0" prefHeight="55.0" prefWidth="510.0" text="Admin Login" textAlignment="CENTER" textFill="#9f6de7">
+      <Label fx:id="AdminLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="78.0" layoutY="173.0" prefHeight="55.0" prefWidth="510.0" text="Admin Login" textAlignment="CENTER" textFill="#9f6de7">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>

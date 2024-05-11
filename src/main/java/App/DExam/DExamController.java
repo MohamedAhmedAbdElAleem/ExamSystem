@@ -240,7 +240,8 @@ public class DExamController {
         }
 
         for (Exam quiz : quizzes) {
-
+//            System.out.println(quiz.getStartDate());
+//            System.out.println(java.time.LocalDateTime.now());
             if (quiz.getStartDate().isAfter(java.time.LocalDateTime.now()))
             {
                 addExamUpcoming(quiz);

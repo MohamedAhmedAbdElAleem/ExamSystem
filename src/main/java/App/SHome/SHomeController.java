@@ -1,5 +1,6 @@
 package App.SHome;
 
+import App.ExamView.ExamViewController;
 import App.Notification.NotificationController;
 import App.SBefore.SBeforeController;
 import App.SExams.SExamsController;
@@ -8,6 +9,7 @@ import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
 import Main.Course;
+import Main.Exam;
 import Main.Student;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -19,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -44,6 +48,10 @@ public class SHomeController {
     private StudentLoginController studentLoginController;
     @FXML
     private Label StudentWelcome;
+    @FXML
+    private HBox PendingExams;
+    @FXML
+    private HBox CompletedExams;
 
     public void initialize() {
         LogOutButton.setOnAction(LogOutButtonClicked());
@@ -58,8 +66,20 @@ public class SHomeController {
         applyHoverEffect(ExamsButton);
         applyHoverEffect(ResultButton);
         applyHoverEffect(ChangePassword);
-
     }
+
+//    private void addExamCompleted(Exam quiz) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/ExamView/ExamView.fxml"));
+//            VBox newQuizPane = loader.load();
+//            ExamViewController examCardController = loader.getController();
+//            examCardController.setExam(quiz);
+//            examCardController.setDExamController(this);
+//            CompletedExams.getChildren().add(newQuizPane);
+//        } catch (IOException e) {
+//            System.out.println("Error in loading scene : "+e.getMessage());
+//        }
+//    }
 
     private EventHandler<ActionEvent> ChangePasswordButtonClicked() {
         return e->{

@@ -129,9 +129,9 @@ public class ExamFactorController {
                    Stage stage = new Stage();
                    stage.setScene(scene);
                    stage.show();
-
                    // Close the current stage (the ExamFactor page)
                    ((Node)(e.getSource())).getScene().getWindow().hide();
+                   dExamController.ViewExams();
                } catch (Exception ex) {
                    System.out.println("Error in loading scene : " + ex.getMessage());
                }

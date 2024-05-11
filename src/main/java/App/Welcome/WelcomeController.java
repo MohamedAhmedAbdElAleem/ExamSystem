@@ -1,6 +1,8 @@
 package App.Welcome;
 
 import Main.HoverAnimation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -8,10 +10,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import App.AdminLogin.AdminLoginController;
 import App.DoctorLogin.DoctorLoginController;
 import App.StudentLogin.StudentLoginController;
+import javafx.util.Duration;
+
 import java.io.IOException;
 
 public class WelcomeController {
@@ -21,6 +26,12 @@ public class WelcomeController {
     private Button DoctorButton;
     @FXML
     private Button StudentButton;
+    @FXML
+    private Label WelcomeLabel;
+    private static final String TEXT_TO_TYPE = "Welcome, Choose your Role!";
+    private static final Duration DELAY_BETWEEN_LETTERS = Duration.seconds(0.05);
+    private int currentIndex = 0;
+
     HoverAnimation hoverAnimation = new HoverAnimation();
 
     public EventHandler<ActionEvent> AdminButtonClicked() {
@@ -81,6 +92,23 @@ public class WelcomeController {
         DoctorButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
         StudentButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
         StudentButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        typeText();
+
+    }
+
+    private void typeText() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> typeNextLetter()),
+                new KeyFrame(DELAY_BETWEEN_LETTERS)
+        );
+        timeline.setCycleCount(TEXT_TO_TYPE.length());
+        timeline.play();
+    }
+    private void typeNextLetter() {
+        if (currentIndex < TEXT_TO_TYPE.length()) {
+            WelcomeLabel.setText(TEXT_TO_TYPE.substring(0, currentIndex + 1));
+            currentIndex++;
+        }
     }
     private AdminLoginController adminLoginController;
 

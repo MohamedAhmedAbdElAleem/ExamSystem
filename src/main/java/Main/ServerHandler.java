@@ -495,7 +495,6 @@ public class ServerHandler implements Runnable {
                     writer.println("true");
                     String newPassword = generatePassword(6);
                     statement.executeUpdate("UPDATE students SET Spassword = '"+newPassword+"' WHERE Sid = '"+ID+"' AND Sssn = '"+SSN+"'");
-                    System.out.printf("Password : "+newPassword);
                     writer.println(newPassword);
                 } else {
                     writer.println("false");
@@ -832,6 +831,11 @@ public class ServerHandler implements Runnable {
         String id = reader.readLine();
         try {
             Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM enroll WHERE CoursesID = '"+id+"'");
+            statement.executeUpdate("DELETE FROM take WHERE ExamID IN (SELECT EId FROM exams WHERE QBID = '"+id+"')");
+            statement.executeUpdate("DELETE FROM exams WHERE QBID = '"+id+"'");
+            statement.executeUpdate("DROP TABLE mcq_"+id);
+            statement.executeUpdate("DROP TABLE question_bank_"+id);
             statement.executeUpdate("DELETE FROM courses WHERE Cid = '"+id+"'");
             writer.println("true");
         } catch (SQLException e) {
@@ -975,6 +979,19 @@ public class ServerHandler implements Runnable {
         String id = reader.readLine();
         try {
             Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM enroll WHERE CoursesID IN (SELECT Cid FROM courses WHERE DocID = '"+id+"')");
+            statement.executeUpdate("DELETE FROM take WHERE ExamID IN (SELECT EId FROM exams WHERE DoctorID = '"+id+"')");
+            statement.executeUpdate("DELETE FROM exams WHERE DoctorID = '"+id+"'");
+            statement.executeQuery("SELECT * FROM courses WHERE DocID = '"+id+"'");
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next())
+            {
+                Statement statement1 = connection.createStatement();
+                statement1.executeUpdate("DROP TABLE mcq_"+resultSet.getString("Cid"));
+                statement1.executeUpdate("DROP TABLE question_bank_"+resultSet.getString("Cid"));
+            }
+
+            statement.executeUpdate("DELETE FROM courses WHERE DocID = '"+id+"'");
             statement.executeUpdate("DELETE FROM doctors WHERE Did = '" + id + "'");
             writer.println("Doctor deleted successfully");
         } catch (SQLException e) {

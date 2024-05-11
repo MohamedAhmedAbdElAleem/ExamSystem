@@ -110,6 +110,10 @@ public class SResultsController {
         client.sendMessage(student.getSid());
         client.sendMessage(course.getCid());
         ObservableList<Results> results = client.getResultsOfStudent();
+        for (Results result : results) {
+            if (result.getGrade() == null)
+                result.setGrade("Not Graded Yet");
+        }
         ResultsTable.setItems(results);
     }
 
