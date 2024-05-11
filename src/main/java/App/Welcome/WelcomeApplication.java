@@ -13,8 +13,12 @@ public class WelcomeApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.Welcome.WelcomeApplication.class.getResource("Welcome.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Examak System");
+        Image icon = new Image(getClass().getResourceAsStream("/App/images/logo.png"));
+        stage.getIcons().add(icon);
         stage.setScene(scene);
         stage.show();
+        stage.setResizable(false);
+        stage.setFullScreen(false);
     }
     public static void main(String[] args) {
         launch();
