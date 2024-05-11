@@ -5,6 +5,7 @@ import App.EligableStudent.EligableStudentController;
 import App.ExamCard.ExamCardController;
 import Main.Client;
 import Main.Exam;
+import Main.Validation;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -82,6 +83,7 @@ public class ExamFactorController {
         HardMCQQ.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
         EasyTFQ.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
         MediumTFQ.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
+        HardTFQ.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
         TotalMarks.textProperty().addListener((observable, oldValue, newValue) -> AddListener());
         MakeButton.setDisable(true);
         MakeButton.setOnAction(MakeButtonClicked());
@@ -113,6 +115,10 @@ public class ExamFactorController {
                 exam.setTFE(Integer.parseInt(EasyTFQ.getText()));
                 exam.setTFM(Integer.parseInt(MediumTFQ.getText()));
                 exam.setTFH(Integer.parseInt(HardTFQ.getText()));
+               if (ExamName.getText().isEmpty() || StartHour.getValue().isEmpty() || StartMinute.getValue().isEmpty() || TimeHour.getValue().isEmpty() || TimeMinute.getValue().isEmpty() || TotalMarks.getText().isEmpty() || LecStart.getText().isEmpty() || LecEnd.getText().isEmpty() || EasyMarks.getText().isEmpty() || MediumMarks.getText().isEmpty() || HardMarks.getText().isEmpty() || EasyMCQQ.getText().isEmpty() || MediumMCQQ.getText().isEmpty() || HardMCQQ.getText().isEmpty() || EasyTFQ.getText().isEmpty() || MediumTFQ.getText().isEmpty() || HardTFQ.getText().isEmpty()) {
+                   validation.showErrorPopUp("Please Fill All Fields");
+                   return;
+               }
                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/EligableStudent/EligableStudent.fxml"));
                EligableStudentController eligableStudentController = new EligableStudentController();
                eligableStudentController.setExamFactorController(this);
@@ -132,6 +138,7 @@ public class ExamFactorController {
            };
     }
 
+    Validation validation = new Validation();
     private void AddListener(){
         try{
             if(EasyMarks.getText().isEmpty()||EasyMarks.getText().equals("")||EasyMarks.getText().equals(" ")||MediumMarks.getText().isEmpty()||MediumMarks.getText().equals("")||MediumMarks.getText().equals(" ")||HardMarks.getText().isEmpty()||HardMarks.getText().equals("")||HardMarks.getText().equals(" ")||EasyMCQQ.getText().isEmpty()||EasyMCQQ.getText().equals("")||EasyMCQQ.getText().equals(" ")||MediumMCQQ.getText().isEmpty()||MediumMCQQ.getText().equals("")||MediumMCQQ.getText().equals(" ")||HardMCQQ.getText().isEmpty()||HardMCQQ.getText().equals("")||HardMCQQ.getText().equals(" ")||EasyTFQ.getText().isEmpty()||EasyTFQ.getText().equals("")||EasyTFQ.getText().equals(" ")||MediumTFQ.getText().isEmpty()||MediumTFQ.getText().equals("")||MediumTFQ.getText().equals(" ")||HardTFQ.getText().isEmpty()||HardTFQ.getText().equals("")||HardTFQ.getText().equals(" ")||Integer.parseInt(EasyMarks.getText())<0||Integer.parseInt(MediumMarks.getText())<0||Integer.parseInt(HardMarks.getText())<0||Integer.parseInt(EasyMCQQ.getText())<0||Integer.parseInt(MediumMCQQ.getText())<0||Integer.parseInt(HardMCQQ.getText())<0||Integer.parseInt(EasyTFQ.getText())<0||Integer.parseInt(MediumTFQ.getText())<0||Integer.parseInt(HardTFQ.getText())<0){
@@ -164,6 +171,7 @@ public class ExamFactorController {
                     }
                 }
             }
+
         }catch (Exception e){
             System.out.println("Error in adding listener : "+e.getMessage());
         }
