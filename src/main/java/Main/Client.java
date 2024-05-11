@@ -569,4 +569,18 @@ private SocketAddress socketAddress() {
         }
         return questions;
     }
+
+    public ObservableList<Results> getResultsOfStudent() {
+        ObservableList<Results> results = FXCollections.observableArrayList();
+        Results line = null;
+        try {
+            while (true) {
+                line = (Results) objectInputStream.readObject();
+                results.add(line);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error in getting Results : " + e.getMessage());
+        }
+        return results;
+    }
 }

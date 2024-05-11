@@ -36,7 +36,7 @@ public class ServerHandler implements Runnable {
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         try
         {
             String input;
@@ -149,6 +149,8 @@ public class ServerHandler implements Runnable {
                     getQuestionsOfExam();
                 }else if (input.equalsIgnoreCase("updateExam")) {
                     updateExam();
+                }else if(input.equalsIgnoreCase("getResultsOfStudent")){
+                    getResultsOfStudent();
                 }
                 else{
                     String output = processInput(input);
@@ -164,6 +166,37 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void getResultsOfStudent() {
+        try {
+            String studentID = reader.readLine();
+            String CourseId = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM take WHERE StudentID = '"+studentID+"'");
+            Statement statement2 = connection.createStatement(); // Create a new Statement for the inner query
+            while (resultSet.next())
+            {
+                ResultSet selectExams = statement2.executeQuery("SELECT * FROM exams WHERE EId = '"+resultSet.getString("ExamID")+"' and QBID = '"+CourseId+"'");
+                if (selectExams.next())
+                {
+                    Results results = new Results();
+                    results.setStudentId(resultSet.getString("StudentID"));
+                    results.setExamId(resultSet.getString("ExamID"));
+                    results.setGrade(resultSet.getString("EResult"));
+                    Statement statement3 = connection.createStatement();
+                    ResultSet resultSet1 = statement3.executeQuery("SELECT * FROM exams WHERE EId = '"+resultSet.getString("ExamID")+"'");
+                    resultSet1.next();
+                    results.setExamName(resultSet1.getString("Ename"));
+                    objectOutputStream.writeObject(results);
+                }
+            }
+
+            writer.println("end");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getResultsOfStudent : "+e.getMessage());
+            e.printStackTrace();
         }
     }
 

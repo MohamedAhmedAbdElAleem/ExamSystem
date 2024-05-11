@@ -65,6 +65,13 @@ public class SBeforeController {
             if(choice == null){
                 return;
             }
+            Course course = null;
+            for(Course c : courses){
+                if(c.getCname().equals(choice)){
+                    course = c;
+                    break;
+                }
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SHome/SHome.fxml"));
             Scene scene = null;
             try {
@@ -74,6 +81,7 @@ public class SBeforeController {
             }
             SHomeController sHomeController = fxmlLoader.getController();
             sHomeController.setStudent(student);
+            sHomeController.setCourse(course);
             sHomeController.setDBeforeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -89,10 +97,10 @@ public class SBeforeController {
         StudentProfile.setOnAction(StudentProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
     }
-
+    private ObservableList<Course> courses;
     private void ViewCourses() {
         Client client = new Client();
-        ObservableList<Course> courses = FXCollections.observableArrayList();
+        courses = FXCollections.observableArrayList();
         try {
             courses = client.ViewCoursesOfStudent(student.getSid());
         } catch (IOException e) {

@@ -8,6 +8,7 @@ import App.SResults.SResultsController;
 import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
+import Main.Course;
 import Main.Student;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -153,6 +154,7 @@ public class SExamsController {
             }
             SResultsController sResultsController = fxmlLoader.getController();
             sResultsController.setStudent(student);
+            sResultsController.setCourse(course);
             sResultsController.setSHomeController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -171,6 +173,7 @@ public class SExamsController {
             }
             SHomeController sHomeController = fxmlLoader.getController();
             sHomeController.setStudent(student);
+            sHomeController.setCourse(course);
             sHomeController.setSExamsController(this);
             Stage stage = (Stage) ((Node)e.getSource()).getScene().getWindow();
             stage.setScene(scene);
@@ -197,5 +200,9 @@ public class SExamsController {
     private void applyHoverEffect(Button button) {
         button.setOnMouseEntered(e -> button.setStyle("-fx-background-color: #2e2e2e")); // Hover color
         button.setOnMouseExited(e -> button.setStyle("-fx-background-color: #202020")); // Default color
+    }
+    private Course course;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

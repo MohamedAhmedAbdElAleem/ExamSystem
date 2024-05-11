@@ -1,5 +1,6 @@
 package App.Welcome;
 
+import Main.HoverAnimation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,6 +21,8 @@ public class WelcomeController {
     private Button DoctorButton;
     @FXML
     private Button StudentButton;
+    HoverAnimation hoverAnimation = new HoverAnimation();
+
     public EventHandler<ActionEvent> AdminButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AdminLogin/AdminLogin.fxml"));
@@ -72,6 +75,12 @@ public class WelcomeController {
         AdminButton.setOnAction(AdminButtonClicked());
         DoctorButton.setOnAction(DoctorButtonClicked());
         StudentButton.setOnAction(StudentButtonClicked());
+        AdminButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
+        AdminButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        DoctorButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
+        DoctorButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        StudentButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
+        StudentButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
     }
     private AdminLoginController adminLoginController;
 
