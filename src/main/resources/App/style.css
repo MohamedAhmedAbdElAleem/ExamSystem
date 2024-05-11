@@ -37,6 +37,16 @@
     -fx-background-color: grey;
 }
 
+.AdminButton:hover {
+    -fx-effect: dropshadow(three-pass-box, #7b56d9, 100,0,0 ,0 );
+}
+.DoctorButton:hover {
+    -fx-effect: dropshadow(three-pass-box, #d37577, 100, 0,0 ,0 );
+}
+.StudentButton:hover {
+    -fx-effect: dropshadow(three-pass-box, #3d6b8c, 100, 0,0 ,0 );
+}
+
 .ComboBox .list-cell {
     -fx-background-color: black;
     -fx-text-fill: white;

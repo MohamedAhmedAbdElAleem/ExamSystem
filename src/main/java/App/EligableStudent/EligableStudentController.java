@@ -102,6 +102,7 @@ public class EligableStudentController {
                 else {
                     client.sendMessage("true");
                 }
+
                 for (Student student : StudentsTable.getItems()){
                     client.sendMessage(student.getSid());
                 }
