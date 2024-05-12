@@ -44,9 +44,15 @@ public class Client {
 private SocketAddress socketAddress() {
     return new InetSocketAddress("localhost", 8080);
 }
-
     public void sendMessage(String message) {
-        out.println(message);
+        if (out != null) {
+            out.println(message);
+        } else {
+            // Handle the situation when 'out' is null, for example:
+            System.err.println("Error: PrintWriter 'out' is not initialized.");
+            // Or throw an exception
+            // throw new IllegalStateException("PrintWriter 'out' is not initialized.");
+        }
     }
 
     public String receiveMessage() {

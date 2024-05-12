@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="newQuizPane" alignment="CENTER" minHeight="180.0" minWidth="180.0" prefHeight="150.0" prefWidth="150.0" spacing="15.0" style="-fx-background-color: black; -fx-background-radius: 100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ExamView.ExamViewController">
+<VBox fx:id="newQuizPane" alignment="CENTER" minHeight="180.0" minWidth="180.0" prefHeight="150.0" prefWidth="150.0" spacing="15.0" style="-fx-background-color: black; -fx-background-radius: 100;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.StudentCardView.StudentCardViewController">
    <children>
-      <Label fx:id="ExamCardLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="284.0" text="Exam Name" textAlignment="CENTER" textFill="#f3eae0">
+      <Label fx:id="ExamNameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="284.0" text="Exam Name" textAlignment="CENTER" textFill="#f3eae0">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -23,7 +23,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <Button fx:id="ExamCardButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #f3eae0;" text="View">
+      <Button fx:id="ViewExamButton" mnemonicParsing="false" prefHeight="29.0" prefWidth="71.0" style="-fx-background-color: #f3eae0;" text="View">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

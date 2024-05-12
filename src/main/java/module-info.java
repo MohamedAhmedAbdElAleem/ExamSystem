@@ -164,5 +164,11 @@ module App {
     opens App.ExamSession to javafx.fxml;
     exports App.ExamSession;
 
+    opens App.StudentCardView to javafx.fxml;
+    exports App.StudentCardView;
+
+    opens App.StudentCardJoin to javafx.fxml;
+    exports App.StudentCardJoin;
+
 
 }
