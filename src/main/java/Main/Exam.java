@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Exam  implements Serializable {
+    private static final long serialVersionUID = 8391221681566801910L; // Add this line
     private int examId;
     private String name;
     private LocalDateTime startDate;
@@ -182,5 +183,28 @@ public class Exam  implements Serializable {
         int month = date.getMonthValue();
         int day = date.getDayOfMonth();
         this.startDate = LocalDateTime.of(year,month,day, hour, minute);
+    }
+
+    public String getDate() {
+        String date = startDate.toLocalDate().toString();
+//        System.out.println(date);
+        return date;
+    }
+
+    public String getTime() {
+        String time = startDate.toLocalTime().toString();
+        return time;
+    }
+    private String examGrade;
+    public void setExamGrade(String notGradedYet) {
+        this.examGrade = notGradedYet;
+        if (notGradedYet == null|| notGradedYet.equals("Not Graded Yet"))
+            this.examGrade = "Not Graded Yet";
+        else
+            this.examGrade = notGradedYet + " / " + Double.parseDouble(String.valueOf(TotalMarks));
+    }
+
+    public String getExamGrade() {
+        return examGrade;
     }
 }

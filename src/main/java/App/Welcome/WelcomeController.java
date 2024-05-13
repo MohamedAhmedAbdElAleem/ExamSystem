@@ -3,6 +3,7 @@ package App.Welcome;
 import Main.HoverAnimation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -92,17 +93,17 @@ public class WelcomeController {
         DoctorButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
         StudentButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
         StudentButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
-        typeText();
-
+        Platform.runLater(this::typeText);
     }
 
-    private void typeText() {
+    public void typeText() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, e -> typeNextLetter()),
                 new KeyFrame(DELAY_BETWEEN_LETTERS)
         );
         timeline.setCycleCount(TEXT_TO_TYPE.length());
         timeline.play();
+
     }
     private void typeNextLetter() {
         if (currentIndex < TEXT_TO_TYPE.length()) {

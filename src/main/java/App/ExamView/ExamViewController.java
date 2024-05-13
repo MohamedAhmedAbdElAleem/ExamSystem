@@ -2,6 +2,7 @@ package App.ExamView;
 
 import App.DExam.DExamController;
 import App.ExamFactor.ExamFactorController;
+import App.SHome.SHomeController;
 import App.ViewExamDoctor.ViewExamDoctorController;
 import Main.Exam;
 import javafx.fxml.FXML;
@@ -49,5 +50,9 @@ public class ExamViewController {
     private DExamController dExamController;
     public void setDExamController(DExamController dExamController) {
         this.dExamController = dExamController;
+    }
+    private SHomeController sHomeController;
+    public void setSHomeController(SHomeController sHomeController) {
+        this.sHomeController = sHomeController;
     }
 }

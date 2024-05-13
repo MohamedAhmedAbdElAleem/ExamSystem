@@ -5,11 +5,15 @@ import App.Notification.NotificationController;
 import App.SBefore.SBeforeController;
 import App.SHome.SHomeController;
 import App.SResults.SResultsController;
+import App.StudentCardJoin.StudentCardJoinController;
+import App.StudentCardView.StudentCardViewController;
 import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
-import Main.Course;
-import Main.Student;
+import Main.*;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +21,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -37,6 +43,8 @@ public class SExamsController {
     private Button BackButton;
     @FXML
     private Button LogOutButton;
+    @FXML
+    private HBox PendingExamsPane;
     private EventHandler<ActionEvent> BackbuttonClicked() {
         return e->{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml"));
@@ -83,8 +91,31 @@ public class SExamsController {
         applyHoverEffect(SHomeButton);
         applyHoverEffect(ResultButton);
         applyHoverEffect(ChangePassword);
+        Platform.runLater(() -> {
+            ViewRunningExams();
+        });
     }
-
+    public void ViewRunningExams(){
+        ObservableList<Exam> exams = FXCollections.observableArrayList();
+        Client client = new Client();
+        exams = client.getExamsOfStudent(student.getSid());
+        for (Exam exam : exams) {
+            if (java.time.LocalDateTime.now().isAfter(exam.getStartDate()) &&
+                    java.time.LocalDateTime.now().isBefore(exam.getStartDate().plusMinutes((long)(exam.getDuration() * 60)))) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/StudentCardJoin/StudentCardJoin.fxml"));
+                    VBox newQuizPane = loader.load();
+                    StudentCardJoinController examCardController = loader.getController();
+                    examCardController.setExam(exam);
+                    exam.setExamGrade("Not Graded Yet");
+                    examCardController.setSExamsController(this);
+                    PendingExamsPane.getChildren().add(newQuizPane);
+                } catch (IOException e) {
+                    System.out.println("Error in loading scene : " + e.getMessage());
+                }
+            }
+        }
+    }
     private EventHandler<ActionEvent> ChangePasswordButtonClicked() {
         return e->{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/StudentChangePassword/StudentChangePassword.fxml"));

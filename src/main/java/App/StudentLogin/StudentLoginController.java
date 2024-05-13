@@ -9,6 +9,7 @@ import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
 import Main.Student;
 import Main.Validation;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -45,6 +46,7 @@ public class StudentLoginController {
             String id = UID.getText();
             String password = UPassword.getText();
             // Send the username and password to the server
+                Platform.runLater(() -> {
             Client client = new Client();
             client.sendMessage("login");
             client.sendMessage("Student");
@@ -53,27 +55,28 @@ public class StudentLoginController {
             String message = client.receiveMessage();
             if(message.equalsIgnoreCase("true")){
                 Student student = client.getStudent();
-                validation.showSuccessPopUp("Student Login Successful For User : "+student.getSname());
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml")); // Reuse fxmlLoader
-                Scene scene = null;
-                Stage stage = null;
-                try {
-                    scene = new Scene(fxmlLoader.load()); // Reuse scene
-                } catch (IOException ex) {
-                    System.out.println("Error in loading scene : "+ex.getMessage());
-                }
-                SBeforeController loginController = fxmlLoader.getController();
+                    validation.showSuccessPopUp("Student Login Successful For User : "+student.getSname());
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml")); // Reuse fxmlLoader
+                    Scene scene = null;
+                    Stage stage = null;
+                    try {
+                        scene = new Scene(fxmlLoader.load()); // Reuse scene
+                    } catch (IOException ex) {
+                        System.out.println("Error in loading scene : "+ex.getMessage());
+                    }
+                    SBeforeController loginController = fxmlLoader.getController();
 //                loginController.setUsername(username1);
-                loginController.setStudent(student);
-                loginController.setStudentLoginController(this);
-                stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
-                stage.setScene(scene);
-                stage.show();
+                    loginController.setStudent(student);
+                    loginController.setStudentLoginController(this);
+                    stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
+                    stage.setScene(scene);
+                    stage.show();
             }
             else {
                 validation.showErrorPopUp("Invalid Username or Password");
             }
             client.close();
+            });
         };
     }
     @FXML

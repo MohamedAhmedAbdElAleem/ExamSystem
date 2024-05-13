@@ -40,7 +40,6 @@ public class Client {
         /* If the server is not responding, the program goes to the WelcomeApplication*/
     }
 }
-
 private SocketAddress socketAddress() {
     return new InetSocketAddress("localhost", 8080);
 }
@@ -454,24 +453,32 @@ private SocketAddress socketAddress() {
         sendMessage(sid);
         ObservableList<Course> courses = FXCollections.observableArrayList();
         Course line = null;
+//        try {
+//            line = (Course) objectInputStream.readObject();
+//        } catch (IOException e) {
+//            System.out.println("Error in getting Courses : " + e.getMessage());
+//        } catch (ClassNotFoundException e) {
+//            System.out.println("Error in getting Courses : " + e.getMessage());
+//        }
+//        while (line != null) {
+//            try {
+//                line = (Course) objectInputStream.readObject();
+//            } catch (IOException e) {
+////                System.out.println("Error in getting Courses1 : " + e.getMessage());
+//                break;
+//            } catch (ClassNotFoundException e) {
+//                System.out.println("Error in getting Courses : " + e.getMessage());
+//                break;
+//            }
+//            courses.add(line);
+//        }
         try {
-            line = (Course) objectInputStream.readObject();
-        } catch (IOException e) {
-            System.out.println("Error in getting Courses : " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error in getting Courses : " + e.getMessage());
-        }
-        while (line != null) {
-            courses.add(line);
-            try {
+            while (true) {
                 line = (Course) objectInputStream.readObject();
-            } catch (IOException e) {
-                System.out.println("Error in getting Courses : " + e.getMessage());
-                break;
-            } catch (ClassNotFoundException e) {
-                System.out.println("Error in getting Courses : " + e.getMessage());
-                break;
+                courses.add(line);
             }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error in getting Courses : " + e.getMessage());
         }
 
         return courses;
@@ -588,5 +595,21 @@ private SocketAddress socketAddress() {
             System.out.println("Error in getting Results : " + e.getMessage());
         }
         return results;
+    }
+
+    public ObservableList<Exam> getExamsOfStudent(String sid) {
+        sendMessage("getExamsOfStudent");
+        sendMessage(sid);
+        ObservableList<Exam> exams = FXCollections.observableArrayList();
+        Exam line = null;
+        try {
+            while (true) {
+                line = (Exam) objectInputStream.readObject();
+                exams.add(line);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error in getting Exams : " + e.getMessage());
+        }
+        return exams;
     }
 }

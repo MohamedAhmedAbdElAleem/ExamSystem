@@ -42,6 +42,155 @@ public class ServerHandler implements Runnable {
             String input;
             while (true) {
                 input = reader.readLine();
+//                input = input.toLowerCase();
+//                switch (input){
+//                    case "login":
+//                        String Status = reader.readLine();
+//                        String id = reader.readLine();
+//                        String password = reader.readLine();
+//                        logIn(Status, id, password);
+//                        break;
+//                    case "register":
+//                        String username = reader.readLine();
+//                        password = reader.readLine();
+//                        String Status1 = reader.readLine();
+//                        break;
+//                    case "getadmindashboardnumbers":
+//                        getAdminDashBoardNumbers();
+//                        break;
+//                    case "getadmins":
+//                        getAdmins();
+//                        break;
+//                    case "getdoctors":
+//                        getDoctors();
+//                        break;
+//                    case "getstudents":
+//                        getStudents();
+//                        break;
+//                    case "addadmin":
+//                        addAdmin();
+//                        break;
+//                    case "checkadminid":
+//                        CheckAdminId();
+//                        break;
+//                    case "checkadminid2":
+//                        CheckAdminId2();
+//                        break;
+//                    case "deleteadmin":
+//                        DeleteAdmin();
+//                        break;
+//                    case "editadmin":
+//                        EditAdmin();
+//                        break;
+//                    case "adddoctor":
+//                        AddDoctor();
+//                        break;
+//                    case "checkdoctorid":
+//                        CheckDoctorId();
+//                        break;
+//                    case "deletedoctor":
+//                        DeleteDoctor();
+//                        break;
+//                    case "editdoctor":
+//                        EditDoctor();
+//                        break;
+//                    case "viewcourses":
+//                        ViewCourses();
+//                        break;
+//                    case "viewcoursesofdoctor":
+//                        ViewCoursesOfDoctor();
+//                        break;
+//                    case "addcourse":
+//                        AddCourse();
+//                        break;
+//                    case "checkcourseid":
+//                        CheckCourseId();
+//                        break;
+//                    case "deletecourse":
+//                        DeleteCourse();
+//                        break;
+//                    case "getstudentsofcourse":
+//                        GetStudentsOfCourse();
+//                        break;
+//                    case "addstudent":
+//                        AddStudent();
+//                        break;
+//                    case "getdoctor":
+//                        GetDoctor();
+//                        break;
+//                    case "getstudentdetails":
+//                        GetStudent();
+//                        break;
+//                    case "updatestudent":
+//                        UpdateStudent();
+//                        break;
+//                    case "unassignstudent":
+//                        UnAssignStudent();
+//                        break;
+//                    case "assignstudent":
+//                        AssignStudent();
+//                        break;
+//                    case "getquestions":
+//                        GetQuestions();
+//                        break;
+//                    case "addtfquestion":
+//                        AddTFQuestion();
+//                        break;
+//                    case "addmcqquestion":
+//                        AddMCQQuestion();
+//                        break;
+//                    case "checkquestionid":
+//                        CheckQuestionID();
+//                        break;
+//                    case "editmcq":
+//                        EditMCQ();
+//                        break;
+//                    case "getpassword":
+//                        getPassword();
+//                        break;
+//                    case "changepassword":
+//                        changePassword();
+//                        break;
+//                    case "edittruefalse":
+//                        EditTrueFalse();
+//                        break;
+//                    case "deletequestion":
+//                        DeleteQuestion();
+//                        break;
+//                    case "checkquestionidbeforedelete":
+//                        CheckQuestionIDBeforeDelete();
+//                        break;
+//                    case "viewcoursesofstudent":
+//                        ViewCoursesOfStudent();
+//                        break;
+//                    case "getexamsofcourse":
+//                        getExamsOfCourse();
+//                        break;
+//                    case "addexam":
+//                        AddExam();
+//                        break;
+//                    case "viewstudentsofcourse":
+//                        ViewStudentsOfCourse();
+//                        break;
+//                    case "getquestionsofexam":
+//                        getQuestionsOfExam();
+//                        break;
+//                    case "updateexam":
+//                        updateExam();
+//                        break;
+//                    case "getresultsofstudent":
+//                        getResultsOfStudent();
+//                        break;
+//                    case "getexamsofstudent":
+//                        getExamsOfStudent();
+//                        break;
+//                    default:
+//                        String output = processInput(input);
+//                        System.out.println("message received : "+input);
+//                        writer.println(output);
+//                        break;
+//                }
+
                 if (input == null || "exit".equalsIgnoreCase(input)) {
                     break;
                 }
@@ -151,6 +300,8 @@ public class ServerHandler implements Runnable {
                     updateExam();
                 }else if(input.equalsIgnoreCase("getResultsOfStudent")){
                     getResultsOfStudent();
+                }else if (input.equalsIgnoreCase("getExamsOfStudent")) {
+                    getExamsOfStudent();
                 }
                 else{
                     String output = processInput(input);
@@ -169,6 +320,46 @@ public class ServerHandler implements Runnable {
         }
     }
 
+    private void getExamsOfStudent() {
+        try {
+            String studentID = reader.readLine();
+            Statement statement = connection.createStatement();
+            Statement statement2 = connection.createStatement(); // Create a new Statement for the inner query
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM take WHERE StudentID = '"+studentID+"'");
+            while (resultSet.next())
+            {
+                ResultSet resultSet1 = statement2.executeQuery("SELECT * FROM exams WHERE EId = '"+resultSet.getString("ExamID")+"'");
+                if (resultSet1.next())
+                {
+//                    writer.println("true");
+                    Exam exam = new Exam();
+                    exam.setExamId(resultSet1.getInt("EId"));
+                    exam.setName(resultSet1.getString("Ename"));
+                    exam.setStartDate(resultSet1.getTimestamp("Edate").toLocalDateTime());
+                    exam.setDuration(resultSet1.getInt("Eduration"));
+                    exam.setTotalMarks(resultSet1.getInt("EtotalMarks"));
+                    exam.setLectureStart(resultSet1.getInt("lectureStart"));
+                    exam.setLectureEnd(resultSet1.getInt("lectureEnd"));
+                    exam.setDoctorId(resultSet1.getInt("DoctorID"));
+                    exam.setMCQE(resultSet1.getInt("MCQE"));
+                    exam.setMCQM(resultSet1.getInt("MCQM"));
+                    exam.setMCQH(resultSet1.getInt("MCQH"));
+                    exam.setTFE(resultSet1.getInt("TFE"));
+                    exam.setTFM(resultSet1.getInt("TFM"));
+                    exam.setTFH(resultSet1.getInt("TFH"));
+                    exam.setQbId(resultSet1.getInt("QBID"));
+                    exam.setEasyMarks(resultSet1.getInt("EasyMark"));
+                    exam.setMediumMarks(resultSet1.getInt("MediumMark"));
+                    exam.setHardMarks(resultSet1.getInt("HardMark"));
+                    exam.setQuestionsIds(resultSet1.getString("QuestionsID"));
+                    objectOutputStream.writeObject(exam);
+                }
+            }
+            writer.println("end");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getExamsOfStudent : "+e.getMessage());
+        }
+    }
     private void getResultsOfStudent() {
         try {
             String studentID = reader.readLine();
@@ -1135,7 +1326,7 @@ public class ServerHandler implements Runnable {
         writer.println("end");
     }
 
-    private synchronized void logIn(String status, String id, String password) throws IOException {
+    private void logIn(String status, String id, String password) throws IOException {
         if (status.equalsIgnoreCase("Admin")) {
             boolean output = AdminLogIn(id, password);
             writer.println(output);

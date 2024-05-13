@@ -5,13 +5,14 @@ import App.Notification.NotificationController;
 import App.SBefore.SBeforeController;
 import App.SExams.SExamsController;
 import App.SResults.SResultsController;
+import App.StudentCardView.StudentCardViewController;
 import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
-import Main.Course;
-import Main.Exam;
-import Main.Student;
+import Main.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 
 public class SHomeController {
@@ -66,21 +68,61 @@ public class SHomeController {
         applyHoverEffect(ExamsButton);
         applyHoverEffect(ResultButton);
         applyHoverEffect(ChangePassword);
+        Platform.runLater(() -> {
+            ViewExams();
+        });
+    }
+    private ObservableList<Results> results;
+    private void ViewResults() {
+        Client client = new Client();
+        client.sendMessage("getResultsOfStudent");
+        client.sendMessage(student.getSid());
+        client.sendMessage(course.getCid());
+        results = client.getResultsOfStudent();
+        for (Results result : results) {
+            if (result.getGrade() == null)
+                result.setGrade("Not Graded Yet");
+        }
     }
 
-//    private void addExamCompleted(Exam quiz) {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/ExamView/ExamView.fxml"));
-//            VBox newQuizPane = loader.load();
-//            ExamViewController examCardController = loader.getController();
-//            examCardController.setExam(quiz);
-//            examCardController.setDExamController(this);
-//            CompletedExams.getChildren().add(newQuizPane);
-//        } catch (IOException e) {
-//            System.out.println("Error in loading scene : "+e.getMessage());
-//        }
-//    }
-
+    public void ViewExams(){
+        ViewResults();
+        PendingExams.getChildren().clear();
+        CompletedExams.getChildren().clear();
+        ObservableList<Exam> exams = FXCollections.observableArrayList();
+        Client client = new Client();
+        exams = client.getExamsOfStudent(student.getSid());
+        for (Exam exam : exams) {
+            if (exam.getStartDate().isAfter(java.time.LocalDateTime.now())) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/StudentCardView/StudentCardView.fxml"));
+                    VBox newQuizPane = loader.load();
+                    StudentCardViewController examCardController = loader.getController();
+                    examCardController.setExam(exam);
+                    exam.setExamGrade("Not Graded Yet");
+                    examCardController.setSHomeController(this);
+                    PendingExams.getChildren().add(newQuizPane);
+                } catch (IOException e) {
+                    System.out.println("Error in loading scene : "+e.getMessage());
+                }
+            } else if(java.time.LocalDateTime.now().isAfter(exam.getStartDate().plusMinutes((long) (exam.getDuration()*60)))){                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/StudentCardView/StudentCardView.fxml"));
+                    VBox newQuizPane = loader.load();
+                    StudentCardViewController examCardController = loader.getController();
+                    examCardController.setExam(exam);
+                    for (Results result : results) {
+                        if (result.getExamId().equalsIgnoreCase(String.valueOf(exam.getExamId()))) {
+                            examCardController.setExamGrade(result.getGrade());
+                        }
+                    }
+                    examCardController.setSHomeController(this);
+                    CompletedExams.getChildren().add(newQuizPane);
+                } catch (IOException e) {
+                    System.out.println("Error in loading scene : "+e.getMessage());
+                }
+            }
+        }
+    }
     private EventHandler<ActionEvent> ChangePasswordButtonClicked() {
         return e->{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/StudentChangePassword/StudentChangePassword.fxml"));
