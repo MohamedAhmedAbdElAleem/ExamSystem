@@ -453,32 +453,14 @@ private SocketAddress socketAddress() {
         sendMessage(sid);
         ObservableList<Course> courses = FXCollections.observableArrayList();
         Course line = null;
-//        try {
-//            line = (Course) objectInputStream.readObject();
-//        } catch (IOException e) {
-//            System.out.println("Error in getting Courses : " + e.getMessage());
-//        } catch (ClassNotFoundException e) {
-//            System.out.println("Error in getting Courses : " + e.getMessage());
-//        }
-//        while (line != null) {
-//            try {
-//                line = (Course) objectInputStream.readObject();
-//            } catch (IOException e) {
-////                System.out.println("Error in getting Courses1 : " + e.getMessage());
-//                break;
-//            } catch (ClassNotFoundException e) {
-//                System.out.println("Error in getting Courses : " + e.getMessage());
-//                break;
-//            }
-//            courses.add(line);
-//        }
+
         try {
             while (true) {
                 line = (Course) objectInputStream.readObject();
                 courses.add(line);
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error in getting Courses : " + e.getMessage());
+//            System.out.println("Error in getting Courses : " + e.getMessage());
         }
 
         return courses;
@@ -564,7 +546,7 @@ private SocketAddress socketAddress() {
                 students.add(line);
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error in getting Students : " + e.getMessage());
+//            System.out.println("Error in getting Students : " + e.getMessage());
         }
         return students;
     }
@@ -578,7 +560,7 @@ private SocketAddress socketAddress() {
                 questions.add(line);
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error in getting Questions : " + e.getMessage());
+//            System.out.println("Error in getting Questions : " + e.getMessage());
         }
         return questions;
     }
@@ -592,7 +574,7 @@ private SocketAddress socketAddress() {
                 results.add(line);
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error in getting Results : " + e.getMessage());
+//            System.out.println("Error in getting Results : " + e.getMessage());
         }
         return results;
     }
@@ -608,7 +590,7 @@ private SocketAddress socketAddress() {
                 exams.add(line);
             }
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error in getting Exams : " + e.getMessage());
+//            System.out.println("Error in getting Exams : " + e.getMessage());
         }
         return exams;
     }
