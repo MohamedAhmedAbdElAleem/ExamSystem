@@ -13,6 +13,7 @@ import App.Notification.NotificationController;
 import App.SID.SIDController;
 import Main.Client;
 import Main.Student;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,10 +25,28 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Iterator;
 
 public class DStudentController {
     private String username;
@@ -212,6 +231,116 @@ public class DStudentController {
         applyHoverEffect(ExamsButton);
         applyHoverEffect(BackButton);
         applyHoverEffect(LogOutButton);
+        ExcelExportStudents.setOnAction(ExcelExportStudentsButtonClicked());
+        ExcelImportStudents.setOnAction(ExcelImportStudentsButtonClicked());
+    }
+
+    private EventHandler<ActionEvent> ExcelImportStudentsButtonClicked() {
+        return e ->{
+            try {
+                openFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+};
+
+    }
+    private void openFile() throws IOException {
+        // System.out.println("Open File Chooser");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", ".xls", ".xlsx"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            getStudentsFromExcel(selectedFile);
+        }
+    }
+    public ObservableList<Student> getStudentsFromExcel(File file) throws IOException {
+//        ObservableList<Student> studentList = FXCollections.observableArrayList();
+        try {
+            FileInputStream excelFile = new FileInputStream(file);
+            Workbook workbook = new XSSFWorkbook(excelFile);
+            Sheet datatypeSheet = workbook.getSheetAt(0);
+            int rowCount = datatypeSheet.getPhysicalNumberOfRows();
+            int colCount = datatypeSheet.getRow(0).getPhysicalNumberOfCells();
+            Iterator<Row> iterator = datatypeSheet.iterator();
+
+            for (int i = 0; i < rowCount; i++) {
+                Student student = new Student();
+                Row currentRow = datatypeSheet.getRow(i);
+                Iterator<Cell> cellIterator = currentRow.cellIterator();
+
+                while (cellIterator.hasNext()) {
+                    Cell currentCell = cellIterator.next();
+                    int columnIndex = currentCell.getColumnIndex();
+
+                    switch (columnIndex) {
+                        case 0:
+                            student.setSname(currentCell.getStringCellValue());
+                            break;
+                        case 1:
+                            student.setSid(String.valueOf(currentCell.getStringCellValue()));
+                            break;
+                        case 2:
+                            student.setSssn(currentCell.getStringCellValue());
+                            break;
+                        case 3:
+                            student.setSemail(currentCell.getStringCellValue());
+                            break;
+                        case 4:
+                            student.setSregistrationNumber( String.valueOf(currentCell.getStringCellValue()));
+                            break;
+                        case 5:
+                            student.setSpassword( String.valueOf(currentCell.getStringCellValue()));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                boolean flag = false;
+                for (Student student1 : students)
+                {
+                    if(student1.getSregistrationNumber().equalsIgnoreCase(student.getSregistrationNumber())){
+                        flag=true;
+                        break;
+                    }
+                }
+                if (flag){
+                    continue;
+                }else{
+                students.add(student);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return students;
+    }
+    private EventHandler<ActionEvent> ExcelExportStudentsButtonClicked() {
+        return e ->{
+//            ObservableList<Student> studentList = FXCollections.observableArrayList();
+            try{
+                Workbook newWorkbook = new XSSFWorkbook();
+                Sheet newSheet = newWorkbook.createSheet("StudentData");
+                for (int i = 0; i < students.size(); i++) {
+                    Row row = newSheet.createRow(i);
+                    row.createCell(0).setCellValue(students.get(i).getSname());
+                    row.createCell(1).setCellValue(students.get(i).getSid());
+                    row.createCell(2).setCellValue(students.get(i).getSssn());
+                    row.createCell(3).setCellValue(students.get(i).getSemail());
+                    row.createCell(4).setCellValue(students.get(i).getSregistrationNumber());
+                    row.createCell(5).setCellValue(students.get(i).getSpassword());
+                    // Add more cells for additional fields as needed
+                }
+                FileOutputStream outputStream = new FileOutputStream("StudentLists_data.xlsx");
+                newWorkbook.write(outputStream);
+                newWorkbook.close();
+                outputStream.close();
+            }catch (Exception err){
+                err.printStackTrace();
+            }
+        };
+
     }
 
     private EventHandler<ActionEvent> AssignButtonClicked() {
@@ -233,12 +362,12 @@ public class DStudentController {
             ViewStudents();
         };
     }
-
+    private ObservableList<Student> students;
     private void ViewStudents() {
         Client client = new Client();
         client.sendMessage("GetStudentsOfCourse");
         client.sendMessage(courseId);
-        ObservableList<Student> students = client.getStudents();
+        students = client.getStudents();
         StudentsView.setItems(students);
     }
 

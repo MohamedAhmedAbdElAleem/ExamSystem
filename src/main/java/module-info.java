@@ -2,6 +2,8 @@ module App {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires org.apache.poi.poi;
+    requires org.apache.poi.ooxml;
     exports Main to javafx.graphics;
 
     opens Main to javafx.fxml, javafx.base;
