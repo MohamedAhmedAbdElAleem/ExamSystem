@@ -330,7 +330,6 @@ public class DStudentController {
                     row.createCell(3).setCellValue(students.get(i).getSemail());
                     row.createCell(4).setCellValue(students.get(i).getSregistrationNumber());
                     row.createCell(5).setCellValue(students.get(i).getSpassword());
-                    // Add more cells for additional fields as needed
                 }
                 FileOutputStream outputStream = new FileOutputStream("StudentLists_data.xlsx");
                 newWorkbook.write(outputStream);
