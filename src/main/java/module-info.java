@@ -171,6 +171,4 @@ module App {
 
     opens App.StudentCardJoin to javafx.fxml;
     exports App.StudentCardJoin;
-
-
 }

@@ -33,24 +33,18 @@ public class Client {
         objectInputStream = new ObjectInputStream(socket.getInputStream());
     } catch (ConnectException | SocketTimeoutException e) {
         validation.showErrorPopUp("Server is not Responding");
-        /* If the server is not responding, the program goes to the WelcomeApplication*/
-
     } catch (IOException e) {
         validation.showErrorPopUp("Server is not Responding");
-        /* If the server is not responding, the program goes to the WelcomeApplication*/
     }
 }
 private SocketAddress socketAddress() {
-    return new InetSocketAddress("localhost", 8080);
+    return new InetSocketAddress("192.168.1.11", 8080);
 }
     public void sendMessage(String message) {
         if (out != null) {
             out.println(message);
         } else {
-            // Handle the situation when 'out' is null, for example:
             System.err.println("Error: PrintWriter 'out' is not initialized.");
-            // Or throw an exception
-            // throw new IllegalStateException("PrintWriter 'out' is not initialized.");
         }
     }
 
@@ -76,13 +70,9 @@ private SocketAddress socketAddress() {
     public static void main(String[] args) {
         Client client = new Client();
         Scanner scanner = new Scanner(System.in);
-
-        // Loop to send and receive messages
         while (true) {
             System.out.print("Enter message: ");
             String message = scanner.nextLine();
-
-            // Exit condition
             if (message.equalsIgnoreCase("exit")) {
                 client.close();
                 break;

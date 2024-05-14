@@ -7,8 +7,11 @@ import App.SHome.SHomeController;
 import App.SResults.SResultsController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
+import Main.HoverAnimation;
 import Main.Student;
 import Main.Validation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -18,15 +21,19 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import Main.Client;
 import App.Welcome.WelcomeController;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
-
+import javafx.concurrent.Task;
 public class StudentLoginController {
+    @FXML
+    private Label StudentLabel;
     private String Username;
     @FXML
     private TextField UID;
@@ -39,51 +46,74 @@ public class StudentLoginController {
     @FXML
     private Button GetPassword;
 
+    private static final String TEXT_TO_TYPE = "Student Login";
+    private static final Duration DELAY_BETWEEN_LETTERS = Duration.seconds(0.05);
+    private int currentIndex = 0;
+
     Validation validation = new Validation();
+    HoverAnimation hoverAnimation = new HoverAnimation();
+
 
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
             String id = UID.getText();
             String password = UPassword.getText();
-            // Send the username and password to the server
-                Platform.runLater(() -> {
-            Client client = new Client();
-            client.sendMessage("login");
-            client.sendMessage("Student");
-            client.sendMessage(id);
-            client.sendMessage(password);
-            String message = client.receiveMessage();
-            if(message.equalsIgnoreCase("true")){
-                Student student = client.getStudent();
-                    validation.showSuccessPopUp("Student Login Successful For User : "+student.getSname());
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml")); // Reuse fxmlLoader
-                    Scene scene = null;
-                    Stage stage = null;
-                    try {
-                        scene = new Scene(fxmlLoader.load()); // Reuse scene
-                    } catch (IOException ex) {
-                        System.out.println("Error in loading scene : "+ex.getMessage());
-                    }
-                    SBeforeController loginController = fxmlLoader.getController();
+            StudentLoginController controllerInstance = this;
+            Task<Void> task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    Client client = new Client();
+                    client.sendMessage("login");
+                    client.sendMessage("Student");
+                    client.sendMessage(id);
+                    client.sendMessage(password);
+                    String message = client.receiveMessage();
+                    if (message.equalsIgnoreCase("true")) {
+                        Student student = client.getStudent();
+                        Platform.runLater(() -> {
+                            validation.showSuccessPopUp("Student Login Successful For User : " + student.getSname());
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SBefore/SBefore.fxml")); // Reuse fxmlLoader
+                            Scene scene = null;
+                            Stage stage = null;
+                            try {
+                                scene = new Scene(fxmlLoader.load()); // Reuse scene
+                            } catch (IOException ex) {
+                                System.out.println("Error in loading scene : " + ex.getMessage());
+                            }
+                            SBeforeController loginController = fxmlLoader.getController();
 //                loginController.setUsername(username1);
-                    loginController.setStudent(student);
-                    loginController.setStudentLoginController(this);
-                    stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
-                    stage.setScene(scene);
-                    stage.show();
-            }
-            else {
-                validation.showErrorPopUp("Invalid Username or Password");
-            }
-            client.close();
-            });
+                            loginController.setStudent(student);
+                            loginController.setStudentLoginController(controllerInstance);
+                            stage = (Stage) ((Node) e.getSource()).getScene().getWindow(); // Reuse stage
+                            stage.setScene(scene);
+                            stage.show();
+                        });
+                    } else {
+                        Platform.runLater(() -> {
+                            validation.showErrorPopUp("Invalid Username or Password");
+                        });
+                    }
+                    client.close();
+                    return null;
+                }
+            };
+
+            new Thread(task).start();
         };
     }
-    @FXML
+        @FXML
     public void initialize() {
         LogInButton.setOnAction(LogInButtonClicked());
         BackButton.setOnAction(BackButtonClicked());
         GetPassword.setOnAction(GetPasswordButtonClicked());
+        LogInButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
+        LogInButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        BackButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
+        BackButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        GetPassword.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
+        GetPassword.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        typeText();
+
     }
 
     private EventHandler<ActionEvent> GetPasswordButtonClicked() {
@@ -139,5 +169,20 @@ public class StudentLoginController {
     private SResultsController sResultsController;
     public void setSBeforecontroller(SResultsController sResultsController) {
         this.sResultsController = sResultsController;
+    }
+    private void typeText() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> typeNextLetter()),
+                new KeyFrame(DELAY_BETWEEN_LETTERS)
+        );
+        timeline.setCycleCount(TEXT_TO_TYPE.length());
+        timeline.play();
+    }
+
+    private void typeNextLetter() {
+        if (currentIndex < TEXT_TO_TYPE.length()) {
+            StudentLabel.setText(TEXT_TO_TYPE.substring(0, currentIndex + 1));
+            currentIndex++;
+        }
     }
 }

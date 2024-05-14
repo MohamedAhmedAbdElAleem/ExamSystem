@@ -9,7 +9,10 @@ import App.DStudent.DStudentController;
 import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
+import Main.HoverAnimation;
 import Main.Validation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,11 +21,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import Main.Client;
 import App.Welcome.WelcomeController;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 
@@ -37,8 +42,14 @@ public class DoctorLoginController {
     private Button LogInButton;
     @FXML
     private Button BackButton;
+    @FXML
+    private Label DoctorLabel;
+    private static final String TEXT_TO_TYPE = "Doctor Login";
+    private static final Duration DELAY_BETWEEN_LETTERS = Duration.seconds(0.05);
+    private int currentIndex = 0;
 
     Validation validation = new Validation();
+    HoverAnimation hoverAnimation = new HoverAnimation();
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
             String id = UID.getText();
@@ -98,6 +109,11 @@ public class DoctorLoginController {
     public void initialize() {
         LogInButton.setOnAction(LogInButtonClicked());
         BackButton.setOnAction(BackButtonClicked());
+        LogInButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
+        LogInButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        BackButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
+        BackButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        typeText();
     }
     private WelcomeController welcomeController;
     public void setWelcomeController(WelcomeController welcomeController) {
@@ -126,5 +142,21 @@ public class DoctorLoginController {
     private DExamController dExamController;
     public void setDBeforeController(DExamController dExamController) {
         this.dExamController = dExamController;
+    }
+
+    private void typeText() {
+        Timeline timeline = new Timeline(
+                new KeyFrame(Duration.ZERO, e -> typeNextLetter()),
+                new KeyFrame(DELAY_BETWEEN_LETTERS)
+        );
+        timeline.setCycleCount(TEXT_TO_TYPE.length());
+        timeline.play();
+    }
+
+    private void typeNextLetter() {
+        if (currentIndex < TEXT_TO_TYPE.length()) {
+            DoctorLabel.setText(TEXT_TO_TYPE.substring(0, currentIndex + 1));
+            currentIndex++;
+        }
     }
 }
