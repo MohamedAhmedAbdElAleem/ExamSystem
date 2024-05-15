@@ -211,21 +211,21 @@ public class ExamSessionController {
     private ObservableList<Question> getQuestions() {
         Client client = new Client();
         client.sendMessage("getStudentQIds");
-        String quizId = String.valueOf(exam.getQbId());
-        client.sendMessage(quizId);
+        client.sendMessage(String.valueOf(exam.getExamId()));
         client.sendMessage(student.getSid());
         String studentQIds = client.receiveMessage();
         client.sendMessage("getQuestionsOfExam");
+        String quizId = String.valueOf(exam.getQbId());
         client.sendMessage(quizId);
         if(studentQIds.equals("null")) {
-        client.sendMessage(exam.getQuestionsIds());
+            client.sendMessage(exam.getQuestionsIds());
         }else{
             client.sendMessage(studentQIds);
         }
         ObservableList<Question> questions = client.getQuestionsOfExam();
         List<Question> list = new ArrayList<>(questions);
-        if (exam.getQuestionsIds().equals("null")) {
-        Collections.shuffle(list);
+        if (studentQIds.equalsIgnoreCase("null")) {
+            Collections.shuffle(list);
         }
         questions.setAll(list);
         String newQuestionsIds = "";
@@ -302,9 +302,15 @@ public class ExamSessionController {
     }
 
     public void setExamQuestions(String examQuestions) {
-        String[] questionsIds = examQuestions.split(",");
-        for (int i = 0; i < questionsIds.length; i++) {
-            questions.get(i).setQuestionId(Integer.parseInt(questionsIds[i]));
+        if(examQuestions != null && !examQuestions.equalsIgnoreCase("null")) {
+            String[] questionsIds = examQuestions.split(",");
+            for (int i = 0; i < questionsIds.length; i++) {
+                try {
+                    questions.get(i).setQuestionId(Integer.parseInt(questionsIds[i]));
+                } catch (NumberFormatException ex) {
+                    System.out.println("Error in parsing string to integer: " + ex.getMessage());
+                }
+            }
         }
     }
 }
