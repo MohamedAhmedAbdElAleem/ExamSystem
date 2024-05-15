@@ -333,12 +333,14 @@ public class ServerHandler implements Runnable {
     private void getStudentQIds() {
         try {
             String examID = reader.readLine();
+            System.out.println(examID);
             String studentID = reader.readLine();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM take WHERE ExamID = '"+examID+"' AND StudentID = '"+studentID+"'");
             if (resultSet.next())
             {
                 writer.println(resultSet.getString("questionAnswers"));
+                System.out.println(resultSet.getString("questionAnswers"));
             }else{
                 writer.println("null");
             }
@@ -430,11 +432,9 @@ public class ServerHandler implements Runnable {
                 writer.println("true");
             }
             writer.println("true");
-        } catch (IOException e) {
+        } catch (IOException | SQLException e) {
             System.out.println("Error in calculateGrade : "+e.getMessage());
             writer.println("false");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 

@@ -226,6 +226,7 @@ public class ExamSessionController {
         List<Question> list = new ArrayList<>(questions);
         if (exam.getQuestionsIds().equals("null")) {
         Collections.shuffle(list);
+        }
         questions.setAll(list);
         String newQuestionsIds = "";
         for (Question question : questions) {
@@ -236,9 +237,6 @@ public class ExamSessionController {
         client.sendMessage(String.valueOf(exam.getExamId()));
         client.sendMessage(newQuestionsIds);
         client.sendMessage(student.getSid());
-        }else {
-            questions.setAll(list);
-        }
         return questions;
     }
 
