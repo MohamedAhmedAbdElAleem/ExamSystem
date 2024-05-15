@@ -10,6 +10,8 @@ import Main.HoverAnimation;
 import Main.Validation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -49,40 +51,57 @@ public class AdminLoginController {
         return e -> {
             String id = UID.getText();
             String password = UPassword.getText();
-            // Send the username and password to the server
-            Client client = new Client();
-            client.sendMessage("login");
-            client.sendMessage("Admin");
-            client.sendMessage(id);
-            client.sendMessage(password);
-            String message = client.receiveMessage();
-            if (message.equalsIgnoreCase("true")){
-            String username1 = client.receiveMessage();
-            Username = username1;
-            validation.showSuccessPopUp("Admin Login Successful For User : "+username1);
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AHome/AHome.fxml"));
-            Scene scene = null;
-            Stage stage = null;
-            try {
-                scene = new Scene(fxmlLoader.load()); // Reuse scene
-            } catch (IOException ex) {
-                System.out.println("Error in loading scene : "+ex.getMessage());
-            }
-            AHomeController loginController = fxmlLoader.getController();
-            loginController.setUsername(username1);
-            loginController.setID(id);
-            loginController.setAdminLoginController(this);
-            stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
-            stage.setScene(scene);
-            stage.show();
-        }
-            else {
-               validation.showErrorPopUp("Invalid Username or Password");
-            }
-        client.close();
-                };
-            }
+            AdminLoginController controllerInstance = this;
 
+            Task<Void> task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    try {
+                        Client client = new Client();
+                        client.sendMessage("login");
+                        client.sendMessage("Admin");
+                        client.sendMessage(id);
+                        client.sendMessage(password);
+                        String message = client.receiveMessage();
+                        if (message.equalsIgnoreCase("true")) {
+                            String username1 = client.receiveMessage();
+                            Username = username1;
+                            Platform.runLater(() -> {
+                                validation.showSuccessPopUp("Admin Login Successful For User : " + username1);
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/AHome/AHome.fxml"));
+                                Scene scene = null;
+                                Stage stage = null;
+                                try {
+                                    scene = new Scene(fxmlLoader.load());
+                                } catch (IOException ex) {
+                                    System.out.println("Error in loading scene : " + ex.getMessage());
+                                }
+                                AHomeController loginController = fxmlLoader.getController();
+                                loginController.setUsername(username1);
+                                loginController.setID(id);
+                                loginController.setAdminLoginController(controllerInstance);
+                                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                                stage.setScene(scene);
+                                stage.show();
+                            });
+                        } else {
+                            Platform.runLater(() -> {
+                                validation.showErrorPopUp("Invalid Username or Password");
+                            });
+                        }
+                        client.close();
+                    } catch (Exception ex) {
+                        Platform.runLater(() -> {
+                            validation.showErrorPopUp("Server is not Responding");
+                        });
+                    }
+                    return null;
+                }
+            };
+
+            new Thread(task).start();
+        };
+    }
     public EventHandler<ActionEvent> BackButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/Welcome/Welcome.fxml"));

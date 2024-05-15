@@ -7,12 +7,17 @@ import App.DHome.DHomeController;
 import App.DQABank.DQABankController;
 import App.DStudent.DStudentController;
 import App.ErrorPopUp.ErrorPopUpController;
+import App.SBefore.SBeforeController;
+import App.StudentLogin.StudentLoginController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
 import Main.HoverAnimation;
+import Main.Student;
 import Main.Validation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -50,43 +55,62 @@ public class DoctorLoginController {
 
     Validation validation = new Validation();
     HoverAnimation hoverAnimation = new HoverAnimation();
+
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
             String id = UID.getText();
             String password = UPassword.getText();
-            // Send the username and password to the server
-            Client client = new Client();
-            client.sendMessage("login");
-            client.sendMessage("Doctor");
-            client.sendMessage(id);
-            client.sendMessage(password);
-            String message = client.receiveMessage();
-            if (message.equalsIgnoreCase("true")){
-                String username1 = client.receiveMessage();
-                String SSN = client.receiveMessage();
-                Username = username1;
-                validation.showSuccessPopUp("Doctor Login Successful For User : "+username1);
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DBefore/DBefore.fxml")); // Reuse fxmlLoader
-                Scene scene = null;
-                Stage stage = null;
-                try {
-                    scene = new Scene(fxmlLoader.load()); // Reuse scene
-                } catch (IOException ex) {
-                    System.out.println("Error in loading scene : "+ex.getMessage());
+            DoctorLoginController controllerInstance = this;
+
+            Task<Void> task = new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                    try {
+                        Client client = new Client();
+                        client.sendMessage("login");
+                        client.sendMessage("Doctor");
+                        client.sendMessage(id);
+                        client.sendMessage(password);
+                        String message = client.receiveMessage();
+                        if (message.equalsIgnoreCase("true")) {
+                            String username1 = client.receiveMessage();
+                            String SSN = client.receiveMessage();
+                            Username = username1;
+                            Platform.runLater(() -> {
+                                validation.showSuccessPopUp("Doctor Login Successful For User : " + username1);
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DBefore/DBefore.fxml"));
+                                Scene scene = null;
+                                Stage stage = null;
+                                try {
+                                    scene = new Scene(fxmlLoader.load());
+                                } catch (IOException ex) {
+                                    System.out.println("Error in loading scene : " + ex.getMessage());
+                                }
+                                DBeforeController loginController = fxmlLoader.getController();
+                                loginController.setUsername(Username);
+                                loginController.setSsn(SSN);
+                                loginController.setID(id);
+                                loginController.setDoctorLoginController(controllerInstance);
+                                stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+                                stage.setScene(scene);
+                                stage.show();
+                            });
+                        } else {
+                            Platform.runLater(() -> {
+                                validation.showErrorPopUp("Invalid Username or Password");
+                            });
+                        }
+                        client.close();
+                    } catch (Exception ex) {
+                        Platform.runLater(() -> {
+                            validation.showErrorPopUp("Server is not Responding");
+                        });
+                    }
+                    return null;
                 }
-                DBeforeController loginController = fxmlLoader.getController();
-                loginController.setUsername(Username);
-                loginController.setSsn(SSN);
-                loginController.setID(id);
-                loginController.setDoctorLoginController(this);
-                stage = (Stage) ((Node)e.getSource()).getScene().getWindow(); // Reuse stage
-                stage.setScene(scene);
-                stage.show();
-            }
-            else {
-                validation.showErrorPopUp("Invalid Username or Password");
-            }
-            client.close();
+            };
+
+            new Thread(task).start();
         };
     }
     public EventHandler<ActionEvent> BackButtonClicked() {
