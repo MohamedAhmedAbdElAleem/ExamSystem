@@ -6,6 +6,7 @@ import App.ADoctors.ADoctorsController;
 import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
+import Main.Encryptor;
 import Main.HoverAnimation;
 import Main.Validation;
 import javafx.animation.KeyFrame;
@@ -47,12 +48,12 @@ public class AdminLoginController {
     private int currentIndex = 0;
     HoverAnimation hoverAnimation = new HoverAnimation();
     Validation validation = new Validation();
+    Encryptor encryptor = new Encryptor();
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
             String id = UID.getText();
-            String password = UPassword.getText();
+            String password = encryptor.funcEncrypt(UPassword.getText());
             AdminLoginController controllerInstance = this;
-
             Task<Void> task = new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {

@@ -9,6 +9,7 @@ import App.AdminProfile.AdminProfileController;
 import App.Notification.NotificationController;
 import App.Welcome.WelcomeController;
 import Main.Admin;
+import Main.Encryptor;
 import Main.Validation;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

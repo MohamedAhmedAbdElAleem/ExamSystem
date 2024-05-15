@@ -7,16 +7,22 @@ import App.DStudent.DStudentController;
 import App.DoctorLogin.DoctorLoginController;
 import App.DoctorProfile.DoctorProfileController;
 import App.Notification.NotificationController;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
@@ -39,10 +45,60 @@ public class DHomeController {
     @FXML
     private Button QBankButton;
     @FXML
-    private DoctorLoginController doctorLoginController;
+    private PieChart pieChart;
+    @FXML
+    private Label CourseName;
+    @FXML
+    private Label ExamName;
+    @FXML
+    private Label PassedStudent;
     private String id;
+    private DoctorLoginController doctorLoginController;
 
-    public void setId(String id) {
+    private void animatePieChart(PieChart innerpieChart, Label l2) {
+    // Extract the number from the label text
+    String text = l2.getText();
+    String numberString = text.split(" ")[0]; // Assuming the number is the first word in the string
+    int quantity = Integer.parseInt(numberString);
+    int totalQuantity = 100; // You need to implement this method
+    int percentage = (quantity * 100) / totalQuantity;
+
+    Timeline timeline = new Timeline();
+    for (int i = 0; i <= percentage; i++) {
+        int finalI = i;
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(50 * i), e -> {
+            l2.setText(finalI +"%");
+        });
+        timeline.getKeyFrames().add(keyFrame);
+    }
+
+    timeline.play();
+
+    // Create PieChart.Data objects
+    PieChart.Data passedData = new PieChart.Data("Passed", 0);
+    PieChart.Data failedData = new PieChart.Data("Failed", totalQuantity);
+    innerpieChart.getData().addAll(passedData, failedData);
+
+    // Set the color of the pie chart slices
+    passedData.getNode().setStyle("-fx-pie-color: #c96f71;");
+    failedData.getNode().setStyle("-fx-pie-color: white;");
+
+    Timeline timeline1 = new Timeline();
+    for (int i = 0; i <= quantity; i += 7) {
+        int finalI = i;
+        KeyFrame keyFrame = new KeyFrame(Duration.millis(50 * i), e -> {
+            passedData.setPieValue(finalI);
+            failedData.setPieValue(totalQuantity - finalI);
+        });
+        timeline1.getKeyFrames().add(keyFrame);
+    }
+    timeline1.setOnFinished(event2 -> {
+        passedData.setPieValue(quantity);
+        failedData.setPieValue(totalQuantity - quantity);
+    });
+    timeline1.setRate(1);
+    timeline1.play();
+}  public void setId(String id) {
         this.id = id;
     }
 
@@ -158,6 +214,7 @@ public class DHomeController {
         };
     }
     public void initialize() {
+        animatePieChart(pieChart , PassedStudent);
         LogOutButton.setOnAction(LogOutButtonClicked());
         StudentsButton.setOnAction(StudentsButtonClicked());
         ExamsButton.setOnAction(ExamsButtonClicked());
@@ -230,6 +287,7 @@ public class DHomeController {
     private String selectedCourse;
     public void setSelectedCourse(String choice) {
         selectedCourse = choice;
+        CourseName.setText(choice+" Course");
     }
 
     public void setDoctorLoginController(DoctorLoginController doctorLoginController) {
@@ -237,7 +295,6 @@ public class DHomeController {
     private String CourseId;
     public void setCourseId(String courseid) {
         this.CourseId = courseid;
-//        System.out.println("CourseId in DHomeController : "+CourseId);
     }
     private String ssn;
     public void setSsn(String ssn) {

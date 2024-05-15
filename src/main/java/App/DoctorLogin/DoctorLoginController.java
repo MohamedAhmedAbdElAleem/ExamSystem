@@ -11,9 +11,7 @@ import App.SBefore.SBeforeController;
 import App.StudentLogin.StudentLoginController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import App.Welcome.WelcomeController;
-import Main.HoverAnimation;
-import Main.Student;
-import Main.Validation;
+import Main.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -29,7 +27,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import Main.Client;
 import App.Welcome.WelcomeController;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -56,10 +53,11 @@ public class DoctorLoginController {
     Validation validation = new Validation();
     HoverAnimation hoverAnimation = new HoverAnimation();
 
+    Encryptor encryptor = new Encryptor();
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
             String id = UID.getText();
-            String password = UPassword.getText();
+            String password = encryptor.funcEncrypt(UPassword.getText());
             DoctorLoginController controllerInstance = this;
 
             Task<Void> task = new Task<Void>() {

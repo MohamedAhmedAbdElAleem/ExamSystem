@@ -4,6 +4,7 @@ import App.ADoctors.ADoctorsController;
 import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import Main.Client;
+import Main.Encryptor;
 import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,6 +41,8 @@ public class AddDoctorController {
                 validation.showErrorPopUp("Please fill all the fields");
                 return;
             }
+            Encryptor encryptor = new Encryptor();
+            password = encryptor.funcEncrypt(password);
             Client client = new Client();
             client.sendMessage("addDoctor");
             client.sendMessage(name);
