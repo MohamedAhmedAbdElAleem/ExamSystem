@@ -113,7 +113,7 @@ public class DBeforeController {
             courseNames.add(course.getCname());
         }
         choice1.setItems(courseNames);
-//        choice1.getItems().add("Algorithms");
+
     }
     @FXML
     public void initialize() {

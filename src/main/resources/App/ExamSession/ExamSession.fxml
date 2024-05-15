@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="735.0" minWidth="1300.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ExamSession.ExamSessionController">
    <children>
       <AnchorPane prefHeight="140.0" prefWidth="1302.0" style="-fx-background-color: #202020;">
          <children>
@@ -82,17 +88,20 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
-                        <RadioButton fx:id="ARadio" alignment="CENTER_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0">
+                        <RadioButton fx:id="ARadio" mnemonicParsing="false" prefHeight="27.0" prefWidth="27.0">
                            <toggleGroup>
                               <ToggleGroup fx:id="Answers" />
                            </toggleGroup>
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin>
                         </RadioButton>
-                        <Label fx:id="ALabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="1291.0" text="Berlin, the vibrant capital of Germany, known for its thriving arts scene and historical significance as the once-divided city during the Cold War." textFill="#fff6eb" wrapText="true">
+                        <Label fx:id="ALabel" alignment="CENTER" contentDisplay="CENTER" text="London, the bustling metropolis and capital of the United Kingdom, celebrated for its diverse population, iconic landmarks like Big Ben and the Tower Bridge, and its pivotal role in global finance and culture." textFill="#fff6eb" wrapText="true">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>
@@ -109,10 +118,13 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin>
                         </RadioButton>
-                        <Label fx:id="BLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="1291.0" text="London, the bustling metropolis and capital of the United Kingdom, celebrated for its diverse population, iconic landmarks like Big Ben and the Tower Bridge, and its pivotal role in global finance and culture." textFill="#fff6eb" wrapText="true">
+                        <Label fx:id="BLabel" alignment="CENTER" contentDisplay="CENTER" text="London, the bustling metropolis and capital of the United Kingdom, celebrated for its diverse population, iconic landmarks like Big Ben and the Tower Bridge, and its pivotal role in global finance and culture." textFill="#fff6eb" wrapText="true">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>
@@ -129,10 +141,13 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin>
                         </RadioButton>
-                        <Label fx:id="CLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="1291.0" text="Paris, the enchanting capital of France, famous for its romantic ambiance, world-class cuisine, stunning architecture including the Eiffel Tower and Notre-Dame Cathedral, and as the birthplace of the Enlightenment." textFill="#fff6eb" wrapText="true">
+                        <Label fx:id="CLabel" alignment="CENTER" contentDisplay="CENTER" text="Paris, the enchanting capital of France, famous for its romantic ambiance, world-class cuisine, stunning architecture including the Eiffel Tower and Notre-Dame Cathedral, and as the birthplace of the Enlightenment." textFill="#fff6eb" wrapText="true">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>
@@ -149,10 +164,13 @@
                            <font>
                               <Font size="18.0" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="50.0" right="50.0" />
+                           </HBox.margin>
                         </RadioButton>
-                        <Label fx:id="DLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="100.0" prefWidth="1291.0" text="Rome, the ancient capital of Italy, renowned for its rich history dating back to the Roman Empire, iconic landmarks such as the Colosseum and Vatican City, and its influence on art, architecture, and religion throughout the centuries." textFill="#fff6eb" wrapText="true">
+                        <Label fx:id="DLabel" alignment="CENTER" contentDisplay="CENTER" text="Rome, the ancient capital of Italy, renowned for its rich history dating back to the Roman Empire, iconic landmarks such as the Colosseum and Vatican City, and its influence on art, architecture, and religion throughout the centuries." textFill="#fff6eb" wrapText="true">
                            <font>
-                              <Font size="20.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
                      </children>

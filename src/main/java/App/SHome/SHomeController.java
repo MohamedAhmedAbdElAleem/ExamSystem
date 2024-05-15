@@ -105,7 +105,7 @@ public class SHomeController {
                 } catch (IOException e) {
                     System.out.println("Error in loading scene : "+e.getMessage());
                 }
-            } else if(java.time.LocalDateTime.now().isAfter(exam.getStartDate().plusMinutes((long) (exam.getDuration()*60)))){                try {
+            } else if(java.time.LocalDateTime.now().isAfter(exam.getStartDate().plusHours(1))){                try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/StudentCardView/StudentCardView.fxml"));
                     VBox newQuizPane = loader.load();
                     StudentCardViewController examCardController = loader.getController();
