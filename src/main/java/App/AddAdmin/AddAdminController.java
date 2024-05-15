@@ -4,6 +4,7 @@ import App.AAdmins.AAdminsController;
 import App.ErrorPopUp.ErrorPopUpController;
 import App.SucessfulPopUp.SucessfulPopUpController;
 import Main.Client;
+import Main.Encryptor;
 import Main.Validation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,6 +28,7 @@ public class AddAdminController {
     @FXML
     private TextField APassword;
     Validation validation = new Validation();
+    Encryptor encryptor = new Encryptor();
 
     public void setUsername(String username) {
         this.username = username;
@@ -43,6 +45,7 @@ public class AddAdminController {
                 Client client = new Client();
                 String name = AName.getText();
                 String password = APassword.getText();
+                password = encryptor.funcEncrypt(password);
                 client.addAdmin(name, password);
                 validation.showSuccessPopUp("Admin Added Successfully");
             }

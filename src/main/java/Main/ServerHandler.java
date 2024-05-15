@@ -1506,14 +1506,20 @@ public class ServerHandler implements Runnable {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid = '"+id+"' AND Spassword = '"+password+"'");
             if (resultSet.next())
             {
-                student = new Student();
-                student.setSid(resultSet.getString("Sid"));
-                student.setSname(resultSet.getString("Sname"));
-                student.setSpassword(resultSet.getString("Spassword"));
-                student.setSssn(resultSet.getString("Sssn"));
-                student.setSemail(resultSet.getString("Semail"));
-                student.setSregistrationNumber(resultSet.getString("SregistrationNumber"));
-                return true;
+                if(resultSet.getString("Spassword").equals(password))
+                {
+                    student = new Student();
+                    student.setSid(resultSet.getString("Sid"));
+                    student.setSname(resultSet.getString("Sname"));
+                    student.setSpassword(resultSet.getString("Spassword"));
+                    student.setSssn(resultSet.getString("Sssn"));
+                    student.setSemail(resultSet.getString("Semail"));
+                    student.setSregistrationNumber(resultSet.getString("SregistrationNumber"));
+                    return true;
+                }else {
+                    return false;
+                }
+
             }
         } catch (SQLException e) {
             System.out.println("Error in StudentLogin : "+e.getMessage());
@@ -1527,12 +1533,17 @@ public class ServerHandler implements Runnable {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors WHERE Did = '"+id+"' AND Dpassword = '"+password+"'");
             if (resultSet.next())
             {
-                doctor = new Doctor();
-                doctor.setDid(resultSet.getString("Did"));
-                doctor.setDname(resultSet.getString("Dname"));
-                doctor.setDpassword(resultSet.getString("Dpassword"));
-                doctor.setDssn(resultSet.getString("Dssn"));
-                return true;
+                if(resultSet.getString("Dpassword").equals(password))
+                {
+                    doctor = new Doctor();
+                    doctor.setDid(resultSet.getString("Did"));
+                    doctor.setDname(resultSet.getString("Dname"));
+                    doctor.setDpassword(resultSet.getString("Dpassword"));
+                    doctor.setDssn(resultSet.getString("Dssn"));
+                    return true;
+                }else {
+                    return false;
+                }
             }
         } catch (SQLException e) {
             System.out.println("Error in DoctorLogin : "+e.getMessage());
@@ -1543,13 +1554,10 @@ public class ServerHandler implements Runnable {
     private  boolean AdminLogIn(String id, String password) {
         try {
             Statement statement = connection.createStatement();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM admins WHERE Aid = ? AND Apassword = ?");
-            preparedStatement.setString(1, id);
-            preparedStatement.setString(2, password);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            System.out.println(password);
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM admins WHERE Aid = '"+id+"' AND Apassword = '"+password+"'");
             if (resultSet.next())
-            {   if(resultSet.getString("Apassword").equals(password))
+            {
+                if(resultSet.getString("Apassword").equals(password))
                 {
                     username1 = resultSet.getString("Aname");
                     return true;
