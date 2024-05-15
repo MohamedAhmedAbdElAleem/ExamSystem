@@ -207,4 +207,9 @@ public class Exam  implements Serializable {
     public String getExamGrade() {
         return examGrade;
     }
+
+    public String getExamEnd() {
+        LocalDateTime end = startDate.plusMinutes((long)(duration * 60));
+        return end.toLocalTime().toString();
+    }
 }

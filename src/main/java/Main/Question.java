@@ -1,6 +1,7 @@
 package Main;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Question implements Serializable {
     private int questionId;
@@ -13,6 +14,7 @@ public class Question implements Serializable {
     private String Option2;
     private String Option3;
     private String Option4;
+    private List<String> options;
     public Question() {
         this.questionId = 0;
         this.Question = "";
@@ -111,5 +113,8 @@ public class Question implements Serializable {
 
     public void setOption4(String option4) {
         Option4 = option4;
+    }
+    private String studentAnswer;
+    public void setStudentAnswer(String text) {
     }
 }

@@ -421,6 +421,20 @@ public class ServerHandler implements Runnable {
                     question.setAnswer(resultSet.getString("answer"));
                     question.setUsedBefore(resultSet.getBoolean("used"));
                     question.setDifficultyLevel(resultSet.getString("difficulty_level"));
+                    if (question.getQuestionType().equalsIgnoreCase("MCQ")) {
+                        ResultSet mcqResultSet = statement.executeQuery("SELECT * FROM mcq_" + courseId + " WHERE question_id = '" + questionId + "'");
+                        int i = 2;
+                        while (mcqResultSet.next()) {
+                             if (i == 2) {
+                                question.setOption2(mcqResultSet.getString("choice"));
+                            } else if (i == 3) {
+                                question.setOption3(mcqResultSet.getString("choice"));
+                            } else if (i == 4) {
+                                question.setOption4(mcqResultSet.getString("choice"));
+                            }
+                            i++;
+                        }
+                    }
                     objectOutputStream.writeObject(question);
                 }
             }
@@ -1345,13 +1359,12 @@ public class ServerHandler implements Runnable {
             writer.println(output);
             if (output)
             {
-
                 objectOutputStream.writeObject(student);
             }
         }
     }
 
-    private synchronized boolean StudentLogin(String id, String password) {
+    private  boolean StudentLogin(String id, String password) {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM students WHERE Sid = '"+id+"' AND Spassword = '"+password+"'");
@@ -1372,7 +1385,7 @@ public class ServerHandler implements Runnable {
         return false;
     }
 
-    private synchronized boolean DoctorLogin(String id, String password) {
+    private  boolean DoctorLogin(String id, String password) {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM doctors WHERE Did = '"+id+"' AND Dpassword = '"+password+"'");
@@ -1391,7 +1404,7 @@ public class ServerHandler implements Runnable {
         return false;
     }
 
-    private synchronized boolean AdminLogIn(String id, String password) {
+    private  boolean AdminLogIn(String id, String password) {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM admins WHERE Aid = '"+id+"' AND Apassword = '"+password+"'");
