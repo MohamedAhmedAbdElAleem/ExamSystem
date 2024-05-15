@@ -108,6 +108,7 @@ public class SExamsController {
                     StudentCardJoinController examCardController = loader.getController();
                     examCardController.setExam(exam);
                     exam.setExamGrade("Not Graded Yet");
+                    examCardController.setStudent(student);
                     examCardController.setSExamsController(this);
                     PendingExamsPane.getChildren().add(newQuizPane);
                 } catch (IOException e) {

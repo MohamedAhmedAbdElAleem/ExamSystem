@@ -14,6 +14,7 @@ public class Question implements Serializable {
     private String Option2;
     private String Option3;
     private String Option4;
+    private String studentAnswer;
     private List<String> options;
     public Question() {
         this.questionId = 0;
@@ -22,6 +23,7 @@ public class Question implements Serializable {
         this.lecture = "";
         this.usedBefore = false;
         QuestionType = "";
+        this.studentAnswer = "";
     }
     public Question(int questionId, String content, String difficultyLevel, String lectureLabel) {
         this.questionId = questionId;
@@ -114,7 +116,15 @@ public class Question implements Serializable {
     public void setOption4(String option4) {
         Option4 = option4;
     }
-    private String studentAnswer;
+
     public void setStudentAnswer(String text) {
+        this.studentAnswer = text;
+    }
+    public String getSAnswer() {
+        return studentAnswer;
+    }
+
+    public String getStudentAnswer() {
+        return studentAnswer;
     }
 }

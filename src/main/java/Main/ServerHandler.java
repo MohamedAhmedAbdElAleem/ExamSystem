@@ -302,6 +302,16 @@ public class ServerHandler implements Runnable {
                     getResultsOfStudent();
                 }else if (input.equalsIgnoreCase("getExamsOfStudent")) {
                     getExamsOfStudent();
+                }else if (input.equalsIgnoreCase("updateStudentAnswers")) {
+                    updateStudentAnswers();
+                }else if (input.equalsIgnoreCase("calculateGrade")) {
+                    calculateGrade();
+                }else if (input.equalsIgnoreCase("getStudentGradeInExam")) {
+                    getStudentGradeInExam();
+                }else if (input.equalsIgnoreCase("updateExamQuestions")) {
+                    updateExamQuestions();
+                }else if (input.equalsIgnoreCase("getStudentQIds")) {
+                    getStudentQIds();
                 }
                 else{
                     String output = processInput(input);
@@ -317,6 +327,132 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void getStudentQIds() {
+        try {
+            String examID = reader.readLine();
+            String studentID = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM take WHERE ExamID = '"+examID+"' AND StudentID = '"+studentID+"'");
+            if (resultSet.next())
+            {
+                writer.println(resultSet.getString("questionAnswers"));
+            }else{
+                writer.println("null");
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getStudentQIds : "+e.getMessage());
+        }
+    }
+
+    private void updateExamQuestions() {
+        try {
+            String examID = reader.readLine();
+            String QuestionsIDs = reader.readLine();
+            String studentID = reader.readLine();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("UPDATE take SET questionAnswers = '"+QuestionsIDs+"' WHERE ExamID = '"+examID+"' AND StudentID = '"+studentID+"'");
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in updateExamQuestions : "+e.getMessage());
+            writer.println("false");
+        }
+    }
+
+    private void getStudentGradeInExam() {
+        try {
+            String examID = reader.readLine();
+            String studentID = reader.readLine();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM take WHERE ExamID = '"+examID+"' AND StudentID = '"+studentID+"'");
+            if (resultSet.next())
+            {
+                writer.println(resultSet.getString("EResult"));
+            }else{
+                writer.println("null");
+            }
+            writer.println(resultSet.getString("StudentAnswers"));
+            System.out.println(resultSet.getString("StudentAnswers"));
+            writer.println(resultSet.getString("questionAnswers"));
+            System.out.println(resultSet.getString("questionAnswers"));
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in getStudentGradeInExam : "+e.getMessage());
+        }
+    }
+
+    private void calculateGrade() {
+        try {
+            String StudentID = reader.readLine();
+            String examID = reader.readLine();
+            String QuestionsIDs = reader.readLine();
+            String answers = reader.readLine();
+            String[] answersArray = answers.split(",");
+            String[] questionsIDsArray = QuestionsIDs.split(",");
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM exams WHERE EId = '"+examID+"'");
+            resultSet.next();
+            int EasyMark = resultSet.getInt("EasyMark");
+            int MediumMark = resultSet.getInt("MediumMark");
+            int HardMark = resultSet.getInt("HardMark");
+            int totalMarks = 0;
+            for (int i = 0; i < answersArray.length; i++) {
+            Statement statement1 = connection.createStatement();
+            ResultSet resultSet1 = statement1.executeQuery("SELECT * FROM question_bank_" + resultSet.getInt("QBID") + " WHERE id = '" + questionsIDsArray[i] + "'");
+                resultSet1.next();
+                if (resultSet1.getString("Qtype").equalsIgnoreCase("MCQ")) {
+                    if (resultSet1.getString("id").equalsIgnoreCase(questionsIDsArray[i])) {
+                        if (resultSet1.getString("answer").equalsIgnoreCase(answersArray[i])) {
+                            if (resultSet1.getString("difficulty_level").equalsIgnoreCase("Easy")) {
+                                totalMarks += EasyMark;
+                            } else if (resultSet1.getString("difficulty_level").equalsIgnoreCase("Medium")) {
+                                totalMarks += MediumMark;
+                            } else if (resultSet1.getString("difficulty_level").equalsIgnoreCase("Hard")) {
+                                totalMarks += HardMark;
+                            }
+                        }
+                    }
+
+                } else if (resultSet1.getString("Qtype").equalsIgnoreCase("TF")) {
+                    if (resultSet1.getString("answer").equalsIgnoreCase(answersArray[i]) && resultSet1.getString("id").equalsIgnoreCase(questionsIDsArray[i])) {
+                        if (resultSet1.getString("difficulty_level").equalsIgnoreCase("Easy")) {
+                            totalMarks += EasyMark;
+                        } else if (resultSet1.getString("difficulty_level").equalsIgnoreCase("Medium")) {
+                            totalMarks += MediumMark;
+                        } else if (resultSet1.getString("difficulty_level").equalsIgnoreCase("Hard")) {
+                            totalMarks += HardMark;
+                        }
+                    }
+                }
+                Statement statement2 = connection.createStatement();
+                statement2.executeUpdate("UPDATE take SET EResult = '" + totalMarks + "', questionAnswers = '" + QuestionsIDs + "' WHERE ExamID = '" + examID + "' AND StudentID = '" + StudentID + "'");
+                writer.println("true");
+            }
+            writer.println("true");
+        } catch (IOException e) {
+            System.out.println("Error in calculateGrade : "+e.getMessage());
+            writer.println("false");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void updateStudentAnswers() {
+        try {
+            String studentID = reader.readLine();
+            String examID = reader.readLine();
+            String answers = reader.readLine();
+            String[] answersArray = answers.split(",");
+            PreparedStatement statement = connection.prepareStatement("UPDATE take SET StudentAnswers = ? WHERE ExamID = ? AND StudentID = ?");
+            statement.setString(1, answers);
+            statement.setString(2, examID);
+            statement.setString(3, studentID);
+            statement.executeUpdate();
+            writer.println("true");
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in updateStudentAnswers : "+e.getMessage());
+            writer.println("false");
         }
     }
 
@@ -1407,11 +1543,19 @@ public class ServerHandler implements Runnable {
     private  boolean AdminLogIn(String id, String password) {
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM admins WHERE Aid = '"+id+"' AND Apassword = '"+password+"'");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM admins WHERE Aid = ? AND Apassword = ?");
+            preparedStatement.setString(1, id);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            System.out.println(password);
             if (resultSet.next())
-            {
-                username1 = resultSet.getString("Aname");
-                return true;
+            {   if(resultSet.getString("Apassword").equals(password))
+                {
+                    username1 = resultSet.getString("Aname");
+                    return true;
+                }else {
+                    return false;
+                }
             }
         } catch (SQLException e) {
             System.out.println("Error in AdminLogIn : "+e.getMessage());
