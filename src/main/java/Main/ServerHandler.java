@@ -312,6 +312,8 @@ public class ServerHandler implements Runnable {
                     updateExamQuestions();
                 }else if (input.equalsIgnoreCase("getStudentQIds")) {
                     getStudentQIds();
+                }else if (input.equalsIgnoreCase("AddStudents")) {
+                    AddStudents();
                 }
                 else{
                     String output = processInput(input);
@@ -327,6 +329,53 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void AddStudents() {
+        try {
+            String courseID = reader.readLine();
+            while (true) {
+                String studentName = reader.readLine();
+                if (Objects.equals(studentName, "end")) {
+                    break;
+                }
+                String studentID = reader.readLine();
+                String studentSSN = reader.readLine();
+                String studentEmail = reader.readLine();
+                String studentRegistrationNumber = reader.readLine();
+                String studentPassword = reader.readLine();
+                Statement statement1 = connection.createStatement();
+                ResultSet resultSet = statement1.executeQuery("SELECT * FROM students WHERE Sssn = '"+studentSSN+"'");
+                if (resultSet.next())
+                {
+                }else{
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO students (Sname, Sssn, Semail, SregistrationNumber, Spassword) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    statement.setString(1, studentName);
+                    statement.setString(2, studentSSN);
+                    statement.setString(3, studentEmail);
+                    statement.setString(4, studentRegistrationNumber);
+                    statement.setString(5, studentPassword);
+                    statement.executeUpdate();
+
+                    ResultSet generatedKeys = statement.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        int nstudentID = generatedKeys.getInt(1); // Assuming the generated ID is an integer
+                        PreparedStatement statement2 = connection.prepareStatement("INSERT INTO enroll (StudentstID, CoursesID) VALUES (?,?)");
+                        statement2.setInt(1, nstudentID);
+                        statement2.setString(2, courseID);
+                        statement2.executeUpdate();
+                        writer.println("true");
+                    } else {
+                        // Handle failure to get generated ID
+                        writer.println("false");
+                    }
+
+                }
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in AddStudents : "+e.getMessage());
+            writer.println("false");
         }
     }
 

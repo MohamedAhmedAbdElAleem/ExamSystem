@@ -239,12 +239,29 @@ public class DStudentController {
         return e ->{
             try {
                 openFile();
+                updateStudents();
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                System.out.println("Error in loading scene : "+ex.getMessage());
             }
 };
 
     }
+
+    private void updateStudents() {
+        Client client = new Client();
+        client.sendMessage("AddStudents");
+        client.sendMessage(courseId);
+        for (Student student : students) {
+            client.sendMessage(student.getSname());
+            client.sendMessage(student.getSid());
+            client.sendMessage(student.getSssn());
+            client.sendMessage(student.getSemail());
+            client.sendMessage(student.getSregistrationNumber());
+            client.sendMessage(student.getSpassword());
+        }
+        client.sendMessage("end");
+    }
+
     private void openFile() throws IOException {
         // System.out.println("Open File Chooser");
         FileChooser fileChooser = new FileChooser();
@@ -279,7 +296,7 @@ public class DStudentController {
                             student.setSname(currentCell.getStringCellValue());
                             break;
                         case 1:
-                            student.setSid(String.valueOf(currentCell.getStringCellValue()));
+                            student.setSid(String.valueOf(currentCell.getNumericCellValue()));
                             break;
                         case 2:
                             student.setSssn(currentCell.getStringCellValue());
@@ -288,10 +305,10 @@ public class DStudentController {
                             student.setSemail(currentCell.getStringCellValue());
                             break;
                         case 4:
-                            student.setSregistrationNumber( String.valueOf(currentCell.getStringCellValue()));
+                            student.setSregistrationNumber( String.valueOf(currentCell.getNumericCellValue()));
                             break;
                         case 5:
-                            student.setSpassword( String.valueOf(currentCell.getStringCellValue()));
+                            student.setSpassword( String.valueOf(currentCell.getNumericCellValue()));
                             break;
                         default:
                             break;
