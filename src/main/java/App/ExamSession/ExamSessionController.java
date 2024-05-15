@@ -5,6 +5,7 @@ import App.StudentCardJoin.StudentCardJoinController;
 import Main.Client;
 import Main.Exam;
 import Main.Question;
+import Main.Student;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.stage.Stage;
 
 import java.security.spec.RSAOtherPrimeInfo;
 import java.time.LocalDateTime;
@@ -60,7 +62,42 @@ public class ExamSessionController {
         DLabel.setOnMouseClicked(event -> DRadio.setSelected(true));
         NextButton.setOnAction(nextButtonClicked());
         BackButton.setOnAction(backButtonClicked());
+        SubmitButton.setOnAction(SubmitButtonClicked());
         StartTimer();
+    }
+
+    private EventHandler<ActionEvent> SubmitButtonClicked() {
+        return e -> {
+            if(ARadio.isSelected()) {
+                questions.get(questionIndex).setStudentAnswer(ALabel.getText());
+            } else if(BRadio.isSelected()) {
+                questions.get(questionIndex).setStudentAnswer(BLabel.getText());
+            } else if(CRadio.isSelected()) {
+                questions.get(questionIndex).setStudentAnswer(CLabel.getText());
+            } else if(DRadio.isSelected()) {
+                questions.get(questionIndex).setStudentAnswer(DLabel.getText());
+            }
+            updateStudentAnswers();
+            calculateGrade();
+            Stage stage = (Stage) SubmitButton.getScene().getWindow();
+            stage.close();
+        };
+    }
+
+    private void calculateGrade() {
+        Client client = new Client();
+        client.sendMessage("calculateGrade");
+        client.sendMessage(student.getSid());
+        client.sendMessage(String.valueOf(exam.getExamId()));
+        client.sendMessage(exam.getQuestionsIds());
+        String studentAnswers = "";
+        for (Question question : questions) {
+            studentAnswers += question.getStudentAnswer() + ",";
+        }
+        System.out.println(studentAnswers);
+        client.sendMessage(studentAnswers);
+        String response = client.receiveMessage();
+        System.out.println(response);
     }
 
     private EventHandler<ActionEvent> backButtonClicked() {
@@ -75,7 +112,9 @@ public class ExamSessionController {
                 questions.get(questionIndex).setStudentAnswer(DLabel.getText());
             }
             questionIndex--;
-            displayQuestion();
+            Platform.runLater(this::displayQuestion);
+            updateStudentAnswers();
+
         };
     }
 
@@ -91,10 +130,26 @@ public class ExamSessionController {
                 questions.get(questionIndex).setStudentAnswer(DLabel.getText());
             }
             questionIndex++;
-            displayQuestion();
+            Platform.runLater(this::displayQuestion);
+            updateStudentAnswers();
         };
     }
+    private void updateStudentAnswers() {
+        Client client = new Client();
+        client.sendMessage("updateStudentAnswers");
+        client.sendMessage(student.getSid());
+        client.sendMessage(String.valueOf(exam.getExamId()));
+        String studentAnswers = "";
+        for (Question question : questions) {
+            studentAnswers += question.getStudentAnswer() + ",";
+        }
+        System.out.println(studentAnswers);
+        client.sendMessage(studentAnswers);
+        String response = client.receiveMessage();
+//        System.out.println(response);
 
+//        client.sendQuestions(questions);
+    }
     private void displayQuestion() {
         Question question = questions.get(questionIndex);
         QLabel.setText(question.getQuestion());
@@ -107,6 +162,19 @@ public class ExamSessionController {
             BLabel.setText(question.getOption2());
             CLabel.setText(question.getOption3());
             DLabel.setText(question.getOption4());
+            ARadio.setSelected(false);
+            BRadio.setSelected(false);
+            CRadio.setSelected(false);
+            DRadio.setSelected(false);
+            if (question.getStudentAnswer().equalsIgnoreCase(question.getAnswer())) {
+                ARadio.setSelected(true);
+            } else if (question.getStudentAnswer().equalsIgnoreCase(question.getOption2())) {
+                BRadio.setSelected(true);
+            } else if (question.getStudentAnswer().equalsIgnoreCase(question.getOption3())) {
+                CRadio.setSelected(true);
+            } else if (question.getStudentAnswer().equalsIgnoreCase(question.getOption4())) {
+                DRadio.setSelected(true);
+            }
         } else {
             ARadio.setVisible(true);
             BRadio.setVisible(true);
@@ -116,6 +184,14 @@ public class ExamSessionController {
             DLabel.setText("");
             ALabel.setText("True");
             BLabel.setText("False");
+            ARadio.setSelected(false);
+            BRadio.setSelected(false);
+            if (question.getStudentAnswer().equalsIgnoreCase("True")) {
+                ARadio.setSelected(true);
+            } else if (question.getStudentAnswer().equalsIgnoreCase("False")) {
+                BRadio.setSelected(true);
+            }
+
         }
         if(questionIndex == 0) {
             BackButton.setDisable(true);
@@ -134,16 +210,35 @@ public class ExamSessionController {
 
     private ObservableList<Question> getQuestions() {
         Client client = new Client();
-        client.sendMessage("getQuestionsOfExam");
+        client.sendMessage("getStudentQIds");
         String quizId = String.valueOf(exam.getQbId());
         client.sendMessage(quizId);
+        client.sendMessage(student.getSid());
+        String studentQIds = client.receiveMessage();
+        client.sendMessage("getQuestionsOfExam");
+        client.sendMessage(quizId);
+        if(studentQIds.equals("null")) {
         client.sendMessage(exam.getQuestionsIds());
+        }else{
+            client.sendMessage(studentQIds);
+        }
         ObservableList<Question> questions = client.getQuestionsOfExam();
         List<Question> list = new ArrayList<>(questions);
-        // Shuffle the list
+        if (exam.getQuestionsIds().equals("null")) {
         Collections.shuffle(list);
-        // Update the ObservableList with shuffled data
         questions.setAll(list);
+        String newQuestionsIds = "";
+        for (Question question : questions) {
+            newQuestionsIds += question.getQuestionId() + ",";
+        }
+        exam.setQuestionsIds(newQuestionsIds);
+        client.sendMessage("updateExamQuestions");
+        client.sendMessage(String.valueOf(exam.getExamId()));
+        client.sendMessage(newQuestionsIds);
+        client.sendMessage(student.getSid());
+        }else {
+            questions.setAll(list);
+        }
         return questions;
     }
 
@@ -152,6 +247,9 @@ public class ExamSessionController {
         this.exam = exam;
         questionIndex = 0;
         questions = getQuestions();
+        for (Question question : questions) {
+            question.setStudentAnswer("");
+        }
         Platform.runLater(this::displayQuestion);
     }
     private void StartTimer(){
@@ -192,5 +290,23 @@ public class ExamSessionController {
 
     public void setExamCardJoinController(StudentCardJoinController studentCardJoinController) {
         this.studentCardJoinController = studentCardJoinController;
+    }
+    private Student student;
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public void setStudentAnswers(String studentAnswers) {
+        String[] answers = studentAnswers.split(",");
+        for (int i = 0; i < answers.length; i++) {
+            questions.get(i).setStudentAnswer(answers[i]);
+        }
+    }
+
+    public void setExamQuestions(String examQuestions) {
+        String[] questionsIds = examQuestions.split(",");
+        for (int i = 0; i < questionsIds.length; i++) {
+            questions.get(i).setQuestionId(Integer.parseInt(questionsIds[i]));
+        }
     }
 }
