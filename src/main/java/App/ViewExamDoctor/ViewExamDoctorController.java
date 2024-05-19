@@ -3,6 +3,8 @@ package App.ViewExamDoctor;
 import App.AreYouSure.AreYouSureController;
 import App.DExam.DExamController;
 import App.ExamView.ExamViewController;
+import App.Notification.NotificationController;
+import App.PdfNum.PdfNumController;
 import Main.Client;
 import Main.Exam;
 import Main.Question;
@@ -46,6 +48,9 @@ public class ViewExamDoctorController {
     private RadioButton True;
     @FXML
     private RadioButton False;
+    @FXML
+    private Button DownloadPDFButton;
+
     private void ViewQuestions() {
 //        QuestionView.getItems().clear();
         Client client = new Client();
@@ -86,6 +91,29 @@ public class ViewExamDoctorController {
             }else{
                 validation.showErrorPopUp("Please Select the Result Option");
             }
+        };
+    }
+
+    public void initialize() {
+        DownloadPDFButton.setOnAction(DownloadPDFButtonClicked());
+    }
+
+    private EventHandler<ActionEvent> DownloadPDFButtonClicked() {
+        return e -> {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/PdfNum/PdfNum.fxml"));
+            Scene scene = null;
+            try {
+                scene = new Scene(fxmlLoader.load());
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
+            PdfNumController loginController = fxmlLoader.getController();
+//           //loginController.setUsername(Username);
+            loginController.setPdfNumController(this);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
+            stage.setScene(scene);
+            stage.showAndWait();
         };
     }
 

@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="650.0" minWidth="870.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane minHeight="650.0" minWidth="870.0" prefHeight="650.0" prefWidth="1011.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.ViewExamDoctor.ViewExamDoctorController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="311.0" layoutY="24.0" prefHeight="46.0" prefWidth="256.0" text="Questions Set" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="25.0" prefHeight="46.0" prefWidth="256.0" text="Questions Set" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <Button fx:id="DoneButton" layoutX="638.0" layoutY="28.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #c96f71;" text="Done" textFill="WHITE">
+      <Button fx:id="DoneButton" layoutX="882.0" layoutY="31.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="94.0" style="-fx-background-color: #c96f71;" text="Done" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="20.0" />
          </font>
@@ -38,15 +45,28 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </RadioButton>
-      <TableView fx:id="QuestionView" layoutX="23.0" layoutY="92.0" prefHeight="514.0" prefWidth="816.0" styleClass="Tables" stylesheets="@../style.css">
+      <TableView fx:id="QuestionView" layoutX="23.0" layoutY="92.0" prefHeight="514.0" prefWidth="953.0" styleClass="Tables" stylesheets="@../style.css">
          <columns>
             <TableColumn fx:id="IDColumn" prefWidth="75.0" text="ID" />
-            <TableColumn fx:id="QuestionColumn" prefWidth="264.00001525878906" text="Question" />
-            <TableColumn fx:id="AnswerColumn" prefWidth="228.0" text="Answer" />
-            <TableColumn fx:id="LectureColumn" minWidth="4.0" prefWidth="74.39990234375" text="Lecture" />
-            <TableColumn fx:id="TypeColumn" minWidth="0.0" prefWidth="86.39996337890625" text="Type" />
-            <TableColumn fx:id="DifficultyColumn" prefWidth="85.5999755859375" text="Difficulty" />
+            <TableColumn fx:id="QuestionColumn" prefWidth="492.0" text="Question" />
+            <TableColumn fx:id="AnswerColumn" prefWidth="133.0" text="Answer" />
+            <TableColumn fx:id="LectureColumn" minWidth="4.0" prefWidth="76.0" text="Lecture" />
+            <TableColumn fx:id="TypeColumn" minWidth="0.0" prefWidth="64.0" text="Type" />
+            <TableColumn fx:id="DifficultyColumn" prefWidth="110.0" text="Difficulty" />
          </columns>
       </TableView>
+      <Button fx:id="DownloadPDFButton" layoutX="598.0" layoutY="31.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="270.0" style="-fx-background-color: #000;" text="Download PDF" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="37.0" fitWidth="32.0" layoutX="621.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/pdf.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

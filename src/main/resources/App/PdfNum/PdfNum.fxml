@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="550.0" minWidth="450.0" style="-fx-background-color: #2e2e2e;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.PdfNum.PdfNumController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="53.0" layoutY="36.0" prefHeight="58.0" prefWidth="338.0" text="Download PDF" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="27.0" />
+         </font>
+      </Label>
+      <Button fx:id="Download" layoutX="108.0" layoutY="471.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="233.0" style="-fx-background-color: #000;" text="Download" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <TextField fx:id="PdfNum" layoutX="90.0" layoutY="345.0" prefHeight="44.0" prefWidth="307.0" promptText="Models Number" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 10;">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="18.0" />
+         </font>
+      </TextField>
+      <ImageView fitHeight="193.0" fitWidth="163.0" layoutX="139.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/pdf.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="44.0" fitWidth="44.0" layoutX="43.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Images/pdf.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

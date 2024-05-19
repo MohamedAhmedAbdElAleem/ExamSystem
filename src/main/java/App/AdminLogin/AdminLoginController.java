@@ -25,6 +25,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import Main.Client;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import App.AHome.AHomeController;
 import javafx.util.Duration;
@@ -43,6 +44,10 @@ public class AdminLoginController {
     private Button BackButton;
     @FXML
     private Label AdminLabel;
+
+    @FXML
+    private ImageView showPassword;
+
     private static final String TEXT_TO_TYPE = "Admin Login";
     private static final Duration DELAY_BETWEEN_LETTERS = Duration.seconds(0.05);
     private int currentIndex = 0;
