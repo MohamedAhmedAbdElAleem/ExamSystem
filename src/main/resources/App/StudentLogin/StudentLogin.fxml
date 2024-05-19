@@ -46,7 +46,7 @@
             </Label>
             <PasswordField fx:id="UPassword" layoutX="97.0" layoutY="419.0" prefHeight="42.0" prefWidth="473.0" promptText="Password" style="-fx-background-color: black; -fx-text-fill: white;">
                <font>
-                  <Font name="Arial Rounded MT Bold" size="16.0" />
+                  <Font name="Arial Rounded MT Bold" size="18.0" />
                </font>
             </PasswordField>
             <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="49.0" layoutY="416.0" pickOnBounds="true" preserveRatio="true">
@@ -74,6 +74,26 @@
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TextField fx:id="unmaskedPassword" layoutX="97.0" layoutY="419.0" prefHeight="42.0" prefWidth="473.0" promptText="Password" style="-fx-background-color: black; -fx-text-fill: white;">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="18.0" />
+               </font>
+            </TextField>
+            <Button fx:id="showPassword" layoutX="518.0" layoutY="420.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="22.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fx:id="passwordImageView" fitHeight="35.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Images/SPA%20(1).png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

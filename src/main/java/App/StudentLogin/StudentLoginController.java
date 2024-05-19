@@ -26,6 +26,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import Main.Client;
 import App.Welcome.WelcomeController;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -45,6 +47,12 @@ public class StudentLoginController {
     private Button BackButton;
     @FXML
     private Button GetPassword;
+    @FXML
+    private TextField unmaskedPassword;
+    @FXML
+    private ImageView passwordImageView;
+    @FXML
+    private Button showPassword;
 
     private static final String TEXT_TO_TYPE = "Student Login";
     private static final Duration DELAY_BETWEEN_LETTERS = Duration.seconds(0.05);
@@ -118,8 +126,38 @@ public class StudentLoginController {
         BackButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
         GetPassword.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
         GetPassword.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        showPassword.setOnAction(showPasswordClicked());
+        passwordImageView.setImage(new Image(getClass().getResourceAsStream("/App/Images/SPS(1).png")));
+        UPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (UPassword.isVisible()) {
+                unmaskedPassword.setText(newValue);
+            }
+        });
+        unmaskedPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (unmaskedPassword.isVisible()) {
+                UPassword.setText(newValue);
+            }
+        });
+        UPassword.setVisible(true);
+        unmaskedPassword.setVisible(false);
+
         typeText();
 
+    }
+    private EventHandler<ActionEvent> showPasswordClicked() {
+        return e -> {
+            if (UPassword.isVisible()) {
+                UPassword.setVisible(false);
+                unmaskedPassword.setVisible(true);
+                unmaskedPassword.setText(UPassword.getText());
+                passwordImageView.setImage(new Image(getClass().getResourceAsStream("/App/Images/SPS(2).png")));
+            } else {
+                UPassword.setVisible(true);
+                unmaskedPassword.setVisible(false);
+                UPassword.setText(unmaskedPassword.getText());
+                passwordImageView.setImage(new Image(getClass().getResourceAsStream("/App/Images/SPS(1).png")));
+            }
+        };
     }
 
     private EventHandler<ActionEvent> GetPasswordButtonClicked() {

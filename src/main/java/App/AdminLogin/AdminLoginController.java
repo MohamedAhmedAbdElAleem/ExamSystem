@@ -45,14 +45,15 @@ public class AdminLoginController {
     @FXML
     private ImageView passwordImageView;
     @FXML
+    private Button showPassword;
+    @FXML
     private Button LogInButton;
     @FXML
     private Button BackButton;
     @FXML
     private Label AdminLabel;
 
-    @FXML
-    private Button showPassword;
+
 
     private static final String TEXT_TO_TYPE = "Admin Login";
     private static final Duration DELAY_BETWEEN_LETTERS = Duration.seconds(0.05);
