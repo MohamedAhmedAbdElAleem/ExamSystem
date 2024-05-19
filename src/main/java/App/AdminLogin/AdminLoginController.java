@@ -25,10 +25,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import Main.Client;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import App.AHome.AHomeController;
 import javafx.util.Duration;
+
 
 import java.io.IOException;
 
@@ -39,6 +41,10 @@ public class AdminLoginController {
     @FXML
     private PasswordField UPassword;
     @FXML
+    private TextField unmaskedPassword;
+    @FXML
+    private ImageView passwordImageView;
+    @FXML
     private Button LogInButton;
     @FXML
     private Button BackButton;
@@ -46,7 +52,7 @@ public class AdminLoginController {
     private Label AdminLabel;
 
     @FXML
-    private ImageView showPassword;
+    private Button showPassword;
 
     private static final String TEXT_TO_TYPE = "Admin Login";
     private static final Duration DELAY_BETWEEN_LETTERS = Duration.seconds(0.05);
@@ -57,6 +63,7 @@ public class AdminLoginController {
     public EventHandler<ActionEvent> LogInButtonClicked() {
         return e -> {
             String id = UID.getText();
+            System.out.println(UPassword.getText());
             String password = encryptor.funcEncrypt(UPassword.getText());
             AdminLoginController controllerInstance = this;
             Task<Void> task = new Task<Void>() {
@@ -132,7 +139,35 @@ public class AdminLoginController {
         LogInButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
         BackButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_ENTERED, hoverAnimation);
         BackButton.addEventHandler(javafx.scene.input.MouseEvent.MOUSE_EXITED, hoverAnimation);
+        showPassword.setOnAction(showPasswordClicked());
+        passwordImageView.setImage(new Image(getClass().getResourceAsStream("/App/Images/SPA(1).png")));
+        UPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (UPassword.isVisible()) {
+                unmaskedPassword.setText(newValue);
+            }
+        });
+        unmaskedPassword.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (unmaskedPassword.isVisible()) {
+                UPassword.setText(newValue);
+            }
+        });
         typeText();
+    }
+
+    private EventHandler<ActionEvent> showPasswordClicked() {
+        return e -> {
+            if (UPassword.isVisible()) {
+                UPassword.setVisible(false);
+                unmaskedPassword.setVisible(true);
+                unmaskedPassword.setText(UPassword.getText());
+                passwordImageView.setImage(new Image(getClass().getResourceAsStream("/App/Images/SPA(2).png")));
+            } else {
+                UPassword.setVisible(true);
+                unmaskedPassword.setVisible(false);
+                UPassword.setText(unmaskedPassword.getText());
+                passwordImageView.setImage(new Image(getClass().getResourceAsStream("/App/Images/SPA(1).png")));
+            }
+        };
     }
 
     private void typeText() {
