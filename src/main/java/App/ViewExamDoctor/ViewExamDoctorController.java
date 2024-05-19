@@ -119,6 +119,12 @@ public class ViewExamDoctorController {
         };
     }
 
+    @FXML
+    private void initialize() {
+        DownloadPDFButton.setOnAction(DownloadPDFButtonClicked());
+    }
+
+
     private DExamController dExamController;
     public void setDExamController(DExamController dExamController) {
         this.dExamController = dExamController;
