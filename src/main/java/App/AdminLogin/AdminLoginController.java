@@ -151,6 +151,8 @@ public class AdminLoginController {
                 UPassword.setText(newValue);
             }
         });
+        UPassword.setVisible(true);
+        unmaskedPassword.setVisible(false);
         typeText();
     }
 
