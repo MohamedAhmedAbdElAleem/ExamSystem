@@ -17,6 +17,7 @@ import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
 
 import java.security.spec.RSAOtherPrimeInfo;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -94,7 +95,6 @@ public class ExamSessionController {
         for (Question question : questions) {
             studentAnswers += question.getStudentAnswer() + ",";
         }
-        System.out.println(studentAnswers);
         client.sendMessage(studentAnswers);
         String response = client.receiveMessage();
         System.out.println(response);
@@ -114,7 +114,6 @@ public class ExamSessionController {
             questionIndex--;
             Platform.runLater(this::displayQuestion);
             updateStudentAnswers();
-
         };
     }
 
@@ -267,7 +266,7 @@ public class ExamSessionController {
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            System.out.println("Error in timer thread: "+e.getMessage());
                         }
                         Platform.runLater(() -> {
                             LocalDateTime now = LocalDateTime.now();
@@ -275,7 +274,7 @@ public class ExamSessionController {
                             if (now.isAfter(end)){
                                 SubmitButton.fire();
                             }
-                            long seconds = java.time.Duration.between(now,end).getSeconds();
+                            long seconds = Duration.between(now,end).getSeconds();
                             long hours = seconds / 3600;
                             long minutes = (seconds % 3600) / 60;
                             long remainingSeconds = seconds % 60;

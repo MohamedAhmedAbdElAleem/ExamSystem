@@ -7,6 +7,7 @@ public class Results implements Serializable {
     private String examId;
     private String grade;
     private String examName;
+    private String ViewGrade;
 
     public String getStudentId() {
         return studentId;
@@ -38,5 +39,13 @@ public class Results implements Serializable {
 
     public void setExamName(String examName) {
         this.examName = examName;
+    }
+
+    public String getViewGrade() {
+        return ViewGrade;
+    }
+
+    public void setViewGrade(String viewGrade) {
+        ViewGrade = viewGrade;
     }
 }

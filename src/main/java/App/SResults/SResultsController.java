@@ -113,6 +113,8 @@ public class SResultsController {
         for (Results result : results) {
             if (result.getGrade() == null)
                 result.setGrade("Not Graded Yet");
+            if (!result.getViewGrade().equals("true"))
+                result.setGrade("Not allowed to view grade");
         }
         ResultsTable.setItems(results);
     }

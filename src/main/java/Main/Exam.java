@@ -198,8 +198,8 @@ public class Exam  implements Serializable {
     private String examGrade;
     public void setExamGrade(String notGradedYet) {
         this.examGrade = notGradedYet;
-        if (notGradedYet == null|| notGradedYet.equals("Not Graded Yet"))
-            this.examGrade = "Not Graded Yet";
+        if (notGradedYet == null|| notGradedYet.equals("Not Graded Yet")|| notGradedYet.equals("Not allowed to view grade"))
+            this.examGrade = notGradedYet;
         else
             this.examGrade = notGradedYet + " / " + Double.parseDouble(String.valueOf(TotalMarks));
     }

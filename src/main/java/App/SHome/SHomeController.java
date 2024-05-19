@@ -82,6 +82,8 @@ public class SHomeController {
         for (Results result : results) {
             if (result.getGrade() == null)
                 result.setGrade("Not Graded Yet");
+            if (!result.getViewGrade().equalsIgnoreCase("true"))
+                result.setGrade("Not allowed to view grade");
         }
     }
 
