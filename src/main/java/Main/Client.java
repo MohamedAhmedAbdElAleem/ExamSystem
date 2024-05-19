@@ -39,7 +39,7 @@ public class Client {
     }
 }
 private SocketAddress socketAddress() {
-    return new InetSocketAddress("192.168.1.11", 8080);
+    return new InetSocketAddress("localhost", 8080);
 }
     public void sendMessage(String message) {
         if (out != null) {

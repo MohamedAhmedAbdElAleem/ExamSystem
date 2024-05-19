@@ -154,6 +154,16 @@ public class ExamSessionController {
         Question question = questions.get(questionIndex);
         QLabel.setText(question.getQuestion());
         if (question.getQuestionType().equalsIgnoreCase("MCQ")) {
+            List<String> options = new ArrayList<>();
+            options.add(question.getAnswer());
+            options.add(question.getOption2());
+            options.add(question.getOption3());
+            options.add(question.getOption4());
+            Collections.shuffle(options);
+            question.setAnswer(options.get(0));
+            question.setOption2(options.get(1));
+            question.setOption3(options.get(2));
+            question.setOption4(options.get(3));
             ARadio.setVisible(true);
             BRadio.setVisible(true);
             CRadio.setVisible(true);

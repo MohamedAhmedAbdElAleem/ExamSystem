@@ -98,4 +98,9 @@ public class SIDController {
     public void setCourseId(String courseId) {
         this.courseid = courseId;
     }
+    private String sid;
+    public void setSelectedStudentId(String sid) {
+        this.sid = sid;
+        SID.setText(sid);
+    }
 }

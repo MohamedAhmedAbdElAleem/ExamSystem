@@ -13,6 +13,7 @@ import App.Notification.NotificationController;
 import App.SID.SIDController;
 import Main.Client;
 import Main.Student;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -243,7 +244,8 @@ public class DStudentController {
             } catch (IOException ex) {
                 System.out.println("Error in loading scene : "+ex.getMessage());
             }
-};
+                ViewStudents();
+        };
 
     }
 
@@ -260,12 +262,16 @@ public class DStudentController {
             client.sendMessage(student.getSpassword());
         }
         client.sendMessage("end");
+        ViewStudents();
+        Platform.runLater(() -> {
+            StudentsView.refresh();
+        });
     }
 
     private void openFile() throws IOException {
         // System.out.println("Open File Chooser");
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", ".xls", ".xlsx"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
@@ -296,7 +302,7 @@ public class DStudentController {
                             student.setSname(currentCell.getStringCellValue());
                             break;
                         case 1:
-                            student.setSid(String.valueOf(currentCell.getNumericCellValue()));
+                            student.setSid(String.valueOf(currentCell.getStringCellValue()));
                             break;
                         case 2:
                             student.setSssn(currentCell.getStringCellValue());
@@ -305,10 +311,10 @@ public class DStudentController {
                             student.setSemail(currentCell.getStringCellValue());
                             break;
                         case 4:
-                            student.setSregistrationNumber( String.valueOf(currentCell.getNumericCellValue()));
+                            student.setSregistrationNumber( String.valueOf(currentCell.getStringCellValue()));
                             break;
                         case 5:
-                            student.setSpassword( String.valueOf(currentCell.getNumericCellValue()));
+                            student.setSpassword( String.valueOf(currentCell.getStringCellValue()));
                             break;
                         default:
                             break;
@@ -334,9 +340,8 @@ public class DStudentController {
         return students;
     }
     private EventHandler<ActionEvent> ExcelExportStudentsButtonClicked() {
-        return e ->{
-//            ObservableList<Student> studentList = FXCollections.observableArrayList();
-            try{
+        return e -> {
+            try {
                 Workbook newWorkbook = new XSSFWorkbook();
                 Sheet newSheet = newWorkbook.createSheet("StudentData");
                 for (int i = 0; i < students.size(); i++) {
@@ -348,15 +353,22 @@ public class DStudentController {
                     row.createCell(4).setCellValue(students.get(i).getSregistrationNumber());
                     row.createCell(5).setCellValue(students.get(i).getSpassword());
                 }
-                FileOutputStream outputStream = new FileOutputStream("StudentLists_data.xlsx");
-                newWorkbook.write(outputStream);
-                newWorkbook.close();
-                outputStream.close();
-            }catch (Exception err){
+
+                // Open a FileChooser to let the user select where to save the file
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+                File file = fileChooser.showSaveDialog(null);
+
+                if (file != null) {
+                    FileOutputStream outputStream = new FileOutputStream(file);
+                    newWorkbook.write(outputStream);
+                    newWorkbook.close();
+                    outputStream.close();
+                }
+            } catch (Exception err) {
                 err.printStackTrace();
             }
         };
-
     }
 
     private EventHandler<ActionEvent> AssignButtonClicked() {
@@ -428,24 +440,38 @@ public class DStudentController {
     }
     private EventHandler<ActionEvent> EditDeleteStudentButtonClicked(String Process) {
         return e -> {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SID/SID.fxml"));
-            Scene scene = null;
-            try {
-                scene = new Scene(fxmlLoader.load());
-                SIDController sidController = fxmlLoader.getController();
-                sidController.setUsername(username);
-                sidController.setId(id);
-                sidController.setCourseId(courseId);
-                sidController.setProcess(Process);
-                sidController.setDStudentController(this);
-            } catch (IOException ex) {
-                System.out.println("Error in loading scene : "+ex.getMessage());
+            // Get the selected student from the TableView
+            Student selectedStudent = StudentsView.getSelectionModel().getSelectedItem();
+
+            // Check if a row is selected
+            if (selectedStudent != null) {
+                // A row is selected, proceed with the unassign operation
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SID/SID.fxml"));
+                Scene scene = null;
+                try {
+                    scene = new Scene(fxmlLoader.load());
+                    SIDController sidController = fxmlLoader.getController();
+                    sidController.setUsername(username);
+                    sidController.setId(id);
+                    sidController.setCourseId(courseId);
+                    sidController.setProcess(Process);
+                    sidController.setDStudentController(this);
+
+                    // Send the ID of the selected student to the SIDController
+                    sidController.setSelectedStudentId(selectedStudent.getSid());
+
+                } catch (IOException ex) {
+                    System.out.println("Error in loading scene : "+ex.getMessage());
+                }
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setScene(scene);
+                stage.showAndWait();
+                ViewStudents();
+            } else {
+                // No row is selected, show an error message or do nothing
+                System.out.println("No student selected.");
             }
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
-            ViewStudents();
         };
     }
 

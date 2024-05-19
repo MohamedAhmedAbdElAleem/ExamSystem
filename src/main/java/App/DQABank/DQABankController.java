@@ -13,6 +13,8 @@ import App.QID.QIDController;
 import App.QuestionID.QuestionIDController;
 import Main.Client;
 import Main.Question;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,10 +26,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Iterator;
 
 public class DQABankController {
     @FXML
@@ -183,16 +195,163 @@ public class DQABankController {
         DeleteQuestion.setOnAction(DeleteQuestionButtonClicked());
         DoctorProfile.setOnAction(DoctorProfileButtonClicked());
         Notification.setOnAction(NotificationButtonClicked());
+        ExcelImportQuestions.setOnAction(ExcelImportQuestionsButtonClicked());
+        ExcelExportQuestions.setOnAction(ExcelExportQuestionButtonClicked());
 //        ViewQuestions();
 
     }
+    private void openFile() throws IOException {
+        // System.out.println("Open File Chooser");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            getQuestionsFromExelSheet(selectedFile);
+        }
+    }
+    private void updateQuestions() {
+        Client client = new Client();
+        client.sendMessage("AddQuestions");
+        client.sendMessage(courseId);
+        for (Question question : questions) {
+            client.sendMessage(question.getQuestion());
+//            client.sendMessage(String.valueOf(question.getQuestionId()));
+            client.sendMessage(question.getLecture());
+            client.sendMessage(question.getQuestionType());
+            client.sendMessage(question.getAnswer());
+            client.sendMessage(question.getDifficultyLevel());
+            if (question.getQuestionType().equalsIgnoreCase("MCQ"))
+            {
+                client.sendMessage(question.getOption2());
+                client.sendMessage(question.getOption3());
+                client.sendMessage(question.getOption4());
+            }
+        }
+        client.sendMessage("end");
+        Platform.runLater(() -> {
+            ViewQuestions();
+            QuestionView.refresh();
+        });
+    }
+
+    public ObservableList<Question> getQuestionsFromExelSheet(File file) throws IOException {
+        try {
+            FileInputStream excelFile = new FileInputStream(file);
+            Workbook workbook = new XSSFWorkbook(excelFile);
+            Sheet datatypeSheet = workbook.getSheetAt(0);
+            int rowCount = datatypeSheet.getPhysicalNumberOfRows();
+            int colCount = datatypeSheet.getRow(0).getPhysicalNumberOfCells();
+            Iterator<Row> iterator = datatypeSheet.iterator();
+
+            for (int i = 0; i < rowCount; i++) {
+                Question Questions = new Question();
+                Row currentRow = datatypeSheet.getRow(i);
+                Iterator<Cell> cellIterator = currentRow.cellIterator();
+
+                while (cellIterator.hasNext()) {
+                    Cell currentCell = cellIterator.next();
+                    int columnIndex = currentCell.getColumnIndex();
+
+                    switch (columnIndex) {
+                        case 0:
+                            Questions.setQuestion(String.valueOf(currentCell.getStringCellValue()));
+                            break;
+                        case 1:
+                            double questionIdDouble = currentCell.getNumericCellValue();
+                            int questionId = (int) questionIdDouble;
+                            Questions.setQuestionId(questionId);                            break;
+                        case 2:
+                            Questions.setDifficultyLevel(currentCell.getStringCellValue());
+                            break;
+                        case 3:
+                            Questions.setLecture(currentCell.getStringCellValue());
+                            break;
+                        case 4:
+                            Questions.setQuestionType(currentCell.getStringCellValue());
+                            break;
+                        case 5:
+                            Questions.setAnswer(currentCell.getStringCellValue());
+                            break;
+                        case 6:
+                            Questions.setOption2(currentCell.getStringCellValue());
+                            break;
+                        case 7:
+                            Questions.setOption3(currentCell.getStringCellValue());
+                            break;
+                        case 8:
+                            Questions.setOption4(currentCell.getStringCellValue());
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                questions.add(Questions);
+//                ViewQuestions();
+            }
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return questions;
+    }
+
+    private EventHandler<ActionEvent> ExcelImportQuestionsButtonClicked() {
+        return e -> {
+            try {
+                openFile();
+                updateQuestions();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        };
+    }
+    private EventHandler<ActionEvent> ExcelExportQuestionButtonClicked() {
+        return e -> {
+            try {
+                Workbook newWorkbook = new XSSFWorkbook();
+                Sheet newSheet = newWorkbook.createSheet("Question");
+                for (int i = 0; i < questions.size(); i++) {
+                    Row row = newSheet.createRow(i);
+                    row.createCell(0).setCellValue(questions.get(i).getQuestion());
+                    row.createCell(1).setCellValue(questions.get(i).getQuestionId());
+                    row.createCell(2).setCellValue(questions.get(i).getDifficultyLevel());
+                    row.createCell(3).setCellValue(questions.get(i).getLecture());
+                    row.createCell(4).setCellValue(questions.get(i).getQuestionType());
+                    row.createCell(5).setCellValue(questions.get(i).getAnswer());
+                    row.createCell(6).setCellValue(questions.get(i).getOption2());
+                    row.createCell(7).setCellValue(questions.get(i).getOption3());
+                    row.createCell(8).setCellValue(questions.get(i).getOption4());
+                }
+
+                // Open a FileChooser to let the user select where to save the file
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+                File file = fileChooser.showSaveDialog(null);
+
+                if (file != null) {
+                    FileOutputStream outputStream = new FileOutputStream(file);
+                    newWorkbook.write(outputStream);
+                    newWorkbook.close();
+                    outputStream.close();
+                }
+            } catch (Exception err) {
+                err.printStackTrace();
+            }
+        };
+    }
+        ObservableList<Question> questions ;
 
     private void ViewQuestions() {
         QuestionView.getItems().clear();
         Client client = new Client();
         client.sendMessage("getQuestions");
         client.sendMessage(courseId);
-        ObservableList<Question> questions = client.getQuestions();
+        questions = client.getQuestions();
         QuestionView.setItems(questions);
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("questionId"));
         QuestionColumn.setCellValueFactory(new PropertyValueFactory<>("Question"));

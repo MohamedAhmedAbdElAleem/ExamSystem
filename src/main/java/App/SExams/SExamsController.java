@@ -101,7 +101,7 @@ public class SExamsController {
         exams = client.getExamsOfStudent(student.getSid());
         for (Exam exam : exams) {
             if (java.time.LocalDateTime.now().isAfter(exam.getStartDate()) &&
-                    java.time.LocalDateTime.now().isBefore(exam.getStartDate().plusMinutes((long)(exam.getDuration() * 60)))) {
+                    java.time.LocalDateTime.now().isBefore(exam.getStartDate().plusMinutes((long)(exam.getDuration() * 60.0)))) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/StudentCardJoin/StudentCardJoin.fxml"));
                     VBox newQuizPane = loader.load();

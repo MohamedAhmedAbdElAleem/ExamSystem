@@ -314,6 +314,8 @@ public class ServerHandler implements Runnable {
                     getStudentQIds();
                 }else if (input.equalsIgnoreCase("AddStudents")) {
                     AddStudents();
+                }else if (input.equalsIgnoreCase("AddQuestions")) {
+                    AddQuestions();
                 }
                 else{
                     String output = processInput(input);
@@ -329,6 +331,71 @@ public class ServerHandler implements Runnable {
             } catch (IOException e) {
 //                System.out.println("Error in server Handler: "+e.getMessage());
             }
+        }
+    }
+
+    private void AddQuestions() {
+        try {
+            String courseId = reader.readLine();
+            while (true) {
+                String question = reader.readLine();
+                if (question.equalsIgnoreCase("end")) {
+                    break;
+                }
+                String lecture = reader.readLine();
+                String questionType = reader.readLine();
+                String answer = reader.readLine();
+                String difficultyLevel = reader.readLine();
+                // Check if the question already exists in the database
+                PreparedStatement checkStatement = connection.prepareStatement("SELECT * FROM question_bank_" + courseId + " WHERE question = ?");
+                checkStatement.setString(1, question);
+                ResultSet checkResult = checkStatement.executeQuery();
+
+                if (!checkResult.next()) {
+                    // If the question does not exist, insert it
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO question_bank_" + courseId + " (question, lecture, Qtype, answer, difficulty_level) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+                    statement.setString(1, question);
+                    statement.setString(2, lecture);
+                    statement.setString(3, questionType);
+                    statement.setString(4, answer);
+                    statement.setString(5, difficultyLevel);
+                    statement.executeUpdate();
+                    ResultSet generatedKeys = statement.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        int questionID = generatedKeys.getInt(1);
+                        if (questionType.equalsIgnoreCase("MCQ")) {
+                            String option2 = reader.readLine();
+                            String option3 = reader.readLine();
+                            String option4 = reader.readLine();
+                            PreparedStatement mcqStatement = connection.prepareStatement("INSERT INTO mcq_" + courseId + " (question_id, choice) VALUES (?,?)");
+                            mcqStatement.setInt(1, questionID);
+                            mcqStatement.setString(2, option2);
+                            mcqStatement.executeUpdate();
+                            mcqStatement.setString(2, option3);
+                            mcqStatement.executeUpdate();
+                            mcqStatement.setString(2, option4);
+                            mcqStatement.executeUpdate();
+                        }
+//                        writer.println("true");
+                    } else {
+//                        writer.println("false");
+                        System.out.println("Error in AddQuestions : " + "Failed to retrieve generated question ID.");
+                    }
+                } else {
+                    // If the question already exists, send a message to the client
+//                    writer.println("Question already exists");
+//                    writer.println("false");
+                    if (questionType.equalsIgnoreCase("MCQ")) {
+                        // Skip the options
+                        reader.readLine(); // option2
+                        reader.readLine(); // option3
+                        reader.readLine(); // option4
+                    }
+                }
+            }
+        } catch (IOException | SQLException e) {
+            System.out.println("Error in AddQuestions : "+e.getMessage());
+//            writer.println("false");
         }
     }
 
@@ -349,6 +416,11 @@ public class ServerHandler implements Runnable {
                 ResultSet resultSet = statement1.executeQuery("SELECT * FROM students WHERE Sssn = '"+studentSSN+"'");
                 if (resultSet.next())
                 {
+                    PreparedStatement statement = connection.prepareStatement("INSERT INTO enroll (StudentstID, CoursesID) VALUES (?,?)");
+                    statement.setInt(1, resultSet.getInt("Sid"));
+                    statement.setString(2, courseID);
+                    statement.executeUpdate();
+                    writer.println("true");
                 }else{
                     PreparedStatement statement = connection.prepareStatement("INSERT INTO students (Sname, Sssn, Semail, SregistrationNumber, Spassword) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                     statement.setString(1, studentName);
@@ -357,7 +429,6 @@ public class ServerHandler implements Runnable {
                     statement.setString(4, studentRegistrationNumber);
                     statement.setString(5, studentPassword);
                     statement.executeUpdate();
-
                     ResultSet generatedKeys = statement.getGeneratedKeys();
                     if (generatedKeys.next()) {
                         int nstudentID = generatedKeys.getInt(1); // Assuming the generated ID is an integer
@@ -1057,6 +1128,7 @@ public class ServerHandler implements Runnable {
             String courseID = reader.readLine();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM question_bank_"+courseID);
+            Statement statement2 = connection.createStatement(); // Create a new Statement for the inner query
             while (resultSet.next())
             {
                 Question question = new Question();
@@ -1067,14 +1139,27 @@ public class ServerHandler implements Runnable {
                 question.setAnswer(resultSet.getString("answer"));
                 question.setUsedBefore(resultSet.getBoolean("used"));
                 question.setDifficultyLevel(resultSet.getString("difficulty_level"));
+                if (question.getQuestionType().equalsIgnoreCase("MCQ")) {
+                    ResultSet mcqResultSet = statement2.executeQuery("SELECT * FROM mcq_" + courseID + " WHERE question_id = '" + resultSet.getInt("id") + "'");
+                    int i = 2;
+                    while (mcqResultSet.next()) {
+                        if (i == 2) {
+                            question.setOption2(mcqResultSet.getString("choice"));
+                        } else if (i == 3) {
+                            question.setOption3(mcqResultSet.getString("choice"));
+                        } else if (i == 4) {
+                            question.setOption4(mcqResultSet.getString("choice"));
+                        }
+                        i++;
+                    }
+                }
                 objectOutputStream.writeObject(question);
             }
             writer.println("end");
         } catch (IOException | SQLException e) {
-            System.out.println("Error in getQuestions : "+e.getMessage());
+            System.out.println("Error in getQuestions : " + e.getMessage());
         }
     }
-
     private void AssignStudent() {
         try {
             String id = reader.readLine();
