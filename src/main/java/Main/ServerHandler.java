@@ -430,20 +430,22 @@ public class ServerHandler implements Runnable {
     private void getExamsOfStudent() {
         try {
             String studentID = reader.readLine();
+            String courseId = reader.readLine();
             Statement statement = connection.createStatement();
             Statement statement2 = connection.createStatement(); // Create a new Statement for the inner query
             ResultSet resultSet = statement.executeQuery("SELECT * FROM take WHERE StudentID = '"+studentID+"'");
             while (resultSet.next())
             {
-                ResultSet resultSet1 = statement2.executeQuery("SELECT * FROM exams WHERE EId = '"+resultSet.getString("ExamID")+"'");
+                ResultSet resultSet1 = statement2.executeQuery("SELECT * FROM exams WHERE EId = '"+resultSet.getString("ExamID")+"' and QBID = '"+courseId+"'");
                 if (resultSet1.next())
                 {
+
 //                    writer.println("true");
                     Exam exam = new Exam();
                     exam.setExamId(resultSet1.getInt("EId"));
                     exam.setName(resultSet1.getString("Ename"));
                     exam.setStartDate(resultSet1.getTimestamp("Edate").toLocalDateTime());
-                    exam.setDuration(resultSet1.getInt("Eduration"));
+                    exam.setDuration(resultSet1.getDouble("Eduration"));
                     exam.setTotalMarks(resultSet1.getInt("EtotalMarks"));
                     exam.setLectureStart(resultSet1.getInt("lectureStart"));
                     exam.setLectureEnd(resultSet1.getInt("lectureEnd"));
@@ -687,7 +689,7 @@ public class ServerHandler implements Runnable {
                 writer.println(resultSet.getInt("EId"));
                 writer.println(resultSet.getString("Ename"));
                 writer.println(resultSet.getTimestamp("Edate").toLocalDateTime());
-                writer.println(resultSet.getInt("Eduration"));
+                writer.println(resultSet.getDouble("Eduration"));
                 writer.println(resultSet.getInt("EtotalMarks"));
                 writer.println(resultSet.getInt("lectureStart"));
                 writer.println(resultSet.getInt("lectureEnd"));

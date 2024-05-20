@@ -6,7 +6,6 @@ import App.SBefore.SBeforeController;
 import App.SHome.SHomeController;
 import App.SResults.SResultsController;
 import App.StudentCardJoin.StudentCardJoinController;
-import App.StudentCardView.StudentCardViewController;
 import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
@@ -98,7 +97,7 @@ public class SExamsController {
     public void ViewRunningExams(){
         ObservableList<Exam> exams = FXCollections.observableArrayList();
         Client client = new Client();
-        exams = client.getExamsOfStudent(student.getSid());
+        exams = client.getExamsOfStudent(student.getSid(), course.getCid());
         for (Exam exam : exams) {
             if (java.time.LocalDateTime.now().isAfter(exam.getStartDate()) &&
                     java.time.LocalDateTime.now().isBefore(exam.getStartDate().plusMinutes((long)(exam.getDuration() * 60.0)))) {

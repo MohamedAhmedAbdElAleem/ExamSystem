@@ -93,7 +93,7 @@ public class SHomeController {
         CompletedExams.getChildren().clear();
         ObservableList<Exam> exams = FXCollections.observableArrayList();
         Client client = new Client();
-        exams = client.getExamsOfStudent(student.getSid());
+        exams = client.getExamsOfStudent(student.getSid(),course.getCid());
         for (Exam exam : exams) {
             if (exam.getStartDate().isAfter(java.time.LocalDateTime.now())) {
                 try {
@@ -107,7 +107,8 @@ public class SHomeController {
                 } catch (IOException e) {
                     System.out.println("Error in loading scene : "+e.getMessage());
                 }
-            } else if(java.time.LocalDateTime.now().isAfter(exam.getStartDate().plusHours(1))){                try {
+            } else if(java.time.LocalDateTime.now().isAfter(exam.getStartDate().plusMinutes((long) (exam.getDuration()*60)))){
+                try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/StudentCardView/StudentCardView.fxml"));
                     VBox newQuizPane = loader.load();
                     StudentCardViewController examCardController = loader.getController();

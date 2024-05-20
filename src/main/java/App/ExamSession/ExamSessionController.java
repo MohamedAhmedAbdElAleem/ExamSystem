@@ -97,7 +97,6 @@ public class ExamSessionController {
         }
         client.sendMessage(studentAnswers);
         String response = client.receiveMessage();
-        System.out.println(response);
     }
 
     private EventHandler<ActionEvent> backButtonClicked() {
@@ -142,7 +141,6 @@ public class ExamSessionController {
         for (Question question : questions) {
             studentAnswers += question.getStudentAnswer() + ",";
         }
-        System.out.println(studentAnswers);
         client.sendMessage(studentAnswers);
         String response = client.receiveMessage();
 //        System.out.println(response);
