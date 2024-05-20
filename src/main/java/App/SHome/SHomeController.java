@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -47,6 +48,8 @@ public class SHomeController {
     @FXML
     private Button LogOutButton;
     @FXML
+    private Button GenyButton;
+    @FXML
     private StudentLoginController studentLoginController;
     @FXML
     private Label StudentWelcome;
@@ -71,7 +74,9 @@ public class SHomeController {
         Platform.runLater(() -> {
             ViewExams();
         });
+        GenyButton.setOnAction(e -> validation.showSuccessPopUp("Coming Soon :P !"));
     }
+    Validation validation = new Validation();
     private ObservableList<Results> results;
     private void ViewResults() {
         Client client = new Client();

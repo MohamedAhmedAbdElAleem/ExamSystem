@@ -43,6 +43,8 @@ public class SExamsController {
     @FXML
     private Button LogOutButton;
     @FXML
+    private Button GenyButton;
+    @FXML
     private HBox PendingExamsPane;
     private EventHandler<ActionEvent> BackbuttonClicked() {
         return e->{
@@ -93,7 +95,9 @@ public class SExamsController {
         Platform.runLater(() -> {
             ViewRunningExams();
         });
+        GenyButton.setOnAction(e -> validation.showSuccessPopUp("Coming Soon :P !"));
     }
+    Validation validation = new Validation();
     public void ViewRunningExams(){
         ObservableList<Exam> exams = FXCollections.observableArrayList();
         Client client = new Client();

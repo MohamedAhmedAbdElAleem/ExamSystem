@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.security.spec.RSAOtherPrimeInfo;
@@ -49,15 +50,23 @@ public class ExamSessionController {
     private Label QuestionNumber;
     @FXML
     private Label TimerLabel;
+    @FXML
+    private HBox ABox;
+    @FXML
+    private HBox BBox;
+    @FXML
+    private HBox CBox;
+    @FXML
+    private HBox DBox;
     private int questionIndex;
     private ObservableList<Question> questions;
     private String ExamDuration;
     @FXML
     public void initialize() {
-        ALabel.setOnMouseClicked(event -> ARadio.setSelected(true));
-        BLabel.setOnMouseClicked(event -> BRadio.setSelected(true));
-        CLabel.setOnMouseClicked(event -> CRadio.setSelected(true));
-        DLabel.setOnMouseClicked(event -> DRadio.setSelected(true));
+        ABox.setOnMouseClicked(event -> ARadio.setSelected(true));
+        BBox.setOnMouseClicked(event -> BRadio.setSelected(true));
+        CBox.setOnMouseClicked(event -> CRadio.setSelected(true));
+        DBox.setOnMouseClicked(event -> DRadio.setSelected(true));
         NextButton.setOnAction(nextButtonClicked());
         BackButton.setOnAction(backButtonClicked());
         SubmitButton.setOnAction(SubmitButtonClicked());

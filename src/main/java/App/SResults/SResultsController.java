@@ -8,10 +8,7 @@ import App.SHome.SHomeController;
 import App.StudentChangePassword.StudentChangePasswordController;
 import App.StudentLogin.StudentLoginController;
 import App.StudentProfile.StudentProfileController;
-import Main.Client;
-import Main.Course;
-import Main.Results;
-import Main.Student;
+import Main.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,6 +40,8 @@ public class SResultsController {
     private Button BackButton;
     @FXML
     private Button LogOutButton;
+    @FXML
+    private Button GenyButton;
     @FXML
     private TableView<Results> ResultsTable;
     @FXML
@@ -101,7 +100,9 @@ public class SResultsController {
         Platform.runLater(() -> {
             ViewResults();
         });
+        GenyButton.setOnAction(e -> validation.showSuccessPopUp("Coming Soon :P !"));
     }
+    Validation validation = new Validation();
 
     private void ViewResults() {
 //        ResultsTable.getItems().clear();
