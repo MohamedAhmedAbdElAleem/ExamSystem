@@ -207,10 +207,9 @@ public class ExamSessionController {
         }
         if(questionIndex == questions.size()-1) {
             NextButton.setDisable(true);
-            SubmitButton.setDisable(false);
+
         } else {
             NextButton.setDisable(false);
-            SubmitButton.setDisable(true);
         }
         QuestionNumber.setText((questionIndex+1) + " / " + questions.size());
     }

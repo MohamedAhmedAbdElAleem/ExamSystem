@@ -267,11 +267,19 @@ public class ServerHandler implements Runnable {
                 ResultSet resultSet = statement1.executeQuery("SELECT * FROM students WHERE Sssn = '"+studentSSN+"'");
                 if (resultSet.next())
                 {
-                    PreparedStatement statement = connection.prepareStatement("INSERT INTO enroll (StudentstID, CoursesID) VALUES (?,?)");
-                    statement.setInt(1, resultSet.getInt("Sid"));
-                    statement.setString(2, courseID);
-                    statement.executeUpdate();
-                    writer.println("true");
+                    PreparedStatement statement2 = connection.prepareStatement("SELECT * FROM enroll WHERE StudentstID = '"+resultSet.getInt("Sid")+"' AND CoursesID = '"+courseID+"'");
+                    ResultSet resultSet1 = statement2.executeQuery();
+                    if (resultSet1.next())
+                    {
+                        writer.println("false");
+                    }else{
+
+                        PreparedStatement statement = connection.prepareStatement("INSERT INTO enroll (StudentstID, CoursesID) VALUES (?,?)");
+                        statement.setInt(1, resultSet.getInt("Sid"));
+                        statement.setString(2, courseID);
+                        statement.executeUpdate();
+                        writer.println("true");
+                    }
                 }else{
                     PreparedStatement statement = connection.prepareStatement("INSERT INTO students (Sname, Sssn, Semail, SregistrationNumber, Spassword) VALUES (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
                     statement.setString(1, studentName);

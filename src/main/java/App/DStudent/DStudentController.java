@@ -444,7 +444,6 @@ public class DStudentController {
             Student selectedStudent = StudentsView.getSelectionModel().getSelectedItem();
 
             // Check if a row is selected
-            if (selectedStudent != null) {
                 // A row is selected, proceed with the unassign operation
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/SID/SID.fxml"));
                 Scene scene = null;
@@ -453,12 +452,15 @@ public class DStudentController {
                     SIDController sidController = fxmlLoader.getController();
                     sidController.setUsername(username);
                     sidController.setId(id);
+                if (selectedStudent != null) {
+                    sidController.setSelectedStudentId(selectedStudent.getSid());
+                } else {
+                }
                     sidController.setCourseId(courseId);
                     sidController.setProcess(Process);
                     sidController.setDStudentController(this);
 
                     // Send the ID of the selected student to the SIDController
-                    sidController.setSelectedStudentId(selectedStudent.getSid());
 
                 } catch (IOException ex) {
                     System.out.println("Error in loading scene : "+ex.getMessage());
@@ -468,10 +470,8 @@ public class DStudentController {
                 stage.setScene(scene);
                 stage.showAndWait();
                 ViewStudents();
-            } else {
                 // No row is selected, show an error message or do nothing
                 System.out.println("No student selected.");
-            }
         };
     }
 
