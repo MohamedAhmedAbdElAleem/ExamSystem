@@ -471,7 +471,6 @@ public class DStudentController {
                 stage.showAndWait();
                 ViewStudents();
                 // No row is selected, show an error message or do nothing
-                System.out.println("No student selected.");
         };
     }
 
