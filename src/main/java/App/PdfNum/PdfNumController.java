@@ -110,7 +110,12 @@ public class PdfNumController {
         String formattedTime = time.format(formatter);
         contentStream.showText("Date: "+exam.getDate()+" "+formattedTime);
         contentStream.newLineAtOffset(0, -20);
-        contentStream.showText("Duration: "+exam.getDuration()+" hours");
+        double duration = exam.getDuration(); // Replace with your method to get the duration
+        int hours = (int) duration;
+        int minutes = (int) ((duration - hours) * 60);
+
+        contentStream.showText("Duration: " + hours + " : " + minutes+" hours");
+
         contentStream.endText();
 
         // Adding student name and registration number

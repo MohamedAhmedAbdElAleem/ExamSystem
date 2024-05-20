@@ -171,7 +171,7 @@ public class ServerHandler implements Runnable {
                 else{
                     String output = processInput(input);
                     System.out.println("message received : "+input);
-                    writer.println(output);
+//                    writer.println(output);
                 }
             }
         } catch (IOException | SQLException e) {
