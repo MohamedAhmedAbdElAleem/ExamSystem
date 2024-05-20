@@ -184,4 +184,8 @@ public class ExamFactorController {
     public void setExamCardController(ExamCardController examCardController) {
         this.examCardController = examCardController;
     }
+    private String selectedCourse;
+    public void setSelectedCourse(String selectedCourse) {
+        this.selectedCourse = selectedCourse;
+    }
 }
