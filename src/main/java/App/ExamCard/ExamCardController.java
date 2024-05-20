@@ -36,6 +36,7 @@ public class ExamCardController {
                 controller.setDExamController(dExamController);
                 controller.setExamCardController(this);
                 controller.setExam(quiz);
+                controller.setSelectedCourse(selectedCourse);
                 fxmlLoader.setController(controller); // set the controller before loading
                 Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
@@ -55,5 +56,10 @@ public class ExamCardController {
     private DExamController dExamController;
     public void setDExamController(DExamController dExamController) {
         this.dExamController = dExamController;
+    }
+    private String selectedCourse;
+    public void setSelectedCourse(String selectedCourse) {
+        this.selectedCourse = selectedCourse;
+//        ExamCardLabel.setText(selectedCourse);
     }
 }

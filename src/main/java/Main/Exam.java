@@ -26,6 +26,15 @@ public class Exam  implements Serializable {
     private int TFH;
     private int QbId;
     private String QuestionsIds;
+    private String courseName;
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     public int getExamId() {
         return examId;

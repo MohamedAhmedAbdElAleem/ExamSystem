@@ -55,14 +55,14 @@ public class ViewExamDoctorController {
     @FXML
     private Button DownloadPDFButton;
 
-
+    private ObservableList<Question> questions;
     private void ViewQuestions() {
         Client client = new Client();
         client.sendMessage("getQuestionsOfExam");
         String courseId = String.valueOf(quiz.getQbId());
         client.sendMessage(courseId);
         client.sendMessage(quiz.getQuestionsIds());
-        ObservableList<Question> questions = client.getQuestionsOfExam();
+        questions = client.getQuestionsOfExam();
         QuestionView.setItems(questions);
         IDColumn.setCellValueFactory(new PropertyValueFactory<>("questionId"));
         QuestionColumn.setCellValueFactory(new PropertyValueFactory<>("Question"));
@@ -106,22 +106,25 @@ public class ViewExamDoctorController {
             Scene scene = null;
             try {
                 scene = new Scene(fxmlLoader.load());
-            } catch (IOException ex) {
-                System.out.println("Error in loading scene : "+ex.getMessage());
-            }
             PdfNumController loginController = fxmlLoader.getController();
 //           //loginController.setUsername(Username);
             loginController.setPdfNumController(this);
+            loginController.setQuestions(questions);
+            loginController.setExam(quiz);
+            loginController.setCourse(selectedCourse);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL); // This line makes the new window modal
             stage.setScene(scene);
             stage.showAndWait();
+            } catch (IOException ex) {
+                System.out.println("Error in loading scene : "+ex.getMessage());
+            }
         };
     }
 
-    @FXML
-    private void initialize() {
+    public void initialize() {
         DownloadPDFButton.setOnAction(DownloadPDFButtonClicked());
+
     }
 
 
@@ -137,5 +140,9 @@ public class ViewExamDoctorController {
     public void setExam(Exam quiz) {
         this.quiz = quiz;
         Platform.runLater(this::ViewQuestions);
+    }
+    private String selectedCourse;
+    public void setSelectedCourse(String selectedCourse) {
+        this.selectedCourse = selectedCourse;
     }
 }

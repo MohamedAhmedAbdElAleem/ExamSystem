@@ -160,7 +160,6 @@ public class DHomeController {
             dStudentController.setUsername(Username);
             dStudentController.setSsn(ssn);
             dStudentController.setId(id);
-
             dStudentController.setCourseId(CourseId);
             dStudentController.setSelectedCourse(selectedCourse);
             dStudentController.setDHomeController(this);

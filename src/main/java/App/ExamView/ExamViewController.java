@@ -28,6 +28,7 @@ public class ExamViewController {
                 controller.setDExamController(dExamController);
                 controller.setExamCardController(this);
                 controller.setExam(quiz);
+                controller.setSelectedCourse(selectedCourse);
                 fxmlLoader.setController(controller);
                 Scene scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
@@ -54,5 +55,9 @@ public class ExamViewController {
     private SHomeController sHomeController;
     public void setSHomeController(SHomeController sHomeController) {
         this.sHomeController = sHomeController;
+    }
+    private String selectedCourse;
+    public void setSelectedCourse(String selectedCourse) {
+        this.selectedCourse = selectedCourse;
     }
 }

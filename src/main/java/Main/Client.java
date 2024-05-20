@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.*;
-import java.security.spec.RSAOtherPrimeInfo;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
@@ -484,7 +483,7 @@ private SocketAddress socketAddress() {
             exam.setExamId(Integer.parseInt(ExamId));
             exam.setName(name);
             exam.setStartDate(LocalDateTime.parse(startDate));
-            exam.setDuration(Integer.parseInt(duration));
+            exam.setDuration(Double.parseDouble(duration));
             exam.setTotalMarks(Integer.parseInt(TotalMarks));
             exam.setLectureStart(Integer.parseInt(lectureStart));
             exam.setLectureEnd(Integer.parseInt(lectureEnd));
@@ -570,9 +569,10 @@ private SocketAddress socketAddress() {
         return results;
     }
 
-    public ObservableList<Exam> getExamsOfStudent(String sid) {
+    public ObservableList<Exam> getExamsOfStudent(String sid, String cid) {
         sendMessage("getExamsOfStudent");
         sendMessage(sid);
+        sendMessage(cid);
         ObservableList<Exam> exams = FXCollections.observableArrayList();
         Exam line = null;
         try {

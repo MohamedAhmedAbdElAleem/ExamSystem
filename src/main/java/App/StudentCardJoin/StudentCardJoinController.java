@@ -62,7 +62,7 @@ public class StudentCardJoinController {
                     controller.setExamQuestions(ExamQuestions);
                     Stage stage = new Stage();
                     stage.setScene(scene);
-                    stage.show();
+                    stage.showAndWait();
                 }else{
                     validation.showErrorPopUp("You have already taken this exam");
                 }

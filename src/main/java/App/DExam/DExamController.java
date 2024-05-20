@@ -53,6 +53,7 @@ public class DExamController {
     private Button BackButton;
     @FXML
     private Button LogOutButton;
+    private String selectedCourse;
     private EventHandler<ActionEvent> DHomeButtonClicked() {
         return e -> {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/App/DHome/DHome.fxml"));
@@ -222,6 +223,7 @@ public class DExamController {
             quiz.setDoctorId(Integer.parseInt(id));
 //            System.out.println("Course ID: "+courseId);
             quiz.setQbId(Integer.parseInt(courseId));
+            examCardController.setSelectedCourse(selectedCourse);
             examCardController.setDExamController(this);
             examCardController.setExam(quiz);
 //            System.out.println(quiz.getQbId());
@@ -256,7 +258,9 @@ public class DExamController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/App/ExamView/ExamView.fxml"));
             VBox newQuizPane = loader.load();
             ExamViewController examCardController = loader.getController();
+            quiz.setCourseName(selectedCourse);
             examCardController.setExam(quiz);
+            examCardController.setSelectedCourse(selectedCourse);
             examCardController.setDExamController(this);
             CompletedExamsPane.getChildren().add(newQuizPane);
         } catch (IOException e) {
@@ -271,6 +275,7 @@ public class DExamController {
             ExamViewController examCardController = loader.getController();
             quiz.setDoctorId(Integer.parseInt(id));
             quiz.setQbId(Integer.parseInt(courseId));
+            quiz.setCourseName(selectedCourse);
             examCardController.setExam(quiz);
             examCardController.setDExamController(this);
             PendingExamsPane.getChildren().add(newQuizPane);
@@ -302,9 +307,10 @@ public class DExamController {
     public void setId(String id) {
         this.id = id;
     }
-    private String selectedCourse;
+
     public void setSelectedCourse(String selectedCourse) {
         this.selectedCourse = selectedCourse;
+        ViewExams();
     }
     private String courseId;
     public void setCourseId(String courseId) {
