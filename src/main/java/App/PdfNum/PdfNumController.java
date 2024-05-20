@@ -3,6 +3,7 @@ package App.PdfNum;
 import App.ViewExamDoctor.ViewExamDoctorController;
 import Main.Exam;
 import Main.Question;
+import Main.Validation;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -36,42 +37,48 @@ public class PdfNumController {
     private TextField PdfNum;
     private ViewExamDoctorController viewExamDoctorController;
     private ObservableList<Question> questions;
+    Validation validation = new Validation();
+    int flag = 0;
 
     public void initialize() {
         Download.setOnAction(downloadButtonClicked());
     }
 
     private EventHandler<ActionEvent> downloadButtonClicked() {
-        return e -> {
-            String pdfNumStr = PdfNum.getText();
-            try {
-                int pdfNum = Integer.parseInt(pdfNumStr);
-                if (pdfNum <= 0) {
-                    showAlert("Invalid Input", "Please enter a positive number.");
-                } else {
-                    DirectoryChooser directoryChooser = new DirectoryChooser();
-                    File selectedDirectory = directoryChooser.showDialog(null);
+    return e -> {
+        String pdfNumStr = PdfNum.getText();
+        try {
+            int pdfNum = Integer.parseInt(pdfNumStr);
+            if (pdfNum <= 0) {
+                validation.showErrorPopUp("Please enter a valid number.");
+            } else {
+                DirectoryChooser directoryChooser = new DirectoryChooser();
+                File selectedDirectory = directoryChooser.showDialog(null);
 
-                    if (selectedDirectory == null) {
-                        showAlert("Error", "No directory selected.");
-                        return;
-                    }
-                    List<Question> quiz = new ArrayList<>(questions);
-                    for (int i = 0; i < pdfNum; i++)
-                    {
-                        //suffle the questions
-                        Collections.shuffle(quiz);
-                        generatePDF(quiz.size(), quiz, i+1, selectedDirectory);
-                    }
-                    ((Button) e.getSource()).getScene().getWindow().hide();
+                if (selectedDirectory == null) {
+                    validation.showErrorPopUp("Please select a directory.");
+                    return;
                 }
-            } catch (NumberFormatException ex) {
-                showAlert("Invalid Input", "Please enter a valid number.");
-            } catch (IOException ioException) {
-                showAlert("Error", "Error generating PDF: " + ioException.getMessage());
+                List<Question> quiz = new ArrayList<>(questions);
+                for (int i = 0; i < pdfNum; i++)
+                {
+                    //suffle the questions
+                    Collections.shuffle(quiz);
+                    generatePDF(quiz.size(), quiz, i+1, selectedDirectory);
+                }
+                ((Button) e.getSource()).getScene().getWindow().hide();
+                if (flag == 1) {
+                    validation.showSuccessPopUp("PDFs generated successfully.");
+                    flag = 0;
+                }
             }
-        };
-    }
+        } catch (NumberFormatException ex) {
+            validation.showErrorPopUp("Please enter a valid number.");
+        } catch (IOException ioException) {
+            validation.showErrorPopUp("An error occurred while generating the PDF.");
+        }
+    };
+}
 
     private void generatePDF(int numQuestions, List<Question> quiz, int examNumber, File selectedDirectory) throws IOException {
         String imagePath = Paths.get("src/main/resources/App/logo.png").toAbsolutePath().toString();
@@ -79,6 +86,7 @@ public class PdfNumController {
         PDPage page = new PDPage(PDRectangle.A4);
         document.addPage(page);
         PDPageContentStream contentStream = new PDPageContentStream(document, page);
+        flag = 0;
 
         // Draw frame
         float margin = 20;
@@ -229,8 +237,10 @@ public class PdfNumController {
         // Save the document
         document.save(new File(selectedDirectory, exam.getName() + " " + examNumber + ".pdf"));
         document.close();
+        flag = 1;
 
-        showAlert("Success", "Exam saved as PDF successfully at " + selectedDirectory.getPath());
+
+
     }
     private float drawTable(PDPageContentStream contentStream, float x, float y, float tableWidth, int numQuestions) throws IOException {
         int maxQuestionsPerRow = 8; // Maximum number of questions per row

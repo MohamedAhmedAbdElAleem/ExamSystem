@@ -2,10 +2,7 @@ package App.ExamSession;
 
 import App.SExams.SExamsController;
 import App.StudentCardJoin.StudentCardJoinController;
-import Main.Client;
-import Main.Exam;
-import Main.Question;
-import Main.Student;
+import Main.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -67,8 +64,10 @@ public class ExamSessionController {
         StartTimer();
     }
 
+    Validation validation = new Validation();
     private EventHandler<ActionEvent> SubmitButtonClicked() {
-        return e -> {
+    return e -> {
+        Runnable action = () -> {
             if(ARadio.isSelected()) {
                 questions.get(questionIndex).setStudentAnswer(ALabel.getText());
             } else if(BRadio.isSelected()) {
@@ -83,7 +82,9 @@ public class ExamSessionController {
             Stage stage = (Stage) SubmitButton.getScene().getWindow();
             stage.close();
         };
-    }
+        validation.AreYouSurePopUp(action);
+    };
+}
 
     private void calculateGrade() {
         Client client = new Client();

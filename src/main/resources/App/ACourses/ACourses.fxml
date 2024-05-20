@@ -128,7 +128,7 @@
                   <TableColumn fx:id="CidColumn" prefWidth="125.60003662109375" resizable="false" text="Code" />
                   <TableColumn fx:id="CnameColumn" prefWidth="252.79998779296875" resizable="false" text="Course Name" />
                   <TableColumn fx:id="CcreditHoursColumn" prefWidth="265.5999755859375" resizable="false" text="Credit Hours" />
-                  <TableColumn fx:id="DocIDColumn" prefWidth="248.800048828125" resizable="false" text="Doctor Name" />
+                  <TableColumn fx:id="DocIDColumn" prefWidth="248.800048828125" resizable="false" text="Doctor ID" />
                </columns>
             </TableView>
             <Label alignment="CENTER" contentDisplay="CENTER" layoutX="19.0" layoutY="11.0" prefHeight="32.0" prefWidth="133.0" text="Courses List" textAlignment="CENTER" textFill="WHITE">
